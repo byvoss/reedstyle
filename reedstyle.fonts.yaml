@@ -1,0 +1,105 @@
+# ReedSTYLE Font Configuration
+# Define custom font stacks and typography settings
+
+# Font Families (font-a through font-f, matching brand color pattern)
+fonts:
+  # Primary font stack
+  font-a:
+    family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fallback: sans-serif
+    weights:
+      thin: 100
+      light: 300
+      normal: 400
+      medium: 500
+      semibold: 600
+      bold: 700
+      extrabold: 800
+      black: 900
+    
+  # Secondary font stack (for headings, etc.)
+  font-b:
+    family: "'Playfair Display', 'Georgia', serif"
+    fallback: serif
+    weights:
+      normal: 400
+      bold: 700
+      black: 900
+    
+  # Monospace font stack (for code)
+  font-c:
+    family: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace"
+    fallback: monospace
+    weights:
+      normal: 400
+      medium: 500
+      bold: 700
+      
+  # Optional: Additional font stacks
+  font-d:
+    family: "'Roboto', sans-serif"
+    fallback: sans-serif
+    
+  font-e:
+    family: "'Lato', sans-serif"
+    fallback: sans-serif
+    
+  font-f:
+    family: "'Merriweather', serif"
+    fallback: serif
+
+# Semantic Font Assignments
+semantic:
+  # Map semantic names to font stacks
+  system: font-a    # System UI font
+  heading: font-b   # Headings
+  body: font-a      # Body text
+  code: font-c      # Code blocks
+  quote: font-b     # Blockquotes
+  
+# Typography Scale Settings
+scale:
+  # Base font size (root)
+  base: 16px
+  
+  # Scale ratio for Dimension Scale
+  ratio: 1.25  # Major third
+  
+  # Line height scale (Visual Scope)
+  leading:
+    none: 1
+    tight: 1.25
+    snug: 1.375
+    normal: 1.5
+    relaxed: 1.625
+    loose: 2
+    
+  # Letter spacing scale
+  tracking:
+    tighter: -0.05em
+    tight: -0.025em
+    normal: 0
+    wide: 0.025em
+    wider: 0.05em
+    widest: 0.1em
+
+# Font Loading Strategy
+loading:
+  strategy: swap  # swap | block | fallback | optional
+  preload:
+    - font-a
+    - font-b
+  subset: latin  # latin | latin-ext | cyrillic | greek
+
+# Custom @font-face declarations (optional)
+# Uncomment to include custom web fonts
+# custom:
+#   - name: "CustomFont"
+#     src: 
+#       - url: "/fonts/custom-font.woff2"
+#         format: woff2
+#       - url: "/fonts/custom-font.woff"
+#         format: woff
+#     weight: "400 700"
+#     style: normal
+#     display: swap

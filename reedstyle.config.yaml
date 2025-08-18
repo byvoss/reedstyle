@@ -1,0 +1,28 @@
+# ReedSTYLE Main Configuration
+# This file configures the build process and references other config files
+
+version: 1.0
+build:
+  minify: true
+  sourcemaps: false
+  target: es2020
+
+# Configuration file paths (relative to project root)
+config:
+  colors: ./reedstyle.colors.yaml      # Brand colors and theme
+  fonts: ./reedstyle.fonts.yaml        # Typography configuration
+  components: ./reedstyle.components.yaml  # Custom reed elements
+  bridge: ./reedstyle.bridge.yaml      # Third-party integrations
+  env: ./reedstyle.env.yaml           # Environment configurations
+  spacing: ./reedstyle.spacing.yaml    # Optional: Override spacing scale
+
+# Output paths
+output:
+  css: ./dist/reedstyle.css
+  js: ./dist/reedstyle.js
+  
+# Feature flags
+features:
+  autoConvertColors: true  # Convert hex/rgb/hsl to OKLCH
+  generateVariations: true # Auto-generate weak/light/intense/bright/strong
+  customProperties: true   # Generate CSS custom properties

@@ -1,0 +1,204 @@
+# ReedSTYLE Bridge Configuration
+# Manages third-party library integrations and migrations
+# Each integration creates a sublayer: @layer bridge.{name}
+
+bridge:
+  # Bootstrap Integration
+  bootstrap:
+    enabled: false
+    version: 5.3
+    # Path to Bootstrap CSS file to include in bridge.bootstrap layer
+    path: "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    # Alternative: CDN URL
+    # path: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    overrides:
+      # Reset Bootstrap defaults that conflict
+      - selector: ".btn"
+        rules: |
+          all: revert;
+          padding: var(--reedstyle-space-3);
+      - selector: ".container"
+        rules: |
+          max-width: var(--reedstyle-container-width);
+      - selector: ".card"
+        rules: |
+          border-radius: var(--reedstyle-radius-lg);
+          box-shadow: var(--reedstyle-shadow-md);
+    
+  # Tailwind Migration
+  tailwind:
+    enabled: false
+    # Path to Tailwind CSS file
+    path: "./node_modules/tailwindcss/dist/tailwind.min.css"
+    # Or if using custom build
+    # path: "./dist/tailwind-output.css"
+    # Map Tailwind utilities to ReedSTYLE
+    mappings:
+      "p-4": "box='padding:4'"
+      "m-2": "box='margin:2'"
+      "bg-blue-500": "face='bg:brand-a'"
+      "text-white": "text='color:base-0'"
+      "rounded-lg": "face='radius:lg'"
+      "shadow-md": "face='shadow:md'"
+      "flex": "layout='flex'"
+      "grid": "layout='grid'"
+    # CSS to include
+    css: |
+      /* Tailwind reset overrides */
+      .tw-reset {
+        all: revert;
+      }
+      
+  # Material UI
+  material:
+    enabled: false
+    version: 5
+    # Path to Material UI CSS
+    path: "./node_modules/@mui/material/dist/material.min.css"
+    overrides:
+      - selector: ".MuiButton-root"
+        rules: |
+          text-transform: none;
+          font-family: var(--reedstyle-font-a);
+      - selector: ".MuiPaper-root"
+        rules: |
+          border-radius: var(--reedstyle-radius-lg);
+          
+  # Ant Design
+  antd:
+    enabled: false
+    prefix: "ant-"
+    overrides:
+      - selector: ".ant-btn"
+        rules: |
+          border-radius: var(--reedstyle-radius-md);
+          font-weight: var(--reedstyle-weight-medium);
+          
+  # Bulma
+  bulma:
+    enabled: false
+    overrides:
+      - selector: ".button"
+        rules: |
+          border-radius: var(--reedstyle-radius-md);
+      - selector: ".box"
+        rules: |
+          box-shadow: var(--reedstyle-shadow-md);
+          
+  # Foundation
+  foundation:
+    enabled: false
+    grid: false  # Disable Foundation grid in favor of ReedSTYLE
+    
+  # Custom Integration Example
+  custom:
+    enabled: false
+    name: "my-old-framework"
+    # Path to your custom framework CSS
+    path: "./legacy/old-framework.css"
+    # Multiple paths supported
+    # paths:
+    #   - "./legacy/framework-base.css"
+    #   - "./legacy/framework-components.css"
+    css: |
+      /* Custom migration rules */
+      .old-component {
+        /* Map to ReedSTYLE */
+      }
+    script: |
+      // Optional JavaScript for migration
+      document.querySelectorAll('.old-class').forEach(el => {
+        el.setAttribute('data-reed', '');
+        el.setAttribute('as', 'card');
+      });
+
+# Migration Helpers
+migration:
+  # Auto-convert classes to reed attributes
+  auto_convert:
+    enabled: false
+    rules:
+      - from: "class='card'"
+        to: "as='card'"
+      - from: "class='btn btn-primary'"
+        to: "as='button-primary'"
+      - from: "class='container'"
+        to: "as='container'"
+        
+  # Gradual migration mode
+  gradual:
+    enabled: false
+    # Allow both old and new syntax during migration
+    allow_mixed: true
+    # Show warnings in console
+    warnings: true
+    
+  # Class mapping for automated migration
+  class_map:
+    # Bootstrap classes
+    "btn": "button"
+    "btn-primary": "button-primary"
+    "btn-secondary": "button-secondary"
+    "card": "card"
+    "card-header": "card-header"
+    "card-body": "card-body"
+    "container": "container"
+    "row": "layout='[grid:12]'"
+    "col-md-6": "layout='[col-span:6]'"
+    
+    # Tailwind classes
+    "flex": "layout='flex'"
+    "grid": "layout='grid'"
+    "p-4": "box='padding:4'"
+    "m-4": "box='margin:4'"
+    "bg-white": "face='bg:base-0'"
+    "rounded": "face='radius:md'"
+    "shadow": "face='shadow:md'"
+
+# Bridge Layer Generation
+generation:
+  # How sublayers are created
+  order:
+    - bootstrap
+    - tailwind
+    - material
+    - antd
+    - bulma
+    - foundation
+    - custom
+    
+  # Build-time output
+  verbose: true  # Show which layers are enabled/disabled
+  
+  # Development features
+  hot_reload: true  # Watch bridge.yaml for changes
+  show_size: true   # Display size of imported CSS
+  
+  # Production optimization
+  production:
+    remove_disabled: true  # Don't include disabled frameworks in build
+    minify_imports: true   # Minify imported framework CSS
+    tree_shake: true       # Remove unused framework styles
+
+# Quick Toggle Profiles
+profiles:
+  # Testing profile - all frameworks disabled
+  test:
+    bootstrap: false
+    tailwind: false
+    material: false
+    
+  # Migration profile - old framework enabled
+  migration:
+    bootstrap: true  # Old framework
+    tailwind: false  # Not using
+    material: false  # Not using
+    
+  # Production profile - all disabled
+  production:
+    bootstrap: false
+    tailwind: false
+    material: false
+
+# Usage: cargo run --profile=test
+# Or: REEDSTYLE_PROFILE=production cargo run
