@@ -2,6 +2,9 @@
 
 ## Status: 📋 Planned
 
+## Decision Log References
+- DEC003 - Default Colors (system fonts as defaults)
+
 ## Description
 Implement smart typography engine with automatic language detection and professional typography rules including DIN 5008 compliance for German.
 

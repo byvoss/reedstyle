@@ -1,6 +1,9 @@
 # Archive folder
 .archiv/
 
+# AI assistance guide
+CLAUDE.md
+
 # Dependencies
 node_modules/
 npm-debug.log*
@@ -44,3 +47,7 @@ logs/
 # Package manager locks (keep package-lock.json for npm)
 yarn.lock
 pnpm-lock.yaml
+
+# Added by cargo
+
+/target

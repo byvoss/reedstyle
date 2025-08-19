@@ -1,5 +1,21 @@
 # ReedSTYLE Development Workflow Process
 
+## ⚠️ MANDATORY: Decision Log
+
+**EVERY architectural or technical decision MUST be logged in `decisions.csv`**
+
+Format:
+```csv
+uid,timestamp,theme,decision,reference_uid,rationale
+DEC001,2025-08-19T14:30:00Z,Build Process,User receives pre-built CSS/JS files only,,ReedSTYLE ships distribution files
+```
+
+Rules:
+- New decision = New UID (DEC###)
+- Changed decision = New row with reference_uid pointing to original
+- One decision = One log entry
+- Update decisions.csv BEFORE committing code changes
+
 ## Ticket Lifecycle
 
 ```mermaid
@@ -28,6 +44,10 @@ Every ticket must follow this structure:
 ## Status: 📋 Planned | 🔍 Analysis | 🚧 In Progress | 🧪 Testing | ✅ Done
 
 ## Priority: 🔴 Critical | 🟠 High | 🟡 Medium | 🟢 Low
+
+## Decision Log References
+- DEC### - [Decision theme]
+- DEC### - [Decision theme]
 
 ## Description
 Clear, concise description of what needs to be implemented.
@@ -85,12 +105,12 @@ Additional context, decisions, or concerns.
 ### Phase 1: Analysis (🔍)
 
 ```bash
-# 1. Switch to development branch
-git checkout develop
-git pull origin develop
+# 1. Switch to main branch
+git checkout main
+git pull origin main
 
-# 2. Create feature branch
-git checkout -b ticket-XXX-feature-name
+# 2. Create feature branch with ticket number
+git checkout -b feature/RS906-rust-build-system
 
 # 3. Analyze existing code
 grep -r "related-pattern" src/
@@ -133,6 +153,25 @@ ls -lh dist/
 ```
 
 ### Phase 3: Testing (🧪)
+
+#### Sub-step Commits
+```bash
+# Commit each sub-step during implementation
+git add -A
+git commit -m "feat(RS906): Add initial structure"
+
+git add -A
+git commit -m "feat(RS906): Implement parser logic"
+
+git add -A
+git commit -m "feat(RS906): Add CSS generation"
+
+git add -A
+git commit -m "test(RS906): Add unit tests"
+
+git add -A
+git commit -m "docs(RS906): Update documentation"
+```
 
 ```bash
 # 1. Run all tests
@@ -312,7 +351,51 @@ if (typeof document !== 'undefined') {
 }
 ```
 
-### Phase 6: Commit Process (🔀)
+### Phase 6: Ticket Completion Process (🔀)
+
+#### Feature Branch Completion
+```bash
+# 1. Update ticket status to Done
+# Edit docs/tickets/9XX-*.md → Status: ✅ Done
+
+# 2. Squash all commits in feature branch
+git log --oneline main..HEAD  # Review commits
+git reset --soft main
+git add -A
+
+# 3. Create final commit with structured message
+git commit -m "feat(RS906): [Main achievement in one line]
+
+- Key implementation point 1
+- Key implementation point 2  
+- Key implementation point 3
+- Key implementation point 4
+
+Decisions:
+- ALL colors internally as OKLCH (DEC007)
+- Pre-built files only for users (DEC001)
+- Lightning CSS for minification (DEC004)
+- Tailwind palette as defaults (DEC003)
+
+Closes #906"
+
+# 4. Push squashed branch
+git push origin feature/RS906-rust-build-system --force-with-lease
+
+# 5. Merge to main
+git checkout main
+git merge feature/RS906-rust-build-system --no-ff
+git push origin main
+
+# 6. Delete feature branch
+git branch -d feature/RS906-rust-build-system
+git push origin --delete feature/RS906-rust-build-system
+
+# 7. Start next ticket
+git checkout -b feature/RS907-namespace-generation
+```
+
+### Phase 7: Original Commit Process (🔀)
 
 ```bash
 # 1. Review all changes
@@ -327,8 +410,13 @@ git add src/namespaces/feature.rs
 git add tests/ticket_XXX_test.rs
 git add docs/develop/XXX-namespace.md
 
-# 4. Commit with ticket reference
-git commit -m "feat: Implement [feature name] (#XXX)
+# 4. Final squash commit (optional) or keep atomic commits
+# If squashing:
+git rebase -i main
+# Or keep atomic commits with descriptive messages
+
+# Example commit messages:
+git commit -m "feat(RS906): Implement [feature name]
 
 - Add new namespace property
 - Generate responsive variants
@@ -338,7 +426,7 @@ git commit -m "feat: Implement [feature name] (#XXX)
 Closes #XXX"
 
 # 5. Push feature branch
-git push origin ticket-XXX-feature-name
+git push origin feature/RS906-rust-build-system
 
 # 6. Create Pull Request
 gh pr create --title "Ticket #XXX: [Feature Name]" \
@@ -358,9 +446,9 @@ gh pr create --title "Ticket #XXX: [Feature Name]" \
 - [x] Performance verified"
 
 # 7. After review and merge
-git checkout develop
-git pull origin develop
-git branch -d ticket-XXX-feature-name
+git checkout main
+git pull origin main
+git branch -d feature/RS906-rust-build-system
 ```
 
 ## 3. Verification Matrix
