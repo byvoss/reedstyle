@@ -51,6 +51,9 @@ impl TextNamespace {
         // List style
         css.push_str(&Self::generate_list_style());
         
+        // Typography features (OpenType, hyphenation, etc.)
+        css.push_str(&Self::generate_typography_features()?);
+        
         Ok(css)
     }
     
@@ -317,5 +320,10 @@ impl TextNamespace {
         css.push_str("  }\n");
         
         Ok(css)
+    }
+    
+    fn generate_typography_features() -> Result<String> {
+        // Use the typography module to generate CSS
+        crate::typography::generate_css()
     }
 }
