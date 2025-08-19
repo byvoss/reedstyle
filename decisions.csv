@@ -1,0 +1,8 @@
+uid,timestamp,theme,decision,reference_uid,rationale
+DEC001,2025-08-19T14:30:00Z,Build Process,User receives pre-built CSS/JS files only - no compilation required,,ReedSTYLE ships distribution files; users don't need Rust or build tools
+DEC002,2025-08-19T14:31:00Z,Color Conversion,OKLCH conversion happens at build time in Rust not runtime in JS,DEC001,Performance optimization - color conversion happens once during build
+DEC003,2025-08-19T14:32:00Z,Default Colors,Professional defaults from Tailwind CSS palette embedded in Rust,,Ensures framework works without any config files
+DEC004,2025-08-19T14:33:00Z,Lightning CSS,Use Lightning CSS alpha for build process,,Production-ready code despite alpha API status
+DEC005,2025-08-19T14:34:00Z,Component Extensions,Components can extend other components via 'extends' field,,DRY principle for component definitions
+DEC006,2025-08-19T14:45:00Z,Project Structure,Tickets moved to docs/tickets/ separate from docs/develop/,,Better organization and separation of concerns
+DEC007,2025-08-19T14:55:00Z,Color System,ALL colors internally stored and processed as OKLCH,DEC002,Better color manipulation and consistency

@@ -2,6 +2,9 @@
 
 ## Status: 📋 Planned
 
+## Decision Log References
+- DEC001 - Build Process (automated distribution builds)
+
 ## Description
 Implement complete CI/CD pipeline for building, testing, and distributing ReedSTYLE pre-built files.
 

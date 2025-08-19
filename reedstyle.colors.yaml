@@ -31,6 +31,18 @@ colors:
   base-900: "#212529"  # Darkest gray
   base-1000: "#000000" # Black
 
+# Semantic color mappings (reference to colors above)
+semantic:
+  primary: brand-a
+  secondary: brand-b
+  success: state-success
+  warning: state-warning
+  error: state-error
+  info: state-info
+  text: base-900
+  background: base-0
+  border: base-300
+
 # Advanced: Direct OKLCH with custom variations
 # Uncomment to use precise OKLCH values
 # advanced:

@@ -2,6 +2,9 @@
 
 ## Status: 📋 Planned
 
+## Decision Log References
+- DEC002 - Color Conversion (effects use CSS variables)
+
 ## Description
 Implement comprehensive visual effects system using the FX namespace for hover, click, scroll, and animation effects.
 

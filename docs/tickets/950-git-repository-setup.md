@@ -3,6 +3,9 @@
 ## Status: 🚧 In Progress
 ## Priority: 🔴 Critical
 
+## Decision Log References
+- DEC001 - Build Process (repository structure)
+
 ## Description
 Establish clean Git repository with ticket-based commit history from the beginning. Archive old repository and create fresh start with proper development workflow.
 

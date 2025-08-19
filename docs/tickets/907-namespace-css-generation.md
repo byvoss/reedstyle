@@ -2,6 +2,10 @@
 
 ## Status: 🚧 In Progress
 
+## Decision Log References
+- DEC001 - Build Process (CSS generation at build time)
+- DEC002 - Color Conversion (OKLCH at build time)
+
 ## Description
 Generate complete CSS for all 6 ReedSTYLE namespaces with proper attribute selectors for the `<reed>` element.
 

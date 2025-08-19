@@ -2,6 +2,10 @@
 
 ## Status: 📋 Planned
 
+## Decision Log References
+- DEC001 - Build Process (pre-built distribution files)
+- DEC004 - Lightning CSS (minification strategy)
+
 ## Description
 Define and implement the distribution strategy for ReedSTYLE - delivering pre-built files that users can directly include without any build process.
 
