@@ -1,3 +1,5 @@
+pub mod namespaces;
+
 use anyhow::Result;
 use crate::config::{Config, ColorsConfig, FontsConfig, ComponentsConfig};
 
@@ -18,7 +20,19 @@ pub fn generate(
     
     // Generate color variables
     for (name, color) in &colors.colors {
-        css.push_str(&format!("    --rs-{}: {};\n", name, format_color(color)?));
+        let base_color = format_color(color)?;
+        css.push_str(&format!("    --rs-{}: {};\n", name, base_color));
+        
+        // Generate Visual Scope variations if it's a brand or state color
+        if name.starts_with("brand-") || name.starts_with("state-") {
+            // Generate proper OKLCH color variations
+            let variations = crate::color::generate_variations(&base_color)?;
+            css.push_str(&format!("    --rs-{}-weak: {};\n", name, variations.weak));
+            css.push_str(&format!("    --rs-{}-light: {};\n", name, variations.light));
+            css.push_str(&format!("    --rs-{}-intense: {};\n", name, variations.intense));
+            css.push_str(&format!("    --rs-{}-bright: {};\n", name, variations.bright));
+            css.push_str(&format!("    --rs-{}-strong: {};\n", name, variations.strong));
+        }
     }
     
     // Generate font variables
@@ -38,7 +52,7 @@ pub fn generate(
     css.push_str("  }\n\n");
     
     // Generate namespace styles
-    generate_namespaces(&mut css)?;
+    generate_namespaces(&mut css, config, colors, fonts)?;
     
     css.push_str("}\n\n");
     
@@ -70,57 +84,12 @@ fn format_color(color: &crate::config::Color) -> Result<String> {
     }
 }
 
-fn generate_namespaces(css: &mut String) -> Result<()> {
-    // Box namespace
-    css.push_str("  /* Box Namespace */\n");
-    css.push_str("  reed[box*=\"padding:1\"] { padding: 0.25rem; }\n");
-    css.push_str("  reed[box*=\"padding:2\"] { padding: 0.5rem; }\n");
-    css.push_str("  reed[box*=\"padding:3\"] { padding: 0.75rem; }\n");
-    css.push_str("  reed[box*=\"padding:4\"] { padding: 1rem; }\n\n");
+fn generate_namespaces(css: &mut String, config: &Config, colors: &ColorsConfig, fonts: &FontsConfig) -> Result<()> {
+    // Generate all namespace CSS
+    css.push_str(&namespaces::generate_all(config, colors, fonts)?);
     
-    // Face namespace
-    css.push_str("  /* Face Namespace */\n");
-    css.push_str("  reed[face*=\"bg:base-0\"] { background-color: var(--rs-base-0); }\n");
-    css.push_str("  reed[face*=\"radius:md\"] { border-radius: 0.375rem; }\n");
-    css.push_str("  reed[face*=\"shadow:sm\"] { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }\n\n");
-    
-    // Text namespace
-    css.push_str("  /* Text Namespace */\n");
-    css.push_str("  reed[text*=\"size:small\"] { font-size: 0.875rem; }\n");
-    css.push_str("  reed[text*=\"size:normal\"] { font-size: 1rem; }\n");
-    css.push_str("  reed[text*=\"size:large\"] { font-size: 1.125rem; }\n");
-    css.push_str("  reed[text*=\"weight:medium\"] { font-weight: 500; }\n");
-    css.push_str("  reed[text*=\"weight:bold\"] { font-weight: 700; }\n\n");
-    
-    // Layout namespace
-    css.push_str("  /* Layout Namespace */\n");
-    css.push_str("  reed[layout*=\"flex\"] { display: flex; }\n");
-    css.push_str("  reed[layout*=\"grid\"] { display: grid; }\n");
-    css.push_str("  reed[layout*=\"justify:center\"] { justify-content: center; }\n");
-    css.push_str("  reed[layout*=\"align:center\"] { align-items: center; }\n\n");
-    
-    // FX namespace
-    css.push_str("  /* FX Namespace */\n");
-    css.push_str("  reed[fx*=\"transition:fast\"] { transition: all 150ms ease; }\n");
-    css.push_str("  reed[fx*=\"hover:scale:1.05\"] { &:hover { transform: scale(1.05); } }\n\n");
-    
-    // Device namespace
-    css.push_str("  /* Device Namespace */\n");
-    css.push_str("  reed[device*=\"cursor:pointer\"] { cursor: pointer; }\n");
-    css.push_str("  reed[device*=\"select:none\"] { user-select: none; }\n\n");
-    
-    // Responsive breakpoints
-    css.push_str("  /* Tablet Breakpoint */\n");
-    css.push_str("  @media (min-width: 560px) {\n");
-    css.push_str("    reed[box-tablet*=\"padding:6\"] { padding: 1.5rem; }\n");
-    css.push_str("    reed[text-tablet*=\"size:large\"] { font-size: 1.25rem; }\n");
-    css.push_str("  }\n\n");
-    
-    css.push_str("  /* Screen Breakpoint */\n");
-    css.push_str("  @media (min-width: 960px) {\n");
-    css.push_str("    reed[box-screen*=\"padding:8\"] { padding: 2rem; }\n");
-    css.push_str("    reed[text-screen*=\"size:huge\"] { font-size: 1.5rem; }\n");
-    css.push_str("  }\n");
+    // Generate responsive variants
+    css.push_str(&namespaces::generate_responsive_all(config, colors, fonts)?);
     
     Ok(())
 }

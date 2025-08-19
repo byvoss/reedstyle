@@ -104,6 +104,27 @@ Additional context, decisions, or concerns.
 
 ### Phase 1: Analysis (🔍)
 
+#### MANDATORY: Create Implementation Plan
+**CRITICAL FOR SESSION RECOVERY!**
+
+```bash
+# Create implementation plan IMMEDIATELY after starting ticket
+# Format: XXX-ticket-name-[PLAN].md
+touch 'docs/tickets/907-namespace-css-generation-[PLAN].md'
+
+# Must contain:
+# 1. All files to read (in order)
+# 2. Critical rules from documentation
+# 3. Implementation steps
+# 4. Testing checklist
+# 5. Decision references
+# 6. Session recovery instructions
+```
+
+This file is your lifeline if session is lost!
+
+### Phase 2: Original Analysis (🔍)
+
 ```bash
 # 1. Switch to main branch
 git checkout main
