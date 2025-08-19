@@ -351,7 +351,41 @@ if (typeof document !== 'undefined') {
 }
 ```
 
-### Phase 6: Ticket Completion Process (🔀)
+### Phase 6: Hotfix Process (🚨)
+
+For critical fixes (broken CI/CD, production issues):
+
+```bash
+# 1. Work directly on main
+git checkout main
+git pull origin main
+
+# 2. Make fixes and commit
+git add -A
+git commit -m "fix(RS###): Description"
+
+# 3. Update ticket status
+# Edit ticket file → Status: ✅ Done
+git add docs/tickets/###-*.md
+git commit -m "docs(RS###): Mark ticket as done"
+
+# 4. IMPORTANT: Squash commits before push
+git reset --soft HEAD~2  # Or number of commits
+git commit -m "fix(RS###): Complete fix description
+
+- Fix point 1
+- Fix point 2
+
+Decisions:
+- Decision (DEC###)
+
+Fixes #issue"
+
+# 5. Push clean single commit
+git push origin main
+```
+
+### Phase 7: Ticket Completion Process (🔀)
 
 #### Feature Branch Completion
 ```bash

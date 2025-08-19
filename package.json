@@ -1,0 +1,36 @@
+{
+  "name": "reedstyle",
+  "version": "0.1.0",
+  "description": "Semantic HTML styling system - Write HTML, get beautiful designs",
+  "main": "dist/reedstyle.js",
+  "scripts": {
+    "build": "cargo run --release",
+    "dev": "cargo run",
+    "test": "cargo test",
+    "type-check": "tsc --noEmit || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byvoss/reedstyle.git"
+  },
+  "keywords": [
+    "css",
+    "framework",
+    "html",
+    "semantic",
+    "styling",
+    "oklch"
+  ],
+  "author": "Vivian Burkhard Voss <vivian.voss@byvoss.tech>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/byvoss/reedstyle/issues"
+  },
+  "homepage": "https://github.com/byvoss/reedstyle#readme",
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "files": [
+    "dist/"
+  ]
+}

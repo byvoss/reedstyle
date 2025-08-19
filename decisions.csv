@@ -6,3 +6,6 @@ DEC004,2025-08-19T14:33:00Z,Lightning CSS,Use Lightning CSS alpha for build proc
 DEC005,2025-08-19T14:34:00Z,Component Extensions,Components can extend other components via 'extends' field,,DRY principle for component definitions
 DEC006,2025-08-19T14:45:00Z,Project Structure,Tickets moved to docs/tickets/ separate from docs/develop/,,Better organization and separation of concerns
 DEC007,2025-08-19T14:55:00Z,Color System,ALL colors internally stored and processed as OKLCH,DEC002,Better color manipulation and consistency
+DEC008,2025-08-19T15:10:00Z,Dependencies,Add package.json for GitHub Actions compatibility,,CI/CD needs npm lock file even for Rust project
+DEC009,2025-08-19T15:12:00Z,Git Workflow,Critical fixes directly on main branch allowed,,Hotfixes for broken CI/CD can skip feature branches
+DEC010,2025-08-19T15:15:00Z,Git History,Hotfixes must be squashed to single commit,DEC009,Keep main branch history clean - no intermediate commits
