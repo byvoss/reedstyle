@@ -51,6 +51,42 @@ pub fn generate(
     css.push_str("    display: block;\n");
     css.push_str("  }\n\n");
     
+    // Semantic element mappings for reed[as="..."]
+    css.push_str("  /* Heading defaults */\n");
+    css.push_str("  reed[as=\"h1\"] { font-size: 2.5rem; font-weight: 700; margin: 0.67em 0; }\n");
+    css.push_str("  reed[as=\"h2\"] { font-size: 2rem; font-weight: 700; margin: 0.75em 0; }\n");
+    css.push_str("  reed[as=\"h3\"] { font-size: 1.75rem; font-weight: 700; margin: 0.83em 0; }\n");
+    css.push_str("  reed[as=\"h4\"] { font-size: 1.5rem; font-weight: 700; margin: 1.12em 0; }\n");
+    css.push_str("  reed[as=\"h5\"] { font-size: 1.25rem; font-weight: 700; margin: 1.3em 0; }\n");
+    css.push_str("  reed[as=\"h6\"] { font-size: 1rem; font-weight: 700; margin: 1.5em 0; }\n");
+    
+    css.push_str("  /* Paragraph and text defaults */\n");
+    css.push_str("  reed[as=\"p\"] { margin: 1em 0; }\n");
+    css.push_str("  reed[as=\"strong\"], reed[as=\"b\"] { font-weight: bold; }\n");
+    css.push_str("  reed[as=\"em\"], reed[as=\"i\"] { font-style: italic; }\n");
+    css.push_str("  reed[as=\"small\"] { font-size: 0.875rem; }\n");
+    
+    css.push_str("  /* List defaults */\n");
+    css.push_str("  reed[as=\"ul\"] { list-style-type: disc; margin: 1em 0; padding-left: 2em; }\n");
+    css.push_str("  reed[as=\"ol\"] { list-style-type: decimal; margin: 1em 0; padding-left: 2em; }\n");
+    css.push_str("  reed[as=\"li\"] { display: list-item; }\n");
+    
+    css.push_str("  /* Table defaults */\n");
+    css.push_str("  reed[as=\"table\"] { display: table; border-collapse: collapse; }\n");
+    css.push_str("  reed[as=\"thead\"] { display: table-header-group; }\n");
+    css.push_str("  reed[as=\"tbody\"] { display: table-row-group; }\n");
+    css.push_str("  reed[as=\"tr\"] { display: table-row; }\n");
+    css.push_str("  reed[as=\"td\"] { display: table-cell; padding: 0.25rem 0.5rem; }\n");
+    css.push_str("  reed[as=\"th\"] { display: table-cell; padding: 0.25rem 0.5rem; font-weight: bold; }\n");
+    
+    css.push_str("  /* Code defaults */\n");
+    css.push_str("  reed[as=\"code\"] { font-family: monospace; font-size: 0.875em; }\n");
+    css.push_str("  reed[as=\"pre\"] { font-family: monospace; white-space: pre; margin: 1em 0; }\n");
+    
+    css.push_str("  /* Block defaults */\n");
+    css.push_str("  reed[as=\"blockquote\"] { margin: 1em 2em; padding-left: 1em; border-left: 4px solid #ccc; }\n");
+    css.push_str("  reed[as=\"hr\"] { border: none; border-top: 1px solid #ccc; margin: 2em 0; }\n\n");
+    
     // Generate namespace styles
     generate_namespaces(&mut css, config, colors, fonts)?;
     

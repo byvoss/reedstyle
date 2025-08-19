@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReedSTYLE Typography Engine Test</title>
+    <link rel="stylesheet" href="../dist/reedstyle.css">
+    <script src="../dist/reedstyle.js" defer></script>
+    <script src="../dist/reedstyle-typography.js" defer></script>
+</head>
+<body>
+    <reed as="header" box="[padding:8]" face="[bg:brand-a]" text="[color:base-0, align:center]">
+        <reed as="h1" text="[size:ultra, weight:bold]">Typography Engine Test</reed>
+        <reed as="p" text="[size:large]">Testing DIN 5008, English, and French typography</reed>
+    </reed>
+
+    <reed as="main" box="[max-width:1200, margin-x:auto, padding:4]">
+        
+        <!-- German DIN 5008 Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">German (DIN 5008)</reed>
+            
+            <reed as="div" face="[bg:state-warning-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">Original:</reed>
+                <reed as="p" lang="de">
+                    "Guten Tag", sagte er. 'Wie geht's?' Das ist z. B. ein Test mit 10000 Euro 
+                    und 25 kg. Dr. Schmidt arbeitet bei der Firma -- und das seit 1990-2020.
+                    Die Temperatur beträgt 20 °C. Es kostet 29,99 € inkl. MwSt...
+                </reed>
+            </reed>
+            
+            <reed as="div" face="[bg:state-success-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">With filter="professional":</reed>
+                <reed as="p" lang="de" text="[filter:professional]">
+                    "Guten Tag", sagte er. 'Wie geht's?' Das ist z. B. ein Test mit 10000 Euro 
+                    und 25 kg. Dr. Schmidt arbeitet bei der Firma -- und das seit 1990-2020.
+                    Die Temperatur beträgt 20 °C. Es kostet 29,99 € inkl. MwSt...
+                </reed>
+            </reed>
+            
+            <reed as="div" face="[bg:state-success-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">With filter="smart":</reed>
+                <reed as="p" lang="de" text="[filter:smart]">
+                    "Anführungszeichen" und 'einfache' werden ersetzt. Gedankenstriche -- auch.
+                    Aber keine Zahlenformatierung: 10000 bleibt 10000.
+                </reed>
+            </reed>
+        </reed>
+
+        <!-- English US Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">English (US)</reed>
+            
+            <reed as="div" face="[bg:state-warning-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">Original:</reed>
+                <reed as="p" lang="en-US">
+                    "Hello world", she said. 'It's amazing!' I can't believe it's working...
+                    The price is $10000 -- that's a lot. We'll meet at 2:00-3:00 PM.
+                    They've said they'd come, but won't arrive until tomorrow.
+                </reed>
+            </reed>
+            
+            <reed as="div" face="[bg:state-success-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">With filter="professional":</reed>
+                <reed as="p" lang="en-US" text="[filter:professional]">
+                    "Hello world", she said. 'It's amazing!' I can't believe it's working...
+                    The price is $10000 -- that's a lot. We'll meet at 2:00-3:00 PM.
+                    They've said they'd come, but won't arrive until tomorrow.
+                </reed>
+            </reed>
+        </reed>
+
+        <!-- English GB Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">English (British)</reed>
+            
+            <reed as="div" face="[bg:state-warning-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">Original:</reed>
+                <reed as="p" lang="en-GB">
+                    'British quotes' are different from "American quotes". 
+                    The em dash -- is spaced differently. It costs £10000.
+                </reed>
+            </reed>
+            
+            <reed as="div" face="[bg:state-success-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">With filter="smart":</reed>
+                <reed as="p" lang="en-GB" text="[filter:smart]">
+                    'British quotes' are different from "American quotes". 
+                    The em dash -- is spaced differently. It costs £10000.
+                </reed>
+            </reed>
+        </reed>
+
+        <!-- French Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">French</reed>
+            
+            <reed as="div" face="[bg:state-warning-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">Original:</reed>
+                <reed as="p" lang="fr">
+                    "Bonjour", dit-il. Comment allez-vous ? C'est incroyable !
+                    Le prix est 10000 euros. M. Dupont et Mme Martin sont arrivés.
+                    Voici : une liste ; avec ponctuation ! N'est-ce pas ?
+                </reed>
+            </reed>
+            
+            <reed as="div" face="[bg:state-success-weak, radius:md]" box="[padding:4, margin-y:3]">
+                <reed as="p" text="[size:small, weight:bold, color:base-700, margin-bottom:2]">With filter="professional":</reed>
+                <reed as="p" lang="fr" text="[filter:professional]">
+                    "Bonjour", dit-il. Comment allez-vous ? C'est incroyable !
+                    Le prix est 10000 euros. M. Dupont et Mme Martin sont arrivés.
+                    Voici : une liste ; avec ponctuation ! N'est-ce pas ?
+                </reed>
+            </reed>
+        </reed>
+
+        <!-- OpenType Features Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">OpenType Features (CSS Only)</reed>
+            
+            <reed as="div" layout="[grid:2, gap:4]">
+                <reed as="div">
+                    <reed as="h3" text="[size:large, weight:semibold, margin-bottom:3]">Ligatures</reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[size:small, weight:bold, color:base-700]">Without ligatures:</reed>
+                        <reed as="p">
+                            Efficient typography with ligatures: ff fi fl ffi ffl
+                        </reed>
+                    </reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[size:small, weight:bold, color:base-700]">With ligatures:</reed>
+                        <reed as="p" text="[ligatures:true]">
+                            Efficient typography with ligatures: ff fi fl ffi ffl
+                        </reed>
+                    </reed>
+                </reed>
+                
+                <reed as="div">
+                    <reed as="h3" text="[size:large, weight:semibold, margin-bottom:3]">Small Caps</reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[size:small, weight:bold, color:base-700]">Normal:</reed>
+                        <reed as="p">
+                            HTML CSS JavaScript
+                        </reed>
+                    </reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[size:small, weight:bold, color:base-700]">Small caps:</reed>
+                        <reed as="p" text="[small-caps:true]">
+                            HTML CSS JavaScript
+                        </reed>
+                    </reed>
+                </reed>
+                
+                <reed as="div">
+                    <reed as="h3" text="[size:large, weight:semibold, margin-bottom:3]">Tabular Numbers</reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[size:small, weight:bold, color:base-700]">Normal numbers:</reed>
+                        <reed as="pre" text="[font:font-c]">
+1234.56
+9876.54
+  11.11</reed>
+                    </reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[size:small, weight:bold, color:base-700]">Tabular numbers:</reed>
+                        <reed as="pre" text="[font:font-c, numbers:tabular]">
+1234.56
+9876.54
+  11.11</reed>
+                    </reed>
+                </reed>
+                
+                <reed as="div">
+                    <reed as="h3" text="[size:large, weight:semibold, margin-bottom:3]">Line Height (Leading)</reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[leading:tight]">
+                            Tight leading (1.25): Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </reed>
+                    </reed>
+                    <reed as="div" face="[bg:base-100, radius:md]" box="[padding:3, margin-y:2]">
+                        <reed as="p" text="[leading:relaxed]">
+                            Relaxed leading (1.75): Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </reed>
+                    </reed>
+                </reed>
+            </reed>
+        </reed>
+
+        <!-- Mixed Language Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Mixed Languages (Inheritance)</reed>
+            
+            <reed as="article" lang="en" text="[filter:smart]" face="[bg:base-50, radius:md]" box="[padding:4]">
+                <reed as="p">
+                    This is English text with "quotes" and contractions like don't and can't.
+                </reed>
+                
+                <reed as="p" lang="de" face="[bg:brand-a-weak, radius:sm]" box="[padding:3, margin-y:2]">
+                    Dies ist deutscher Text mit "Anführungszeichen" und Abkürzungen wie z. B. diese.
+                </reed>
+                
+                <reed as="p" lang="fr" face="[bg:brand-b-weak, radius:sm]" box="[padding:3, margin-y:2]">
+                    Ceci est un texte français avec des "guillemets" et de la ponctuation : voilà !
+                </reed>
+                
+                <reed as="p">
+                    Back to English with "quotes" again...
+                </reed>
+            </reed>
+        </reed>
+
+        <!-- Filter Levels Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Filter Levels Comparison</reed>
+            
+            <reed as="div" layout="[stack, gap:3]">
+                <reed as="div" face="[border:1:base-300, radius:md]" box="[padding:4]">
+                    <reed as="h3" text="[size:normal, weight:bold, color:base-700, margin-bottom:2]">None</reed>
+                    <reed as="p" lang="en">
+                        "Quotes" and... ellipsis. Numbers: 10000. It's great!
+                    </reed>
+                </reed>
+                
+                <reed as="div" face="[border:1:base-300, radius:md]" box="[padding:4]">
+                    <reed as="h3" text="[size:normal, weight:bold, color:base-700, margin-bottom:2]">minimal</reed>
+                    <reed as="p" lang="en" text="[filter:minimal]">
+                        "Quotes" and... ellipsis. Numbers: 10000. It's great!
+                    </reed>
+                </reed>
+                
+                <reed as="div" face="[border:1:base-300, radius:md]" box="[padding:4]">
+                    <reed as="h3" text="[size:normal, weight:bold, color:base-700, margin-bottom:2]">smart</reed>
+                    <reed as="p" lang="en" text="[filter:smart]">
+                        "Quotes" and... ellipsis. Numbers: 10000. It's great!
+                    </reed>
+                </reed>
+                
+                <reed as="div" face="[border:1:base-300, radius:md]" box="[padding:4]">
+                    <reed as="h3" text="[size:normal, weight:bold, color:base-700, margin-bottom:2]">professional</reed>
+                    <reed as="p" lang="en" text="[filter:professional]">
+                        "Quotes" and... ellipsis. Numbers: 10000. It's great!
+                    </reed>
+                </reed>
+            </reed>
+        </reed>
+
+        <!-- Hyphenation Test -->
+        <reed as="section" box="[margin-y:6]" face="[border:1:base-200, radius:lg]" box="[padding:6]">
+            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Hyphenation & Measure</reed>
+            
+            <reed as="div" layout="[grid:3, gap:4]">
+                <reed as="div">
+                    <reed as="h3" text="[size:normal, weight:semibold, margin-bottom:2]">Narrow (45ch)</reed>
+                    <reed as="p" text="[measure:narrow, hyphenate:true]" lang="de" face="[bg:base-50]" box="[padding:3]">
+                        Donaudampfschifffahrtsgesellschaftskapitän ist ein sehr langes deutsches Wort. 
+                        Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz war ein echtes Gesetz.
+                    </reed>
+                </reed>
+                
+                <reed as="div">
+                    <reed as="h3" text="[size:normal, weight:semibold, margin-bottom:2]">Normal (65ch)</reed>
+                    <reed as="p" text="[measure:normal, hyphenate:true]" lang="de" face="[bg:base-50]" box="[padding:3]">
+                        Donaudampfschifffahrtsgesellschaftskapitän ist ein sehr langes deutsches Wort. 
+                        Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz war ein echtes Gesetz.
+                    </reed>
+                </reed>
+                
+                <reed as="div">
+                    <reed as="h3" text="[size:normal, weight:semibold, margin-bottom:2]">Wide (85ch)</reed>
+                    <reed as="p" text="[measure:wide, hyphenate:true]" lang="de" face="[bg:base-50]" box="[padding:3]">
+                        Donaudampfschifffahrtsgesellschaftskapitän ist ein sehr langes deutsches Wort. 
+                        Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz war ein echtes Gesetz.
+                    </reed>
+                </reed>
+            </reed>
+        </reed>
+
+    </reed>
+
+    <reed as="footer" box="[padding:6, margin-top:8]" face="[bg:base-900]" text="[color:base-300, align:center]">
+        <reed as="p">ReedSTYLE Typography Engine</reed>
+        <reed as="p" text="[size:small, color:base-500]">
+            Smart typography with language-specific rules - 100% Reed Elements
+        </reed>
+    </reed>
+</body>
+</html>

@@ -4,6 +4,7 @@ pub mod config;
 pub mod css;
 pub mod js;
 pub mod parser;
+pub mod typography;
 pub mod utils;
 
 use anyhow::Result;
