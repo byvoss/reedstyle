@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReedSTYLE Component Test</title>
+    <link rel="stylesheet" href="../dist/reedstyle.css">
+</head>
+<body>
+    <r-s box="[padding:8]" face="[bg:base-100]">
+        <r-s as="h1" text="[size:4xl, weight:bold, color:base-900]">ReedSTYLE Component System Test</r-s>
+        
+        <r-s as="section" box="[margin-bottom:12]">
+            <r-s as="h2" text="[size:2xl, weight:semibold, color:base-800]" box="[margin-bottom:4]">1. Card Component</r-s>
+            <r-s as="card">
+                <r-s as="h3" text="[size:xl, weight:medium]">Dies ist eine Karte</r-s>
+                <r-s as="p" box="[margin-y:2]">Die Card-Komponente hat automatisch padding:6, margin:2, background:base-0, radius:lg und shadow:md.</r-s>
+                <r-s as="p" box="[margin-y:2]">Alles wurde aus der YAML-Konfiguration generiert!</r-s>
+            </r-s>
+        </r-s>
+
+        <r-s as="section" box="[margin-bottom:12]">
+            <r-s as="h2" text="[size:2xl, weight:semibold, color:base-800]" box="[margin-bottom:4]">2. Button Primary Component</r-s>
+            <r-s as="button-primary">Primärer Button</r-s>
+            <r-s as="p" box="[margin-y:2]">Der Button hat automatisch:</r-s>
+            <r-s as="ul" box="[margin-left:6]">
+                <r-s as="li">padding-x:6, padding-y:3</r-s>
+                <r-s as="li">background:brand-a, radius:md</r-s>
+                <r-s as="li">color:base-0, weight:medium</r-s>
+                <r-s as="li">cursor:pointer</r-s>
+                <r-s as="li">hover und active Effekte</r-s>
+            </r-s>
+        </r-s>
+
+        <r-s as="section" box="[margin-bottom:12]">
+            <r-s as="h2" text="[size:2xl, weight:semibold, color:base-800]" box="[margin-bottom:4]">3. Container Component</r-s>
+            <r-s as="container" face="[bg:base-0, border:1:base-300]">
+                <r-s as="h3" text="[size:xl, weight:medium]">Container mit max-width</r-s>
+                <r-s as="p" box="[margin-y:2]">Dieser Container hat automatisch:</r-s>
+                <r-s as="ul" box="[margin-left:6]">
+                    <r-s as="li">width:full (100%)</r-s>
+                    <r-s as="li">max-width:1200px</r-s>
+                    <r-s as="li">margin-x:auto (zentriert)</r-s>
+                    <r-s as="li">padding-x:4</r-s>
+                </r-s>
+                <r-s as="p" box="[margin-y:2]">Perfekt für zentrierte Layouts mit maximaler Breite!</r-s>
+            </r-s>
+        </r-s>
+
+        <r-s as="section" box="[margin-bottom:12]">
+            <r-s as="h2" text="[size:2xl, weight:semibold, color:base-800]" box="[margin-bottom:4]">4. Kombinierte Komponenten</r-s>
+            <r-s as="container">
+                <r-s as="card">
+                    <r-s as="h3" text="[size:xl, weight:medium]">Karte in einem Container</r-s>
+                    <r-s as="p" box="[margin-y:2]">Diese Karte ist in einem Container und nutzt beide Komponenten-Styles.</r-s>
+                    <r-s as="button-primary">Action Button</r-s>
+                </r-s>
+            </r-s>
+        </r-s>
+
+        <r-s as="section" box="[margin-bottom:12]">
+            <r-s as="h2" text="[size:2xl, weight:semibold, color:base-800]" box="[margin-bottom:4]">5. Override Test</r-s>
+            <r-s as="card" face="[bg:brand-a]">
+                <r-s as="h3" text="[size:xl, weight:medium, color:base-0]">Karte mit Override</r-s>
+                <r-s as="p" text="[color:base-0]" box="[margin-y:2]">Diese Karte überschreibt den Hintergrund mit brand-a, behält aber alle anderen Card-Eigenschaften.</r-s>
+            </r-s>
+        </r-s>
+    </r-s>
+</body>
+</html>

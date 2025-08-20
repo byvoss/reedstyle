@@ -1,5 +1,6 @@
 pub mod namespaces;
 pub mod defaults;
+pub mod components;
 
 use anyhow::Result;
 use crate::config::{Config, ColorsConfig, FontsConfig, ComponentsConfig};
@@ -56,6 +57,9 @@ pub fn generate(
     
     // Generate namespace styles
     generate_namespaces(&mut css, config, colors, fonts)?;
+    
+    // Generate component styles from YAML
+    css.push_str(&components::generate_component_styles(components)?);
     
     css.push_str("}\n\n");
     

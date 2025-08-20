@@ -45,15 +45,122 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("    /** Initialize ReedSTYLE framework */\n");
     js.push_str("    init: function() {\n");
     js.push_str("      console.log('ReedSTYLE initialized');\n");
+    js.push_str("      // Apply component definitions\n");
+    js.push_str("      this.applyComponents();\n");
+    js.push_str("      // Watch for new components\n");
+    js.push_str("      this.observeComponents();\n");
     js.push_str("    },\n");
     
-    // Add component definitions
-    js.push_str("    /** Available component presets */\n");
-    js.push_str("    components: {\n");
-    for (name, _component) in &components.components {
-        js.push_str(&format!("      '{}': true,\n", name));
+    // Add component definitions with full data
+    js.push_str("    /** Component definitions from reedstyle.components.yaml */\n");
+    js.push_str("    componentDefinitions: {\n");
+    for (name, component) in &components.components {
+        js.push_str(&format!("      '{}': {{\n", name));
+        if let Some(element) = &component.element {
+            js.push_str(&format!("        element: '{}',\n", element));
+        }
+        if let Some(extends) = &component.extends {
+            js.push_str(&format!("        extends: '{}',\n", extends));
+        }
+        if let Some(box_attr) = &component.box_ {
+            js.push_str(&format!("        box: '{}',\n", box_attr));
+        }
+        if let Some(face) = &component.face {
+            js.push_str(&format!("        face: '{}',\n", face));
+        }
+        if let Some(text) = &component.text {
+            js.push_str(&format!("        text: '{}',\n", text));
+        }
+        if let Some(layout) = &component.layout {
+            js.push_str(&format!("        layout: '{}',\n", layout));
+        }
+        if let Some(device) = &component.device {
+            js.push_str(&format!("        device: '{}',\n", device));
+        }
+        if let Some(fx) = &component.fx {
+            js.push_str(&format!("        fx: '{}',\n", fx));
+        }
+        js.push_str("      },\n");
     }
+    js.push_str("    },\n");
+    
+    // Add component system methods
+    js.push_str("    /** Apply component definitions to elements */\n");
+    js.push_str("    applyComponents: function() {\n");
+    js.push_str("      const elements = document.querySelectorAll('r-s[as]');\n");
+    js.push_str("      elements.forEach(element => {\n");
+    js.push_str("        const componentName = element.getAttribute('as');\n");
+    js.push_str("        const component = this.resolveComponent(componentName);\n");
+    js.push_str("        if (component) {\n");
+    js.push_str("          this.applyComponentToElement(element, component);\n");
+    js.push_str("        }\n");
+    js.push_str("      });\n");
+    js.push_str("    },\n");
+    
+    js.push_str("    /** Resolve component with inheritance */\n");
+    js.push_str("    resolveComponent: function(name) {\n");
+    js.push_str("      const component = this.componentDefinitions[name];\n");
+    js.push_str("      if (!component) return null;\n");
+    js.push_str("      \n");
+    js.push_str("      if (component.extends) {\n");
+    js.push_str("        const base = this.resolveComponent(component.extends);\n");
+    js.push_str("        if (base) {\n");
+    js.push_str("          return Object.assign({}, base, component, {extends: undefined});\n");
+    js.push_str("        }\n");
+    js.push_str("      }\n");
+    js.push_str("      return component;\n");
+    js.push_str("    },\n");
+    
+    js.push_str("    /** Apply component to element */\n");
+    js.push_str("    applyComponentToElement: function(element, component) {\n");
+    js.push_str("      // Only apply if attribute not already present\n");
+    js.push_str("      if (component.box && !element.hasAttribute('box')) {\n");
+    js.push_str("        element.setAttribute('box', component.box);\n");
+    js.push_str("      }\n");
+    js.push_str("      if (component.face && !element.hasAttribute('face')) {\n");
+    js.push_str("        element.setAttribute('face', component.face);\n");
+    js.push_str("      }\n");
+    js.push_str("      if (component.text && !element.hasAttribute('text')) {\n");
+    js.push_str("        element.setAttribute('text', component.text);\n");
+    js.push_str("      }\n");
+    js.push_str("      if (component.layout && !element.hasAttribute('layout')) {\n");
+    js.push_str("        element.setAttribute('layout', component.layout);\n");
+    js.push_str("      }\n");
+    js.push_str("      if (component.device && !element.hasAttribute('device')) {\n");
+    js.push_str("        element.setAttribute('device', component.device);\n");
+    js.push_str("      }\n");
+    js.push_str("      if (component.fx && !element.hasAttribute('fx')) {\n");
+    js.push_str("        element.setAttribute('fx', component.fx);\n");
+    js.push_str("      }\n");
+    js.push_str("    },\n");
+    
+    js.push_str("    /** Observe DOM for new components */\n");
+    js.push_str("    observeComponents: function() {\n");
+    js.push_str("      const observer = new MutationObserver((mutations) => {\n");
+    js.push_str("        mutations.forEach((mutation) => {\n");
+    js.push_str("          mutation.addedNodes.forEach((node) => {\n");
+    js.push_str("            if (node.nodeType === 1 && node.tagName === 'R-S' && node.hasAttribute('as')) {\n");
+    js.push_str("              const componentName = node.getAttribute('as');\n");
+    js.push_str("              const component = this.resolveComponent(componentName);\n");
+    js.push_str("              if (component) {\n");
+    js.push_str("                this.applyComponentToElement(node, component);\n");
+    js.push_str("              }\n");
+    js.push_str("            }\n");
+    js.push_str("            // Check children\n");
+    js.push_str("            const children = node.querySelectorAll?.('r-s[as]');\n");
+    js.push_str("            children?.forEach(child => {\n");
+    js.push_str("              const componentName = child.getAttribute('as');\n");
+    js.push_str("              const component = this.resolveComponent(componentName);\n");
+    js.push_str("              if (component) {\n");
+    js.push_str("                this.applyComponentToElement(child, component);\n");
+    js.push_str("              }\n");
+    js.push_str("            });\n");
+    js.push_str("          });\n");
+    js.push_str("        });\n");
+    js.push_str("      });\n");
+    js.push_str("      observer.observe(document.body, {childList: true, subtree: true});\n");
     js.push_str("    }\n");
+    
     js.push_str("  };\n\n");
     
     // Typography Engine Integration

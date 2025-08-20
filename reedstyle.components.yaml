@@ -1,203 +1,23 @@
 # ReedSTYLE Component Definitions
-# Define custom reed elements (as="your-component")
+# Define custom components via YAML that can be used with <r-s as="component-name">
 
 components:
-  # Card Component
+  # Example 1: Card component with padding, background and shadow
   card:
-    element: article
-    box: "[padding:6]"
+    element: div
+    box: "[padding:6, margin:2]"
     face: "[bg:base-0, radius:lg, shadow:md]"
     
-  card-header:
-    element: header
-    box: "[padding:4, padding-bottom:3]"
-    face: "[border-bottom:1:base-200]"
-    text: "[weight:semibold, size:large]"
-    
-  card-body:
-    element: div
-    box: "[padding:4]"
-    
-  card-footer:
-    element: footer
-    box: "[padding:4, padding-top:3]"
-    face: "[border-top:1:base-200]"
-    
-  # Hero Component
-  hero:
-    element: section
-    box: "[height:screen, padding:8]"
-    layout: "[flex:column, justify:center, align:center]"
-    text: "[align:center]"
-    face: "[bg:gradient-primary]"
-    
-  # Button Components
+  # Example 2: Primary button with hover effects
   button-primary:
     element: button
     box: "[padding-x:6, padding-y:3]"
-    face: "[bg:brand-a, radius:md]"
+    face: "[bg:brand-a, radius:md, border:none]"
     text: "[color:base-0, weight:medium]"
     device: "[cursor:pointer]"
     fx: "[hover:brightness:110, active:scale:0.98, transition:fast]"
     
-  button-secondary:
-    element: button
-    box: "[padding-x:6, padding-y:3]"
-    face: "[bg:base-200, radius:md]"
-    text: "[color:base-900, weight:medium]"
-    device: "[cursor:pointer]"
-    fx: "[hover:bg:base-300, active:scale:0.98, transition:fast]"
-    
-  button-ghost:
-    element: button
-    box: "[padding-x:6, padding-y:3]"
-    face: "[bg:transparent, border:1:base-400, radius:md]"
-    text: "[color:base-700, weight:medium]"
-    device: "[cursor:pointer]"
-    fx: "[hover:bg:base-100, active:scale:0.98, transition:fast]"
-    
-  # Container
+  # Example 3: Container for centered max-width layout
   container:
     element: div
     box: "[width:full, max-width:1200, margin-x:auto, padding-x:4]"
-    box-tablet: "[padding-x:6]"
-    box-screen: "[padding-x:8]"
-    
-  # Navigation Components
-  nav:
-    element: nav
-    layout: "[flex:row, justify:between, align:center]"
-    box: "[padding:4]"
-    face: "[bg:base-0, border-bottom:1:base-200]"
-    
-  nav-brand:
-    element: div
-    text: "[size:large, weight:bold]"
-    
-  nav-links:
-    element: div
-    layout: "[flex:row, gap:6]"
-    text: "[weight:medium]"
-    
-  # Form Components
-  form:
-    element: form
-    layout: "[flex:column, gap:4]"
-    
-  field:
-    element: div
-    layout: "[flex:column, gap:2]"
-    
-  field-label:
-    element: label
-    text: "[weight:medium, size:small, color:base-700]"
-    
-  field-input:
-    element: input
-    box: "[padding:3, width:full]"
-    face: "[bg:base-0, border:1:base-300, radius:md]"
-    fx: "[focus:border:2:brand-a, transition:fast]"
-    
-  field-error:
-    element: span
-    text: "[size:small, color:state-error]"
-    
-  # Alert Components
-  alert:
-    element: div
-    box: "[padding:4]"
-    face: "[radius:md, border:1]"
-    layout: "[flex:row, gap:3, align:start]"
-    
-  alert-success:
-    extends: alert
-    face: "[bg:state-success-weak, border:1:state-success]"
-    text: "[color:state-success-strong]"
-    
-  alert-warning:
-    extends: alert
-    face: "[bg:state-warning-weak, border:1:state-warning]"
-    text: "[color:state-warning-strong]"
-    
-  alert-error:
-    extends: alert
-    face: "[bg:state-error-weak, border:1:state-error]"
-    text: "[color:state-error-strong]"
-    
-  alert-info:
-    extends: alert
-    face: "[bg:state-info-weak, border:1:state-info]"
-    text: "[color:state-info-strong]"
-    
-  # Badge Components
-  badge:
-    element: span
-    box: "[padding-x:3, padding-y:1]"
-    face: "[radius:full]"
-    text: "[size:tiny, weight:medium]"
-    
-  badge-primary:
-    extends: badge
-    face: "[bg:brand-a]"
-    text: "[color:base-0]"
-    
-  badge-success:
-    extends: badge
-    face: "[bg:state-success]"
-    text: "[color:base-0]"
-    
-  # Modal Components
-  modal:
-    element: div
-    layout: "[position:fixed, inset:0, z:100]"
-    face: "[bg:base-1000, opacity:50]"
-    
-  modal-dialog:
-    element: div
-    layout: "[position:absolute, top:50%, left:50%, transform:translate:-50%:-50%]"
-    box: "[width:90%, max-width:600, padding:0]"
-    face: "[bg:base-0, radius:xl, shadow:2xl]"
-    
-  modal-header:
-    element: header
-    box: "[padding:6]"
-    face: "[border-bottom:1:base-200]"
-    layout: "[flex:row, justify:between, align:center]"
-    
-  modal-body:
-    element: div
-    box: "[padding:6]"
-    
-  modal-footer:
-    element: footer
-    box: "[padding:6]"
-    face: "[border-top:1:base-200]"
-    layout: "[flex:row, justify:end, gap:4]"
-
-# Mixins (reusable property sets)
-mixins:
-  glass-effect:
-    face: "[bg:base-0, opacity:80, backdrop:blur-md, border:1:base-200]"
-    
-  gradient-brand:
-    face: "[bg:gradient-primary]"
-    
-  centered:
-    layout: "[flex, align:center, justify:center]"
-    
-  clickable:
-    device: "[cursor:pointer]"
-    fx: "[hover:brightness:110, active:scale:0.98, transition:fast]"
-
-# Component Variants
-variants:
-  size:
-    small:
-      box: "[padding:2]"
-      text: "[size:small]"
-    normal:
-      box: "[padding:4]"
-      text: "[size:normal]"
-    large:
-      box: "[padding:6]"
-      text: "[size:large]"

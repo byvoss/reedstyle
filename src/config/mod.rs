@@ -124,7 +124,7 @@ pub struct ComponentsConfig {
     pub components: std::collections::HashMap<String, Component>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Component {
     pub element: Option<String>,  // Optional for extends
     pub extends: Option<String>,
