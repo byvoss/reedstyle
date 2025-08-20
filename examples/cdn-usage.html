@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReedSTYLE - CDN Usage Example</title>
+    
+    <!-- 
+    ================================================
+    CDN Usage (when published to npm)
+    ================================================
+    -->
+    
+    <!-- Option 1: jsDelivr (recommended) -->
+    <!-- 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reedstyle@latest/dist/reedstyle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/reedstyle@latest/dist/reedstyle.min.js" defer></script>
+    -->
+    
+    <!-- Option 2: unpkg -->
+    <!-- 
+    <link rel="stylesheet" href="https://unpkg.com/reedstyle@latest/dist/reedstyle.min.css">
+    <script src="https://unpkg.com/reedstyle@latest/dist/reedstyle.min.js" defer></script>
+    -->
+    
+    <!-- Option 3: Specific version (recommended for production) -->
+    <!-- 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reedstyle@0.1.0/dist/reedstyle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/reedstyle@0.1.0/dist/reedstyle.min.js" defer></script>
+    -->
+    
+    <!-- For now, using local files -->
+    <link rel="stylesheet" href="../dist/reedstyle.min.css">
+    <script src="../dist/reedstyle.min.js" defer></script>
+</head>
+<body>
+    <r-s as="hero" layout="[flex:column, align:center, justify:center]" 
+         box="[min-height:100vh, padding:8]" 
+         face="[bg:gradient(brand-a,brand-b)]" 
+         text="[color:base-0, align:center]">
+        
+        <r-s as="h1" text="[size:ultra, weight:bold, margin-bottom:4]">
+            ReedSTYLE via CDN
+        </r-s>
+        
+        <r-s as="p" text="[size:large, margin-bottom:6]">
+            No installation. No build process. Just include and use.
+        </r-s>
+        
+        <r-s as="div" layout="[flex:row, gap:4]">
+            <r-s as="button-primary" fx="[hover:lift, click:ripple]" box="[padding-x:6, padding-y:3]">
+                Get Started
+            </r-s>
+            <r-s as="button-ghost" text="[color:base-0]" box="[padding-x:6, padding-y:3]">
+                Learn More
+            </r-s>
+        </r-s>
+        
+        <r-s as="div" box="[margin-top:8]" text="[size:small, color:base-200]">
+            <r-s as="p">Add to your HTML:</r-s>
+            <r-s as="pre" face="[bg:base-900-alpha-50, radius:md]" 
+                 box="[padding:3, margin-top:2]" 
+                 text="[family:mono, size:small]">
+&lt;link rel="stylesheet" 
+      href="https://cdn.jsdelivr.net/npm/reedstyle@latest/dist/reedstyle.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/reedstyle@latest/dist/reedstyle.min.js" 
+        defer&gt;&lt;/script&gt;</r-s>
+        </r-s>
+    </r-s>
+</body>
+</html>

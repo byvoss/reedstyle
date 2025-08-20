@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReedSTYLE - Basic Usage Example</title>
+    
+    <!-- Production: Use minified version -->
+    <link rel="stylesheet" href="../dist/reedstyle.min.css">
+    
+    <!-- Optional: JavaScript for progressive enhancement -->
+    <script src="../dist/reedstyle.min.js" defer></script>
+</head>
+<body>
+    <!-- Works without JavaScript! -->
+    <r-s as="header" face="[bg:brand-a]" text="[color:base-0, align:center]" box="[padding:8]">
+        <r-s as="h1" text="[size:ultra, weight:bold]">Welcome to ReedSTYLE</r-s>
+        <r-s as="p" text="[size:large]">No build process required!</r-s>
+    </r-s>
+
+    <r-s as="main" box="[max-width:1200, margin-x:auto, padding:6]">
+        <r-s as="section" box="[margin-y:6]">
+            <r-s as="h2" text="[size:huge, weight:bold, margin-bottom:4]">Quick Start</r-s>
+            
+            <r-s as="div" layout="[grid:3, gap:4]">
+                <r-s as="card" face="[bg:base-0, radius:lg]" box="[padding:4]" fx="[hover:lift, shadow:normal]">
+                    <r-s as="h3" text="[weight:bold, margin-bottom:2]">🚀 Zero Config</r-s>
+                    <r-s as="p" text="[color:base-600]">
+                        Just include the CSS file and start writing semantic HTML with r-s elements.
+                    </r-s>
+                </r-s>
+                
+                <r-s as="card" face="[bg:base-0, radius:lg]" box="[padding:4]" fx="[hover:lift, shadow:normal]">
+                    <r-s as="h3" text="[weight:bold, margin-bottom:2]">🎨 Beautiful Defaults</r-s>
+                    <r-s as="p" text="[color:base-600]">
+                        Get professional designs out of the box with our carefully crafted styles.
+                    </r-s>
+                </r-s>
+                
+                <r-s as="card" face="[bg:base-0, radius:lg]" box="[padding:4]" fx="[hover:lift, shadow:normal]">
+                    <r-s as="h3" text="[weight:bold, margin-bottom:2]">⚡ Progressive Enhancement</r-s>
+                    <r-s as="p" text="[color:base-600]">
+                        Optional JavaScript adds effects and typography enhancements.
+                    </r-s>
+                </r-s>
+            </r-s>
+        </r-s>
+
+        <r-s as="section" box="[margin-y:6]">
+            <r-s as="h2" text="[size:huge, weight:bold, margin-bottom:4]">Components</r-s>
+            
+            <r-s as="div" layout="[stack, gap:4]">
+                <!-- Buttons -->
+                <r-s as="div" layout="[flex:row, gap:3]">
+                    <r-s as="button-primary" fx="[click:ripple]">Primary Button</r-s>
+                    <r-s as="button-secondary">Secondary Button</r-s>
+                    <r-s as="button-ghost">Ghost Button</r-s>
+                </r-s>
+                
+                <!-- Alerts -->
+                <r-s as="alert-success">✓ Success! Your changes have been saved.</r-s>
+                <r-s as="alert-warning">⚠ Warning: Please review before continuing.</r-s>
+                <r-s as="alert-error">✗ Error: Something went wrong.</r-s>
+                <r-s as="alert-info">ℹ Info: Did you know ReedSTYLE uses OKLCH colors?</r-s>
+                
+                <!-- Form -->
+                <r-s as="form" layout="[stack, gap:3]">
+                    <r-s as="field">
+                        <r-s as="field-label">Name</r-s>
+                        <r-s as="field-input" face="[border:1:base-300]" box="[padding:2, width:full]" />
+                    </r-s>
+                    
+                    <r-s as="field">
+                        <r-s as="field-label">Email</r-s>
+                        <r-s as="field-input" face="[border:1:base-300]" box="[padding:2, width:full]" />
+                    </r-s>
+                    
+                    <r-s as="button-primary" box="[width:fit]">Submit</r-s>
+                </r-s>
+            </r-s>
+        </r-s>
+
+        <r-s as="section" box="[margin-y:6]">
+            <r-s as="h2" text="[size:huge, weight:bold, margin-bottom:4]">Typography with Filters</r-s>
+            
+            <r-s as="div" face="[bg:base-50, radius:lg]" box="[padding:4]">
+                <r-s as="p" text="[filter:smart]" lang="en">
+                    "This text will have smart quotes" and proper dashes -- like this one.
+                    It's amazing how typography can improve readability...
+                </r-s>
+                
+                <r-s as="p" text="[filter:smart]" lang="de" box="[margin-top:3]">
+                    "Dieser Text hat deutsche Anführungszeichen" und korrekte Striche -- wie dieser.
+                    Es ist erstaunlich, wie Typografie die Lesbarkeit verbessern kann...
+                </r-s>
+            </r-s>
+        </r-s>
+    </r-s>
+
+    <r-s as="footer" face="[bg:base-900]" text="[color:base-300, align:center]" box="[padding:6, margin-top:8]">
+        <r-s as="p">Built with ReedSTYLE v0.1.0</r-s>
+        <r-s as="p" text="[size:small, color:base-500]">
+            Apache License 2.0 | © 2024 ByVoss Technologies
+        </r-s>
+    </r-s>
+</body>
+</html>
