@@ -20,7 +20,7 @@ jobs:
           toolchain: stable
       
       - name: Cache Cargo dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/registry
@@ -101,7 +101,7 @@ jobs:
           echo "✅ JS content valid"
       
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: |
