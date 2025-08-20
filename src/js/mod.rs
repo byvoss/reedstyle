@@ -28,6 +28,161 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("    }\n");
     js.push_str("  };\n\n");
     
+    // Typography Engine Integration
+    js.push_str("  // Typography Engine\n");
+    js.push_str("  const TYPO_CHARS = {\n");
+    js.push_str("    LDQUO_DE: '\\u201E', RDQUO_DE: '\\u201C',\n");
+    js.push_str("    LSQUO_DE: '\\u201A', RSQUO_DE: '\\u2018',\n");
+    js.push_str("    LDQUO: '\\u201C', RDQUO: '\\u201D',\n");
+    js.push_str("    LSQUO: '\\u2018', RSQUO: '\\u2019',\n");
+    js.push_str("    LAQUO: '\\u00AB', RAQUO: '\\u00BB',\n");
+    js.push_str("    NBSP: '\\u00A0', NNBSP: '\\u202F',\n");
+    js.push_str("    ELLIPSIS: '\\u2026', ENDASH: '\\u2013', EMDASH: '\\u2014'\n");
+    js.push_str("  };\n\n");
+    
+    js.push_str("  class TypographyEngine {\n");
+    js.push_str("    constructor() {\n");
+    js.push_str("      this.initialized = false;\n");
+    js.push_str("      this.rules = this.initRules();\n");
+    js.push_str("    }\n\n");
+    
+    js.push_str("    initRules() {\n");
+    js.push_str("      return {\n");
+    js.push_str("        'de': {\n");
+    js.push_str("          quotes: [TYPO_CHARS.LDQUO_DE, TYPO_CHARS.RDQUO_DE],\n");
+    js.push_str("          singleQuotes: [TYPO_CHARS.LSQUO_DE, TYPO_CHARS.RSQUO_DE],\n");
+    js.push_str("          replacements: [\n");
+    js.push_str("            [/\\.\\.\\./g, TYPO_CHARS.ELLIPSIS],\n");
+    js.push_str("            [/--/g, TYPO_CHARS.EMDASH],\n");
+    js.push_str("            [/ - /g, ` ${TYPO_CHARS.ENDASH} `]\n");
+    js.push_str("          ]\n");
+    js.push_str("        },\n");
+    js.push_str("        'en': {\n");
+    js.push_str("          quotes: [TYPO_CHARS.LDQUO, TYPO_CHARS.RDQUO],\n");
+    js.push_str("          singleQuotes: [TYPO_CHARS.LSQUO, TYPO_CHARS.RSQUO],\n");
+    js.push_str("          replacements: [\n");
+    js.push_str("            [/\\.\\.\\./g, TYPO_CHARS.ELLIPSIS],\n");
+    js.push_str("            [/--/g, TYPO_CHARS.EMDASH],\n");
+    js.push_str("            [/ - /g, ` ${TYPO_CHARS.ENDASH} `]\n");
+    js.push_str("          ]\n");
+    js.push_str("        },\n");
+    js.push_str("        'fr': {\n");
+    js.push_str("          quotes: [`${TYPO_CHARS.LAQUO} `, ` ${TYPO_CHARS.RAQUO}`],\n");
+    js.push_str("          singleQuotes: [TYPO_CHARS.LDQUO, TYPO_CHARS.RDQUO],\n");
+    js.push_str("          replacements: [\n");
+    js.push_str("            [/\\.\\.\\./g, TYPO_CHARS.ELLIPSIS],\n");
+    js.push_str("            [/--/g, ` ${TYPO_CHARS.EMDASH} `]\n");
+    js.push_str("          ]\n");
+    js.push_str("        }\n");
+    js.push_str("      };\n");
+    js.push_str("    }\n\n");
+    
+    js.push_str("    init() {\n");
+    js.push_str("      if (this.initialized) return;\n");
+    js.push_str("      this.processAll();\n");
+    js.push_str("      this.observeChanges();\n");
+    js.push_str("      this.initialized = true;\n");
+    js.push_str("      console.log('Typography Engine initialized');\n");
+    js.push_str("    }\n\n");
+    
+    js.push_str("    processAll() {\n");
+    js.push_str("      const elements = document.querySelectorAll('r-s[text*=\"filter:\"]');\n");
+    js.push_str("      elements.forEach(element => this.processElement(element));\n");
+    js.push_str("    }\n\n");
+    
+    js.push_str("    processElement(element) {\n");
+    js.push_str("      const textAttr = element.getAttribute('text');\n");
+    js.push_str("      if (!textAttr) return;\n");
+    js.push_str("      \n");
+    js.push_str("      const match = textAttr.match(/filter:(\\w+)/);\n");
+    js.push_str("      const filter = match ? match[1] : null;\n");
+    js.push_str("      if (!filter) return;\n");
+    js.push_str("      \n");
+    js.push_str("      const lang = this.detectLanguage(element);\n");
+    js.push_str("      const rules = this.rules[lang] || this.rules['en'];\n");
+    js.push_str("      \n");
+    js.push_str("      this.applyTypography(element, rules, filter);\n");
+    js.push_str("    }\n\n");
+    
+    js.push_str("    detectLanguage(element) {\n");
+    js.push_str("      let current = element;\n");
+    js.push_str("      while (current) {\n");
+    js.push_str("        if (current.lang) return current.lang.split('-')[0];\n");
+    js.push_str("        current = current.parentElement;\n");
+    js.push_str("      }\n");
+    js.push_str("      return document.documentElement.lang?.split('-')[0] || 'en';\n");
+    js.push_str("    }\n\n");
+    
+    js.push_str("    applyTypography(element, rules, filter) {\n");
+    js.push_str("      const walker = document.createTreeWalker(\n");
+    js.push_str("        element,\n");
+    js.push_str("        NodeFilter.SHOW_TEXT,\n");
+    js.push_str("        {\n");
+    js.push_str("          acceptNode: function(node) {\n");
+    js.push_str("            const parent = node.parentElement;\n");
+    js.push_str("            if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') {\n");
+    js.push_str("              return NodeFilter.FILTER_REJECT;\n");
+    js.push_str("            }\n");
+    js.push_str("            return NodeFilter.FILTER_ACCEPT;\n");
+    js.push_str("          }\n");
+    js.push_str("        }\n");
+    js.push_str("      );\n");
+    js.push_str("      \n");
+    js.push_str("      const textNodes = [];\n");
+    js.push_str("      let node;\n");
+    js.push_str("      while (node = walker.nextNode()) {\n");
+    js.push_str("        textNodes.push(node);\n");
+    js.push_str("      }\n");
+    js.push_str("      \n");
+    js.push_str("      textNodes.forEach(node => {\n");
+    js.push_str("        let text = node.textContent;\n");
+    js.push_str("        \n");
+    js.push_str("        if (filter === 'smart' || filter === 'professional') {\n");
+    js.push_str("          // Apply quotes\n");
+    js.push_str("          if (rules.quotes) {\n");
+    js.push_str("            const [open, close] = rules.quotes;\n");
+    js.push_str("            text = text.replace(/(^|\\s)\"([^\"]+)\"/g, `$1${open}$2${close}`);\n");
+    js.push_str("          }\n");
+    js.push_str("          if (rules.singleQuotes) {\n");
+    js.push_str("            const [open, close] = rules.singleQuotes;\n");
+    js.push_str("            text = text.replace(/(^|\\s)'([^']+)'/g, `$1${open}$2${close}`);\n");
+    js.push_str("          }\n");
+    js.push_str("          // Apply replacements\n");
+    js.push_str("          if (rules.replacements) {\n");
+    js.push_str("            rules.replacements.forEach(([pattern, replacement]) => {\n");
+    js.push_str("              text = text.replace(pattern, replacement);\n");
+    js.push_str("            });\n");
+    js.push_str("          }\n");
+    js.push_str("        }\n");
+    js.push_str("        \n");
+    js.push_str("        if (text !== node.textContent) {\n");
+    js.push_str("          node.textContent = text;\n");
+    js.push_str("        }\n");
+    js.push_str("      });\n");
+    js.push_str("    }\n\n");
+    
+    js.push_str("    observeChanges() {\n");
+    js.push_str("      const observer = new MutationObserver(mutations => {\n");
+    js.push_str("        mutations.forEach(mutation => {\n");
+    js.push_str("          mutation.addedNodes.forEach(node => {\n");
+    js.push_str("            if (node.nodeType === 1) {\n");
+    js.push_str("              if (node.tagName === 'R-S' && node.getAttribute('text')?.includes('filter:')) {\n");
+    js.push_str("                this.processElement(node);\n");
+    js.push_str("              }\n");
+    js.push_str("              const children = node.querySelectorAll?.('r-s[text*=\"filter:\"]');\n");
+    js.push_str("              children?.forEach(child => this.processElement(child));\n");
+    js.push_str("            }\n");
+    js.push_str("          });\n");
+    js.push_str("        });\n");
+    js.push_str("      });\n");
+    js.push_str("      \n");
+    js.push_str("      observer.observe(document.body, {\n");
+    js.push_str("        childList: true,\n");
+    js.push_str("        subtree: true\n");
+    js.push_str("      });\n");
+    js.push_str("    }\n");
+    js.push_str("  }\n\n");
+    
     // Effects Engine
     js.push_str("  // Effects Engine\n");
     js.push_str("  class EffectsEngine {\n");
@@ -157,12 +312,14 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("  `;\n");
     js.push_str("  document.head.appendChild(style);\n\n");
     
-    // Initialize effects engine
-    js.push_str("  // Initialize effects when ReedStyle initializes\n");
+    // Initialize effects and typography engines
+    js.push_str("  // Initialize effects and typography when ReedStyle initializes\n");
     js.push_str("  const originalInit = window.ReedStyle.init;\n");
     js.push_str("  window.ReedStyle.init = function() {\n");
     js.push_str("    originalInit.call(this);\n");
     js.push_str("    window.ReedStyle.effects = new EffectsEngine();\n");
+    js.push_str("    window.ReedStyle.typography = new TypographyEngine();\n");
+    js.push_str("    window.ReedStyle.typography.init();\n");
     js.push_str("    console.log('Effects Engine initialized');\n");
     js.push_str("  };\n\n");
     
