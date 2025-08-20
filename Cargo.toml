@@ -13,6 +13,7 @@ swc_core = { version = "0.87", features = ["ecma_parser", "ecma_transforms", "co
 serde = { version = "1.0", features = ["derive"] }
 serde_yaml = "0.9"
 serde_json = "1.0"
+minify-js = "0.6.0"
 
 # Color conversion
 palette = "0.7"

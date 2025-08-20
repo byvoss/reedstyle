@@ -12,15 +12,43 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("  // Reed elements work purely through CSS - no custom element registration needed\n");
     js.push_str("  // The browser treats <reed> as an unknown element (like <div>) and our CSS handles the rest\n\n");
     
-    // Global ReedStyle object
-    js.push_str("  // Global ReedStyle object\n");
+    // Global ReedStyle object with JSDoc type definitions
+    js.push_str("  /**\n");
+    js.push_str("   * @typedef {Object} ReedStyleAPI\n");
+    js.push_str("   * @property {string} version - Current version of ReedSTYLE\n");
+    js.push_str("   * @property {function(): void} init - Initialize ReedSTYLE\n");
+    js.push_str("   * @property {Object.<string, boolean>} components - Available components\n");
+    js.push_str("   * @property {EffectsEngine} [effects] - Effects engine instance\n");
+    js.push_str("   * @property {TypographyEngine} [typography] - Typography engine instance\n");
+    js.push_str("   */\n\n");
+    
+    js.push_str("  /**\n");
+    js.push_str("   * @typedef {Object} EffectsEngine\n");
+    js.push_str("   * @property {boolean} initialized - Whether effects are initialized\n");
+    js.push_str("   * @property {function(): void} init - Initialize effects\n");
+    js.push_str("   * @property {function(Event, HTMLElement): void} createRipple - Create ripple effect\n");
+    js.push_str("   * @property {function(HTMLElement, string): void} applyStagger - Apply stagger animation\n");
+    js.push_str("   */\n\n");
+    
+    js.push_str("  /**\n");
+    js.push_str("   * @typedef {Object} TypographyEngine\n");
+    js.push_str("   * @property {boolean} initialized - Whether typography is initialized\n");
+    js.push_str("   * @property {function(): void} init - Initialize typography\n");
+    js.push_str("   * @property {function(): void} processAll - Process all elements\n");
+    js.push_str("   * @property {function(HTMLElement): void} processElement - Process single element\n");
+    js.push_str("   * @property {function(HTMLElement): string} detectLanguage - Detect element language\n");
+    js.push_str("   */\n\n");
+    
+    js.push_str("  /** @type {ReedStyleAPI} */\n");
     js.push_str("  window.ReedStyle = {\n");
     js.push_str("    version: '0.1.0',\n");
+    js.push_str("    /** Initialize ReedSTYLE framework */\n");
     js.push_str("    init: function() {\n");
     js.push_str("      console.log('ReedSTYLE initialized');\n");
     js.push_str("    },\n");
     
     // Add component definitions
+    js.push_str("    /** Available component presets */\n");
     js.push_str("    components: {\n");
     for (name, _component) in &components.components {
         js.push_str(&format!("      '{}': true,\n", name));
@@ -40,6 +68,7 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("    ELLIPSIS: '\\u2026', ENDASH: '\\u2013', EMDASH: '\\u2014'\n");
     js.push_str("  };\n\n");
     
+    js.push_str("  /** Typography engine for smart quotes and typographic enhancements */\n");
     js.push_str("  class TypographyEngine {\n");
     js.push_str("    constructor() {\n");
     js.push_str("      this.initialized = false;\n");
@@ -185,6 +214,7 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     
     // Effects Engine
     js.push_str("  // Effects Engine\n");
+    js.push_str("  /** Effects engine for animations and interactions */\n");
     js.push_str("  class EffectsEngine {\n");
     js.push_str("    constructor() {\n");
     js.push_str("      this.observers = new Map();\n");
