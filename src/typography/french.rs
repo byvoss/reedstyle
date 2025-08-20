@@ -43,21 +43,46 @@ impl FrenchRules {
     pub fn apply_quotes(text: &str) -> String {
         let mut result = text.to_string();
         
-        // Replace double quotes with guillemets
-        // Opening quotes after space or start
-        let re_open = regex::Regex::new(r#"(^|\s)"([^"]*)"#).unwrap();
-        result = re_open.replace_all(&result, format!("$1{} $2", LAQUO).as_str()).to_string();
+        // Simple approach: replace paired double quotes with guillemets
+        if result.contains("\"") {
+            let parts: Vec<&str> = result.split("\"").collect();
+            if parts.len() >= 3 {
+                // We have at least one pair of quotes
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        // Alternate between opening and closing guillemets
+                        // French guillemets have spaces inside
+                        if i % 2 == 0 {
+                            new_result.push_str(&format!("{} ", LAQUO)); // « with space
+                        } else {
+                            new_result.push_str(&format!(" {}", RAQUO)); // » with space
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
-        // Closing quotes
-        let re_close = regex::Regex::new(&format!(r#"{} ([^"]*)"#, LAQUO)).unwrap();
-        result = re_close.replace_all(&result, format!("{} $1 {}", LAQUO, RAQUO).as_str()).to_string();
-        
-        // Secondary quotes (English style in French)
-        let re_single_open = regex::Regex::new(r"(^|\s)'([^']*)").unwrap();
-        result = re_single_open.replace_all(&result, format!("$1{}$2", LDQUO).as_str()).to_string();
-        
-        let re_single_close = regex::Regex::new(&format!(r"{}([^']*)'", LDQUO)).unwrap();
-        result = re_single_close.replace_all(&result, format!("{}$1{}", LDQUO, RDQUO).as_str()).to_string();
+        // Handle single quotes (secondary quotes in French use English style)
+        if result.contains("'") {
+            let parts: Vec<&str> = result.split("'").collect();
+            if parts.len() >= 3 {
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        if i % 2 == 0 {
+                            new_result.push_str(LDQUO); // English opening "
+                        } else {
+                            new_result.push_str(RDQUO); // English closing "
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
         result
     }
@@ -117,7 +142,6 @@ mod tests {
     use super::*;
     
     #[test]
-    #[ignore] // TODO: Fix quote handling
     fn test_guillemets() {
         assert_eq!(
             FrenchRules::apply_quotes("\"Bonjour\""),
