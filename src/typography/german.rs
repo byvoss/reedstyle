@@ -21,8 +21,8 @@ impl GermanRules {
             // Number ranges with en dash
             (r"(\d+)\s*-\s*(\d+)", "$1–$2"),
             
-            // Common abbreviations with non-breaking space
-            ("z. B.", "z. B."),  // Will be fixed with NBSP in format_numbers
+            // Common abbreviations with non-breaking space (will be fixed in format_abbreviations)
+            ("z. B.", "z. B."),
             ("d. h.", "d. h."),
             ("u. a.", "u. a."),
             ("o. ä.", "o. ä."),
@@ -90,25 +90,78 @@ impl GermanRules {
         result
     }
     
+    /// Format abbreviations with proper non-breaking spaces
+    pub fn format_abbreviations(text: &str) -> String {
+        let mut result = text.to_string();
+        
+        // Common abbreviations - replace space with NBSP
+        let abbreviations = vec![
+            ("z. B.", format!("z.{}B.", NBSP)),
+            ("d. h.", format!("d.{}h.", NBSP)),
+            ("u. a.", format!("u.{}a.", NBSP)),
+            ("o. ä.", format!("o.{}ä.", NBSP)),
+            ("u. U.", format!("u.{}U.", NBSP)),
+            ("m. E.", format!("m.{}E.", NBSP)),
+            ("i. d. R.", format!("i.{}d.{}R.", NBSP, NBSP)),
+            ("z. T.", format!("z.{}T.", NBSP)),
+            ("s. o.", format!("s.{}o.", NBSP)),
+            ("s. u.", format!("s.{}u.", NBSP)),
+            // Titles
+            ("Dr. ", format!("Dr.{}", NBSP)),
+            ("Prof. ", format!("Prof.{}", NBSP)),
+            ("Dipl.-Ing. ", format!("Dipl.-Ing.{}", NBSP)),
+        ];
+        
+        for (pattern, replacement) in abbreviations {
+            result = result.replace(pattern, &replacement);
+        }
+        
+        result
+    }
+    
     /// Apply German quotation marks
     pub fn apply_quotes(text: &str) -> String {
         let mut result = text.to_string();
         
-        // Replace double quotes with German quotes
-        // Opening quotes after space or start
-        let re_open = regex::Regex::new(r#"(^|\s)"([^"]*)"#).unwrap();
-        result = re_open.replace_all(&result, format!("$1{}$2", LDQUO_DE).as_str()).to_string();
+        // Simple approach: replace paired double quotes
+        if result.contains("\"") {
+            let parts: Vec<&str> = result.split("\"").collect();
+            if parts.len() >= 3 {
+                // We have at least one pair of quotes
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        // Alternate between opening and closing quotes
+                        if i % 2 == 0 {
+                            new_result.push_str(LDQUO_DE); // German opening „
+                        } else {
+                            new_result.push_str(RDQUO_DE); // German closing "
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
-        // Closing quotes
-        let re_close = regex::Regex::new(&format!(r#"{}([^"]*)"#, LDQUO_DE)).unwrap();
-        result = re_close.replace_all(&result, format!("{}$1{}", LDQUO_DE, RDQUO_DE).as_str()).to_string();
-        
-        // Single quotes
-        let re_single_open = regex::Regex::new(r"(^|\s)'([^']*)").unwrap();
-        result = re_single_open.replace_all(&result, format!("$1{}$2", LSQUO_DE).as_str()).to_string();
-        
-        let re_single_close = regex::Regex::new(&format!(r"{}([^']*)", LSQUO_DE)).unwrap();
-        result = re_single_close.replace_all(&result, format!("{}$1{}", LSQUO_DE, RSQUO_DE).as_str()).to_string();
+        // Handle single quotes similarly
+        if result.contains("'") {
+            let parts: Vec<&str> = result.split("'").collect();
+            if parts.len() >= 3 {
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        if i % 2 == 0 {
+                            new_result.push_str(LSQUO_DE); // German opening ‚
+                        } else {
+                            new_result.push_str(RSQUO_DE); // German closing '
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
         result
     }
@@ -130,6 +183,9 @@ impl GermanRules {
             }
         }
         
+        // Apply abbreviations formatting
+        result = Self::format_abbreviations(&result);
+        
         // Apply number formatting
         result = Self::format_numbers(&result);
         
@@ -145,7 +201,6 @@ mod tests {
     use super::*;
     
     #[test]
-    #[ignore] // TODO: Fix abbreviation spacing
     fn test_abbreviations() {
         assert_eq!(
             GermanRules::apply_all("z. B. diese"),
@@ -174,7 +229,6 @@ mod tests {
     }
     
     #[test]
-    #[ignore] // TODO: Fix quote handling
     fn test_quotes() {
         assert_eq!(
             GermanRules::apply_quotes("\"Hallo Welt\""),

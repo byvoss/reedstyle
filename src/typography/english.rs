@@ -28,44 +28,44 @@ impl EnglishRules {
             // Common contractions
             ("won't", "won\u{2019}t"),
             ("can't", "can\u{2019}t"),
-            ("shouldn't", "shouldn't"),
-            ("wouldn't", "wouldn't"),
-            ("couldn't", "couldn't"),
-            ("didn't", "didn't"),
-            ("doesn't", "doesn't"),
-            ("don't", "don't"),
-            ("isn't", "isn't"),
-            ("aren't", "aren't"),
-            ("wasn't", "wasn't"),
-            ("weren't", "weren't"),
-            ("hasn't", "hasn't"),
-            ("haven't", "haven't"),
-            ("hadn't", "hadn't"),
-            ("it's", "it's"),
-            ("that's", "that's"),
-            ("what's", "what's"),
-            ("there's", "there's"),
-            ("here's", "here's"),
-            ("who's", "who's"),
-            ("she's", "she's"),
-            ("he's", "he's"),
-            ("let's", "let's"),
-            ("I've", "I've"),
-            ("you've", "you've"),
-            ("we've", "we've"),
-            ("they've", "they've"),
-            ("I'll", "I'll"),
-            ("you'll", "you'll"),
-            ("we'll", "we'll"),
-            ("they'll", "they'll"),
-            ("I'd", "I'd"),
-            ("you'd", "you'd"),
-            ("we'd", "we'd"),
-            ("they'd", "they'd"),
-            ("I'm", "I'm"),
-            ("you're", "you're"),
-            ("we're", "we're"),
-            ("they're", "they're"),
+            ("shouldn't", "shouldn\u{2019}t"),
+            ("wouldn't", "wouldn\u{2019}t"),
+            ("couldn't", "couldn\u{2019}t"),
+            ("didn't", "didn\u{2019}t"),
+            ("doesn't", "doesn\u{2019}t"),
+            ("don't", "don\u{2019}t"),
+            ("isn't", "isn\u{2019}t"),
+            ("aren't", "aren\u{2019}t"),
+            ("wasn't", "wasn\u{2019}t"),
+            ("weren't", "weren\u{2019}t"),
+            ("hasn't", "hasn\u{2019}t"),
+            ("haven't", "haven\u{2019}t"),
+            ("hadn't", "hadn\u{2019}t"),
+            ("it's", "it\u{2019}s"),
+            ("that's", "that\u{2019}s"),
+            ("what's", "what\u{2019}s"),
+            ("there's", "there\u{2019}s"),
+            ("here's", "here\u{2019}s"),
+            ("who's", "who\u{2019}s"),
+            ("she's", "she\u{2019}s"),
+            ("he's", "he\u{2019}s"),
+            ("let's", "let\u{2019}s"),
+            ("I've", "I\u{2019}ve"),
+            ("you've", "you\u{2019}ve"),
+            ("we've", "we\u{2019}ve"),
+            ("they've", "they\u{2019}ve"),
+            ("I'll", "I\u{2019}ll"),
+            ("you'll", "you\u{2019}ll"),
+            ("we'll", "we\u{2019}ll"),
+            ("they'll", "they\u{2019}ll"),
+            ("I'd", "I\u{2019}d"),
+            ("you'd", "you\u{2019}d"),
+            ("we'd", "we\u{2019}d"),
+            ("they'd", "they\u{2019}d"),
+            ("I'm", "I\u{2019}m"),
+            ("you're", "you\u{2019}re"),
+            ("we're", "we\u{2019}re"),
+            ("they're", "they\u{2019}re"),
         ]
     }
     
@@ -84,25 +84,45 @@ impl EnglishRules {
     pub fn apply_us_quotes(text: &str) -> String {
         let mut result = text.to_string();
         
-        // Replace straight double quotes with curly quotes
-        // Opening quotes after space, start, or punctuation
-        let re_open = regex::Regex::new(r#"(^|\s)"([^"]*)"#).unwrap();
-        result = re_open.replace_all(&result, format!("$1{}$2", LDQUO).as_str()).to_string();
+        // Simple approach: replace paired quotes
+        if result.contains("\"") {
+            let parts: Vec<&str> = result.split("\"").collect();
+            if parts.len() >= 3 {
+                // We have at least one pair of quotes
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        // Alternate between opening and closing quotes
+                        if i % 2 == 0 {
+                            new_result.push_str(LDQUO);
+                        } else {
+                            new_result.push_str(RDQUO);
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
-        // Closing quotes
-        let re_close = regex::Regex::new(&format!(r#"{}([^"]*)"#, LDQUO)).unwrap(); 
-        result = re_close.replace_all(&result, format!("{}$1{}", LDQUO, RDQUO).as_str()).to_string();
-        
-        // Single quotes (secondary in US)
-        let re_single_open = regex::Regex::new(r"(^|\s)'([^']*)").unwrap();
-        result = re_single_open.replace_all(&result, format!("$1{}$2", LSQUO).as_str()).to_string();
-        
-        let re_single_close = regex::Regex::new(&format!(r"{}([^']*)'", LSQUO)).unwrap();
-        result = re_single_close.replace_all(&result, format!("{}$1{}", LSQUO, RSQUO).as_str()).to_string();
-        
-        // Handle remaining straight quotes
-        result = result.replace("\"", RDQUO);
-        result = result.replace("'", RSQUO);
+        // Handle single quotes similarly
+        if result.contains("'") && !result.contains("'t") && !result.contains("'s") {
+            let parts: Vec<&str> = result.split("'").collect();
+            if parts.len() >= 3 {
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        if i % 2 == 0 {
+                            new_result.push_str(LSQUO);
+                        } else {
+                            new_result.push_str(RSQUO);
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
         result
     }
@@ -112,24 +132,43 @@ impl EnglishRules {
         let mut result = text.to_string();
         
         // In British English, single quotes are primary
-        // Opening single quotes
-        let re_single_open = regex::Regex::new(r"(^|\s)'([^']*)").unwrap();
-        result = re_single_open.replace_all(&result, format!("$1{}$2", LSQUO).as_str()).to_string();
+        // Simple approach: replace paired single quotes first
+        if result.contains("'") && !result.contains("'t") && !result.contains("'s") {
+            let parts: Vec<&str> = result.split("'").collect();
+            if parts.len() >= 3 {
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        if i % 2 == 0 {
+                            new_result.push_str(LSQUO);
+                        } else {
+                            new_result.push_str(RSQUO);
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
-        // Closing single quotes
-        let re_single_close = regex::Regex::new(&format!(r"{}([^']*)'", LSQUO)).unwrap();
-        result = re_single_close.replace_all(&result, format!("{}$1{}", LSQUO, RSQUO).as_str()).to_string();
-        
-        // Double quotes (secondary in GB)
-        let re_double_open = regex::Regex::new(r#"(^|\s)"([^"]*)"#).unwrap();
-        result = re_double_open.replace_all(&result, format!("$1{}$2", LDQUO).as_str()).to_string();
-        
-        let re_double_close = regex::Regex::new(&format!(r#"{}([^"]*)"#, LDQUO)).unwrap();
-        result = re_double_close.replace_all(&result, format!("{}$1{}", LDQUO, RDQUO).as_str()).to_string();
-        
-        // Handle remaining straight quotes
-        result = result.replace("'", RSQUO);
-        result = result.replace("\"", RDQUO);
+        // Then handle double quotes (secondary in GB)
+        if result.contains("\"") {
+            let parts: Vec<&str> = result.split("\"").collect();
+            if parts.len() >= 3 {
+                let mut new_result = String::new();
+                for (i, part) in parts.iter().enumerate() {
+                    new_result.push_str(part);
+                    if i < parts.len() - 1 {
+                        if i % 2 == 0 {
+                            new_result.push_str(LDQUO);
+                        } else {
+                            new_result.push_str(RDQUO);
+                        }
+                    }
+                }
+                result = new_result;
+            }
+        }
         
         result
     }
@@ -196,7 +235,6 @@ mod tests {
     use super::*;
     
     #[test]
-    #[ignore] // TODO: Fix quote handling
     fn test_us_quotes() {
         assert_eq!(
             EnglishRules::apply_us_quotes("\"Hello world\""),
@@ -209,7 +247,6 @@ mod tests {
     }
     
     #[test]
-    #[ignore] // TODO: Fix quote handling
     fn test_gb_quotes() {
         assert_eq!(
             EnglishRules::apply_gb_quotes("'Hello world'"),
@@ -234,11 +271,11 @@ mod tests {
     }
     
     #[test]
-    #[ignore] // TODO: Fix contraction handling
     fn test_contractions() {
         let text = "I can't believe it's working!";
         let result = EnglishRules::apply_us_all(text);
-        assert!(result.contains("can't"));
-        assert!(result.contains("it's"));
+        // Check that contractions have the right apostrophe
+        assert!(result.contains(&format!("can{}t", RSQUO)));
+        assert!(result.contains(&format!("it{}s", RSQUO)));
     }
 }
