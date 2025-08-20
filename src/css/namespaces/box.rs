@@ -61,17 +61,17 @@ impl BoxNamespace {
         
         for (key, value) in &scale {
             // All sides
-            css.push_str(&format!("  reed[box*=\"padding:{}\"] {{ padding: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"padding:{}\"] {{ padding: {}; }}\n", key, value));
             
             // Individual sides
-            css.push_str(&format!("  reed[box*=\"padding-top:{}\"] {{ padding-top: {}; }}\n", key, value));
-            css.push_str(&format!("  reed[box*=\"padding-right:{}\"] {{ padding-right: {}; }}\n", key, value));
-            css.push_str(&format!("  reed[box*=\"padding-bottom:{}\"] {{ padding-bottom: {}; }}\n", key, value));
-            css.push_str(&format!("  reed[box*=\"padding-left:{}\"] {{ padding-left: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"padding-top:{}\"] {{ padding-top: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"padding-right:{}\"] {{ padding-right: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"padding-bottom:{}\"] {{ padding-bottom: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"padding-left:{}\"] {{ padding-left: {}; }}\n", key, value));
             
             // Axis shortcuts
-            css.push_str(&format!("  reed[box*=\"padding-x:{}\"] {{ padding-left: {}; padding-right: {}; }}\n", key, value, value));
-            css.push_str(&format!("  reed[box*=\"padding-y:{}\"] {{ padding-top: {}; padding-bottom: {}; }}\n", key, value, value));
+            css.push_str(&format!("  r-s[box*=\"padding-x:{}\"] {{ padding-left: {}; padding-right: {}; }}\n", key, value, value));
+            css.push_str(&format!("  r-s[box*=\"padding-y:{}\"] {{ padding-top: {}; padding-bottom: {}; }}\n", key, value, value));
         }
         
         css
@@ -97,33 +97,33 @@ impl BoxNamespace {
         ];
         
         // Auto margin
-        css.push_str("  reed[box*=\"margin:auto\"] { margin: auto; }\n");
-        css.push_str("  reed[box*=\"margin-x:auto\"] { margin-left: auto; margin-right: auto; }\n");
-        css.push_str("  reed[box*=\"margin-y:auto\"] { margin-top: auto; margin-bottom: auto; }\n");
-        css.push_str("  reed[box*=\"margin-left:auto\"] { margin-left: auto; }\n");
-        css.push_str("  reed[box*=\"margin-right:auto\"] { margin-right: auto; }\n");
+        css.push_str("  r-s[box*=\"margin:auto\"] { margin: auto; }\n");
+        css.push_str("  r-s[box*=\"margin-x:auto\"] { margin-left: auto; margin-right: auto; }\n");
+        css.push_str("  r-s[box*=\"margin-y:auto\"] { margin-top: auto; margin-bottom: auto; }\n");
+        css.push_str("  r-s[box*=\"margin-left:auto\"] { margin-left: auto; }\n");
+        css.push_str("  r-s[box*=\"margin-right:auto\"] { margin-right: auto; }\n");
         
         for (key, value) in &scale {
             // All sides
-            css.push_str(&format!("  reed[box*=\"margin:{}\"] {{ margin: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"margin:{}\"] {{ margin: {}; }}\n", key, value));
             
             // Individual sides
-            css.push_str(&format!("  reed[box*=\"margin-top:{}\"] {{ margin-top: {}; }}\n", key, value));
-            css.push_str(&format!("  reed[box*=\"margin-right:{}\"] {{ margin-right: {}; }}\n", key, value));
-            css.push_str(&format!("  reed[box*=\"margin-bottom:{}\"] {{ margin-bottom: {}; }}\n", key, value));
-            css.push_str(&format!("  reed[box*=\"margin-left:{}\"] {{ margin-left: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"margin-top:{}\"] {{ margin-top: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"margin-right:{}\"] {{ margin-right: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"margin-bottom:{}\"] {{ margin-bottom: {}; }}\n", key, value));
+            css.push_str(&format!("  r-s[box*=\"margin-left:{}\"] {{ margin-left: {}; }}\n", key, value));
             
             // Axis shortcuts
-            css.push_str(&format!("  reed[box*=\"margin-x:{}\"] {{ margin-left: {}; margin-right: {}; }}\n", key, value, value));
-            css.push_str(&format!("  reed[box*=\"margin-y:{}\"] {{ margin-top: {}; margin-bottom: {}; }}\n", key, value, value));
+            css.push_str(&format!("  r-s[box*=\"margin-x:{}\"] {{ margin-left: {}; margin-right: {}; }}\n", key, value, value));
+            css.push_str(&format!("  r-s[box*=\"margin-y:{}\"] {{ margin-top: {}; margin-bottom: {}; }}\n", key, value, value));
             
             // Negative margins
             if key != &"0" {
-                css.push_str(&format!("  reed[box*=\"margin:-{}\"] {{ margin: -{}; }}\n", key, value));
-                css.push_str(&format!("  reed[box*=\"margin-top:-{}\"] {{ margin-top: -{}; }}\n", key, value));
-                css.push_str(&format!("  reed[box*=\"margin-right:-{}\"] {{ margin-right: -{}; }}\n", key, value));
-                css.push_str(&format!("  reed[box*=\"margin-bottom:-{}\"] {{ margin-bottom: -{}; }}\n", key, value));
-                css.push_str(&format!("  reed[box*=\"margin-left:-{}\"] {{ margin-left: -{}; }}\n", key, value));
+                css.push_str(&format!("  r-s[box*=\"margin:-{}\"] {{ margin: -{}; }}\n", key, value));
+                css.push_str(&format!("  r-s[box*=\"margin-top:-{}\"] {{ margin-top: -{}; }}\n", key, value));
+                css.push_str(&format!("  r-s[box*=\"margin-right:-{}\"] {{ margin-right: -{}; }}\n", key, value));
+                css.push_str(&format!("  r-s[box*=\"margin-bottom:-{}\"] {{ margin-bottom: -{}; }}\n", key, value));
+                css.push_str(&format!("  r-s[box*=\"margin-left:-{}\"] {{ margin-left: -{}; }}\n", key, value));
             }
         }
         
@@ -135,25 +135,25 @@ impl BoxNamespace {
         css.push_str("\n  /* Width */\n");
         
         // Keywords
-        css.push_str("  reed[box*=\"width:full\"] { width: 100%; }\n");
-        css.push_str("  reed[box*=\"width:half\"] { width: 50%; }\n");
-        css.push_str("  reed[box*=\"width:third\"] { width: 33.333333%; }\n");
-        css.push_str("  reed[box*=\"width:quarter\"] { width: 25%; }\n");
-        css.push_str("  reed[box*=\"width:screen\"] { width: 100vw; }\n");
-        css.push_str("  reed[box*=\"width:auto\"] { width: auto; }\n");
-        css.push_str("  reed[box*=\"width:min\"] { width: min-content; }\n");
-        css.push_str("  reed[box*=\"width:max\"] { width: max-content; }\n");
-        css.push_str("  reed[box*=\"width:fit\"] { width: fit-content; }\n");
+        css.push_str("  r-s[box*=\"width:full\"] { width: 100%; }\n");
+        css.push_str("  r-s[box*=\"width:half\"] { width: 50%; }\n");
+        css.push_str("  r-s[box*=\"width:third\"] { width: 33.333333%; }\n");
+        css.push_str("  r-s[box*=\"width:quarter\"] { width: 25%; }\n");
+        css.push_str("  r-s[box*=\"width:screen\"] { width: 100vw; }\n");
+        css.push_str("  r-s[box*=\"width:auto\"] { width: auto; }\n");
+        css.push_str("  r-s[box*=\"width:min\"] { width: min-content; }\n");
+        css.push_str("  r-s[box*=\"width:max\"] { width: max-content; }\n");
+        css.push_str("  r-s[box*=\"width:fit\"] { width: fit-content; }\n");
         
         // Numeric (rem)
         for size in [32, 48, 64, 80, 96] {
-            css.push_str(&format!("  reed[box*=\"width:{}\"] {{ width: {}rem; }}\n", size, size));
+            css.push_str(&format!("  r-s[box*=\"width:{}\"] {{ width: {}rem; }}\n", size, size));
         }
         
         // Min/Max
         for size in [320, 480, 640, 768, 960, 1200, 1440] {
-            css.push_str(&format!("  reed[box*=\"min-width:{}\"] {{ min-width: {}px; }}\n", size, size));
-            css.push_str(&format!("  reed[box*=\"max-width:{}\"] {{ max-width: {}px; }}\n", size, size));
+            css.push_str(&format!("  r-s[box*=\"min-width:{}\"] {{ min-width: {}px; }}\n", size, size));
+            css.push_str(&format!("  r-s[box*=\"max-width:{}\"] {{ max-width: {}px; }}\n", size, size));
         }
         
         css
@@ -164,21 +164,21 @@ impl BoxNamespace {
         css.push_str("\n  /* Height */\n");
         
         // Keywords
-        css.push_str("  reed[box*=\"height:full\"] { height: 100%; }\n");
-        css.push_str("  reed[box*=\"height:screen\"] { height: 100vh; }\n");
-        css.push_str("  reed[box*=\"height:auto\"] { height: auto; }\n");
-        css.push_str("  reed[box*=\"height:min\"] { height: min-content; }\n");
-        css.push_str("  reed[box*=\"height:max\"] { height: max-content; }\n");
+        css.push_str("  r-s[box*=\"height:full\"] { height: 100%; }\n");
+        css.push_str("  r-s[box*=\"height:screen\"] { height: 100vh; }\n");
+        css.push_str("  r-s[box*=\"height:auto\"] { height: auto; }\n");
+        css.push_str("  r-s[box*=\"height:min\"] { height: min-content; }\n");
+        css.push_str("  r-s[box*=\"height:max\"] { height: max-content; }\n");
         
         // Numeric (rem)
         for size in [16, 24, 32, 48, 64] {
-            css.push_str(&format!("  reed[box*=\"height:{}\"] {{ height: {}rem; }}\n", size, size));
+            css.push_str(&format!("  r-s[box*=\"height:{}\"] {{ height: {}rem; }}\n", size, size));
         }
         
         // Min/Max
         for size in [100, 200, 300, 400, 500, 600] {
-            css.push_str(&format!("  reed[box*=\"min-height:{}\"] {{ min-height: {}px; }}\n", size, size));
-            css.push_str(&format!("  reed[box*=\"max-height:{}\"] {{ max-height: {}px; }}\n", size, size));
+            css.push_str(&format!("  r-s[box*=\"min-height:{}\"] {{ min-height: {}px; }}\n", size, size));
+            css.push_str(&format!("  r-s[box*=\"max-height:{}\"] {{ max-height: {}px; }}\n", size, size));
         }
         
         css
@@ -188,11 +188,11 @@ impl BoxNamespace {
         let mut css = String::new();
         css.push_str("\n  /* Display */\n");
         
-        css.push_str("  reed[box*=\"display:block\"] { display: block; }\n");
-        css.push_str("  reed[box*=\"display:inline\"] { display: inline; }\n");
-        css.push_str("  reed[box*=\"display:inline-block\"] { display: inline-block; }\n");
-        css.push_str("  reed[box*=\"display:none\"] { display: none; }\n");
-        css.push_str("  reed[box*=\"display:contents\"] { display: contents; }\n");
+        css.push_str("  r-s[box*=\"display:block\"] { display: block; }\n");
+        css.push_str("  r-s[box*=\"display:inline\"] { display: inline; }\n");
+        css.push_str("  r-s[box*=\"display:inline-block\"] { display: inline-block; }\n");
+        css.push_str("  r-s[box*=\"display:none\"] { display: none; }\n");
+        css.push_str("  r-s[box*=\"display:contents\"] { display: contents; }\n");
         
         css
     }
@@ -201,11 +201,11 @@ impl BoxNamespace {
         let mut css = String::new();
         css.push_str("\n  /* Position */\n");
         
-        css.push_str("  reed[box*=\"position:static\"] { position: static; }\n");
-        css.push_str("  reed[box*=\"position:relative\"] { position: relative; }\n");
-        css.push_str("  reed[box*=\"position:absolute\"] { position: absolute; }\n");
-        css.push_str("  reed[box*=\"position:fixed\"] { position: fixed; }\n");
-        css.push_str("  reed[box*=\"position:sticky\"] { position: sticky; }\n");
+        css.push_str("  r-s[box*=\"position:static\"] { position: static; }\n");
+        css.push_str("  r-s[box*=\"position:relative\"] { position: relative; }\n");
+        css.push_str("  r-s[box*=\"position:absolute\"] { position: absolute; }\n");
+        css.push_str("  r-s[box*=\"position:fixed\"] { position: fixed; }\n");
+        css.push_str("  r-s[box*=\"position:sticky\"] { position: sticky; }\n");
         
         css
     }
@@ -214,21 +214,21 @@ impl BoxNamespace {
         let mut css = String::new();
         css.push_str("\n  /* Overflow */\n");
         
-        css.push_str("  reed[box*=\"overflow:hidden\"] { overflow: hidden; }\n");
-        css.push_str("  reed[box*=\"overflow:auto\"] { overflow: auto; }\n");
-        css.push_str("  reed[box*=\"overflow:scroll\"] { overflow: scroll; }\n");
-        css.push_str("  reed[box*=\"overflow:visible\"] { overflow: visible; }\n");
-        css.push_str("  reed[box*=\"overflow:clip\"] { overflow: clip; }\n");
+        css.push_str("  r-s[box*=\"overflow:hidden\"] { overflow: hidden; }\n");
+        css.push_str("  r-s[box*=\"overflow:auto\"] { overflow: auto; }\n");
+        css.push_str("  r-s[box*=\"overflow:scroll\"] { overflow: scroll; }\n");
+        css.push_str("  r-s[box*=\"overflow:visible\"] { overflow: visible; }\n");
+        css.push_str("  r-s[box*=\"overflow:clip\"] { overflow: clip; }\n");
         
-        css.push_str("  reed[box*=\"overflow-x:hidden\"] { overflow-x: hidden; }\n");
-        css.push_str("  reed[box*=\"overflow-x:auto\"] { overflow-x: auto; }\n");
-        css.push_str("  reed[box*=\"overflow-x:scroll\"] { overflow-x: scroll; }\n");
-        css.push_str("  reed[box*=\"overflow-x:visible\"] { overflow-x: visible; }\n");
+        css.push_str("  r-s[box*=\"overflow-x:hidden\"] { overflow-x: hidden; }\n");
+        css.push_str("  r-s[box*=\"overflow-x:auto\"] { overflow-x: auto; }\n");
+        css.push_str("  r-s[box*=\"overflow-x:scroll\"] { overflow-x: scroll; }\n");
+        css.push_str("  r-s[box*=\"overflow-x:visible\"] { overflow-x: visible; }\n");
         
-        css.push_str("  reed[box*=\"overflow-y:hidden\"] { overflow-y: hidden; }\n");
-        css.push_str("  reed[box*=\"overflow-y:auto\"] { overflow-y: auto; }\n");
-        css.push_str("  reed[box*=\"overflow-y:scroll\"] { overflow-y: scroll; }\n");
-        css.push_str("  reed[box*=\"overflow-y:visible\"] { overflow-y: visible; }\n");
+        css.push_str("  r-s[box*=\"overflow-y:hidden\"] { overflow-y: hidden; }\n");
+        css.push_str("  r-s[box*=\"overflow-y:auto\"] { overflow-y: auto; }\n");
+        css.push_str("  r-s[box*=\"overflow-y:scroll\"] { overflow-y: scroll; }\n");
+        css.push_str("  r-s[box*=\"overflow-y:visible\"] { overflow-y: visible; }\n");
         
         css
     }
@@ -237,8 +237,8 @@ impl BoxNamespace {
         let mut css = String::new();
         css.push_str("\n  /* Box Sizing */\n");
         
-        css.push_str("  reed[box*=\"sizing:border\"] { box-sizing: border-box; }\n");
-        css.push_str("  reed[box*=\"sizing:content\"] { box-sizing: content-box; }\n");
+        css.push_str("  r-s[box*=\"sizing:border\"] { box-sizing: border-box; }\n");
+        css.push_str("  r-s[box*=\"sizing:content\"] { box-sizing: content-box; }\n");
         
         css
     }
@@ -247,11 +247,11 @@ impl BoxNamespace {
         let mut css = String::new();
         css.push_str("\n  /* Aspect Ratio */\n");
         
-        css.push_str("  reed[box*=\"aspect:square\"] { aspect-ratio: 1 / 1; }\n");
-        css.push_str("  reed[box*=\"aspect:video\"] { aspect-ratio: 16 / 9; }\n");
-        css.push_str("  reed[box*=\"aspect:photo\"] { aspect-ratio: 4 / 3; }\n");
-        css.push_str("  reed[box*=\"aspect:wide\"] { aspect-ratio: 21 / 9; }\n");
-        css.push_str("  reed[box*=\"aspect:portrait\"] { aspect-ratio: 3 / 4; }\n");
+        css.push_str("  r-s[box*=\"aspect:square\"] { aspect-ratio: 1 / 1; }\n");
+        css.push_str("  r-s[box*=\"aspect:video\"] { aspect-ratio: 16 / 9; }\n");
+        css.push_str("  r-s[box*=\"aspect:photo\"] { aspect-ratio: 4 / 3; }\n");
+        css.push_str("  r-s[box*=\"aspect:wide\"] { aspect-ratio: 21 / 9; }\n");
+        css.push_str("  r-s[box*=\"aspect:portrait\"] { aspect-ratio: 3 / 4; }\n");
         
         css
     }
@@ -274,16 +274,16 @@ impl BoxNamespace {
         ];
         
         for (key, value) in &scale {
-            css.push_str(&format!("    reed[box-{}*=\"padding:{}\"] {{ padding: {}; }}\n", breakpoint, key, value));
-            css.push_str(&format!("    reed[box-{}*=\"padding-x:{}\"] {{ padding-left: {}; padding-right: {}; }}\n", breakpoint, key, value, value));
-            css.push_str(&format!("    reed[box-{}*=\"padding-y:{}\"] {{ padding-top: {}; padding-bottom: {}; }}\n", breakpoint, key, value, value));
+            css.push_str(&format!("    r-s[box-{}*=\"padding:{}\"] {{ padding: {}; }}\n", breakpoint, key, value));
+            css.push_str(&format!("    r-s[box-{}*=\"padding-x:{}\"] {{ padding-left: {}; padding-right: {}; }}\n", breakpoint, key, value, value));
+            css.push_str(&format!("    r-s[box-{}*=\"padding-y:{}\"] {{ padding-top: {}; padding-bottom: {}; }}\n", breakpoint, key, value, value));
         }
         
         // Display responsive
-        css.push_str(&format!("    reed[box-{}*=\"display:block\"] {{ display: block; }}\n", breakpoint));
-        css.push_str(&format!("    reed[box-{}*=\"display:none\"] {{ display: none; }}\n", breakpoint));
-        css.push_str(&format!("    reed[box-{}*=\"display:flex\"] {{ display: flex; }}\n", breakpoint));
-        css.push_str(&format!("    reed[box-{}*=\"display:grid\"] {{ display: grid; }}\n", breakpoint));
+        css.push_str(&format!("    r-s[box-{}*=\"display:block\"] {{ display: block; }}\n", breakpoint));
+        css.push_str(&format!("    r-s[box-{}*=\"display:none\"] {{ display: none; }}\n", breakpoint));
+        css.push_str(&format!("    r-s[box-{}*=\"display:flex\"] {{ display: flex; }}\n", breakpoint));
+        css.push_str(&format!("    r-s[box-{}*=\"display:grid\"] {{ display: grid; }}\n", breakpoint));
         
         css.push_str("  }\n");
         

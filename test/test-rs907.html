@@ -8,159 +8,159 @@
     <script src="../dist/reedstyle.js" defer></script>
 </head>
 <body>
-    <reed as="header" box="[padding:8, margin-bottom:6]" face="[bg:brand-a, color:base-0]" text="[align:center]">
-        <reed as="h1" text="[size:ultra, weight:bold]">ReedSTYLE Test</reed>
-        <reed as="p" text="[size:large, weight:light]">Namespace CSS Generation</reed>
-    </reed>
+    <r-s as="header" box="[padding:8, margin-bottom:6]" face="[bg:brand-a, color:base-0]" text="[align:center]">
+        <r-s as="h1" text="[size:ultra, weight:bold]">ReedSTYLE Test</r-s>
+        <r-s as="p" text="[size:large, weight:light]">Namespace CSS Generation</r-s>
+    </r-s>
 
-    <reed as="main" box="[padding:4, max-width:1200, margin-x:auto]">
+    <r-s as="main" box="[padding:4, max-width:1200, margin-x:auto]">
         <!-- Grid Layout Test -->
-        <reed as="section" box="[margin-y:8]">
-            <reed as="h2" text="[size:mega, weight:bold, color:base-900]">Grid Layout Test</reed>
-            <reed as="div" layout="[grid:3, gap:4]" box="[margin-top:4]">
-                <reed as="card" 
+        <r-s as="section" box="[margin-y:8]">
+            <r-s as="h2" text="[size:mega, weight:bold, color:base-900]">Grid Layout Test</r-s>
+            <r-s as="div" layout="[grid:3, gap:4]" box="[margin-top:4]">
+                <r-s as="card" 
                       face="[bg:base-0, radius:lg, shadow:md, border:1]" 
                       box="[padding:6]"
                       fx="[hover:lift, transition:smooth]">
-                    <reed as="h3" text="[size:large, weight:semibold]">Card 1</reed>
-                    <reed as="p" text="[color:base-700]">Box namespace for spacing</reed>
-                </reed>
+                    <r-s as="h3" text="[size:large, weight:semibold]">Card 1</r-s>
+                    <r-s as="p" text="[color:base-700]">Box namespace for spacing</r-s>
+                </r-s>
                 
-                <reed as="card" 
+                <r-s as="card" 
                       face="[bg:brand-a-weak, radius:lg, shadow:md]" 
                       box="[padding:6]"
                       fx="[hover:scale:1.05, transition:smooth]">
-                    <reed as="h3" text="[size:large, weight:semibold]">Card 2</reed>
-                    <reed as="p" text="[color:base-700]">Face namespace for appearance</reed>
-                </reed>
+                    <r-s as="h3" text="[size:large, weight:semibold]">Card 2</r-s>
+                    <r-s as="p" text="[color:base-700]">Face namespace for appearance</r-s>
+                </r-s>
                 
-                <reed as="card" 
+                <r-s as="card" 
                       face="[bg:brand-b-weak, radius:lg, shadow:md]" 
                       box="[padding:6]"
                       fx="[hover:glow, transition:smooth]">
-                    <reed as="h3" text="[size:large, weight:semibold]">Card 3</reed>
-                    <reed as="p" text="[color:base-700]">FX namespace for effects</reed>
-                </reed>
-            </reed>
-        </reed>
+                    <r-s as="h3" text="[size:large, weight:semibold]">Card 3</r-s>
+                    <r-s as="p" text="[color:base-700]">FX namespace for effects</r-s>
+                </r-s>
+            </r-s>
+        </r-s>
 
         <!-- Flexbox Layout Test -->
-        <reed as="section" box="[margin-y:8]">
-            <reed as="h2" text="[size:mega, weight:bold, color:base-900]">Flexbox Test</reed>
-            <reed as="div" layout="[flex:row, justify:between, align:center, gap:4]" box="[margin-top:4]">
-                <reed as="button" 
+        <r-s as="section" box="[margin-y:8]">
+            <r-s as="h2" text="[size:mega, weight:bold, color:base-900]">Flexbox Test</r-s>
+            <r-s as="div" layout="[flex:row, justify:between, align:center, gap:4]" box="[margin-top:4]">
+                <r-s as="button" 
                       face="[bg:brand-a, radius:md]" 
                       box="[padding-x:6, padding-y:3]"
                       text="[color:base-0, weight:bold]"
                       device="[cursor:pointer]"
                       fx="[hover:brightness:110, active:scale:0.95, transition:fast]">
                     Primary Button
-                </reed>
+                </r-s>
                 
-                <reed as="button" 
+                <r-s as="button" 
                       face="[bg:base-200, radius:md]" 
                       box="[padding-x:6, padding-y:3]"
                       text="[color:base-900, weight:medium]"
                       device="[cursor:pointer]"
                       fx="[hover:bg:base-300, transition:fast]">
                     Secondary Button
-                </reed>
+                </r-s>
                 
-                <reed as="button" 
+                <r-s as="button" 
                       face="[border:2:brand-a, radius:md, bg:transparent]" 
                       box="[padding-x:6, padding-y:3]"
                       text="[color:brand-a, weight:medium]"
                       device="[cursor:pointer]"
                       fx="[hover:bg:brand-a, hover:color:base-0, transition:fast]">
                     Outline Button
-                </reed>
-            </reed>
-        </reed>
+                </r-s>
+            </r-s>
+        </r-s>
 
         <!-- Typography Test -->
-        <reed as="section" box="[margin-y:8]">
-            <reed as="h2" text="[size:mega, weight:bold, color:base-900]">Typography Test</reed>
-            <reed as="div" box="[margin-top:4]" layout="[stack, gap:3]">
-                <reed as="p" text="[size:tiny]">Tiny text size (0.75rem)</reed>
-                <reed as="p" text="[size:small]">Small text size (0.875rem)</reed>
-                <reed as="p" text="[size:normal]">Normal text size (1rem)</reed>
-                <reed as="p" text="[size:large]">Large text size (1.25rem)</reed>
-                <reed as="p" text="[size:huge]">Huge text size (1.5rem)</reed>
-                <reed as="p" text="[size:mega]">Mega text size (2rem)</reed>
-                <reed as="p" text="[size:ultra]">Ultra text size (3rem)</reed>
-            </reed>
-        </reed>
+        <r-s as="section" box="[margin-y:8]">
+            <r-s as="h2" text="[size:mega, weight:bold, color:base-900]">Typography Test</r-s>
+            <r-s as="div" box="[margin-top:4]" layout="[stack, gap:3]">
+                <r-s as="p" text="[size:tiny]">Tiny text size (0.75rem)</r-s>
+                <r-s as="p" text="[size:small]">Small text size (0.875rem)</r-s>
+                <r-s as="p" text="[size:normal]">Normal text size (1rem)</r-s>
+                <r-s as="p" text="[size:large]">Large text size (1.25rem)</r-s>
+                <r-s as="p" text="[size:huge]">Huge text size (1.5rem)</r-s>
+                <r-s as="p" text="[size:mega]">Mega text size (2rem)</r-s>
+                <r-s as="p" text="[size:ultra]">Ultra text size (3rem)</r-s>
+            </r-s>
+        </r-s>
 
         <!-- Responsive Test -->
-        <reed as="section" box="[margin-y:8]">
-            <reed as="h2" text="[size:mega, weight:bold, color:base-900]">Responsive Test</reed>
-            <reed as="div" 
+        <r-s as="section" box="[margin-y:8]">
+            <r-s as="h2" text="[size:mega, weight:bold, color:base-900]">Responsive Test</r-s>
+            <r-s as="div" 
                   layout="[grid:1]"
                   layout-tablet="[grid:2, gap:4]"
                   layout-screen="[grid:3, gap:6]"
                   box="[margin-top:4]">
-                <reed as="div" 
+                <r-s as="div" 
                       face="[bg:state-success, radius:md]" 
                       box="[padding:4]"
                       box-tablet="[padding:6]"
                       box-screen="[padding:8]"
                       text="[color:base-0, align:center]">
                     Responsive Padding
-                </reed>
-                <reed as="div" 
+                </r-s>
+                <r-s as="div" 
                       face="[bg:state-warning, radius:md]" 
                       box="[padding:4]"
                       text="[color:base-0, align:center, size:normal]"
                       text-tablet="[size:large]"
                       text-screen="[size:huge]">
                     Responsive Text
-                </reed>
-                <reed as="div" 
+                </r-s>
+                <r-s as="div" 
                       face="[bg:state-info, radius:md]" 
                       box="[padding:4, display:none]"
                       box-tablet="[display:block]"
                       text="[color:base-0, align:center]">
                     Hidden on Mobile
-                </reed>
-            </reed>
-        </reed>
+                </r-s>
+            </r-s>
+        </r-s>
 
         <!-- Animation Test -->
-        <reed as="section" box="[margin-y:8]">
-            <reed as="h2" text="[size:mega, weight:bold, color:base-900]">Animation Test</reed>
-            <reed as="div" layout="[flex:row, gap:4, justify:center]" box="[margin-top:4]">
-                <reed as="div" 
+        <r-s as="section" box="[margin-y:8]">
+            <r-s as="h2" text="[size:mega, weight:bold, color:base-900]">Animation Test</r-s>
+            <r-s as="div" layout="[flex:row, gap:4, justify:center]" box="[margin-top:4]">
+                <r-s as="div" 
                       face="[bg:brand-c, radius:full]" 
                       box="[width:16, height:16]"
                       fx="[animate:spin]"
                       layout="[flex, align:center, justify:center]"
                       text="[color:base-0]">
                     ⟳
-                </reed>
-                <reed as="div" 
+                </r-s>
+                <r-s as="div" 
                       face="[bg:brand-d, radius:md]" 
                       box="[padding:4]"
                       fx="[animate:pulse]"
                       text="[color:base-0]">
                     Pulse
-                </reed>
-                <reed as="div" 
+                </r-s>
+                <r-s as="div" 
                       face="[bg:brand-e, radius:md]" 
                       box="[padding:4]"
                       fx="[animate:bounce]"
                       text="[color:base-900]">
                     Bounce
-                </reed>
-            </reed>
-        </reed>
-    </reed>
+                </r-s>
+            </r-s>
+        </r-s>
+    </r-s>
 
-    <reed as="footer" 
+    <r-s as="footer" 
           box="[padding:6, margin-top:12]" 
           face="[bg:base-900, border-top:1:base-700]"
           text="[color:base-200, align:center]">
-        <reed as="p">ReedSTYLE RS907 - Namespace CSS Generation Complete</reed>
-        <reed as="p" text="[size:small, color:base-400]">All 6 namespaces working with responsive variants</reed>
-    </reed>
+        <r-s as="p">ReedSTYLE RS907 - Namespace CSS Generation Complete</r-s>
+        <r-s as="p" text="[size:small, color:base-400]">All 6 namespaces working with responsive variants</r-s>
+    </r-s>
 </body>
 </html>

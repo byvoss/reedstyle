@@ -44,7 +44,7 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     // Click effects
     js.push_str("    initClickEffects() {\n");
     js.push_str("      document.addEventListener('click', (e) => {\n");
-    js.push_str("        const reed = e.target.closest('reed[fx*=\"click:\"]');\n");
+    js.push_str("        const reed = e.target.closest('r-s[fx*=\"click:\"]');\n");
     js.push_str("        if (!reed) return;\n");
     js.push_str("        const fx = reed.getAttribute('fx');\n");
     js.push_str("        if (fx.includes('click:ripple')) {\n");
@@ -56,7 +56,7 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     // Ripple effect
     js.push_str("    createRipple(event, element) {\n");
     js.push_str("      const ripple = document.createElement('span');\n");
-    js.push_str("      ripple.className = 'reed-ripple';\n");
+    js.push_str("      ripple.className = 'r-s-ripple';\n");
     js.push_str("      const rect = element.getBoundingClientRect();\n");
     js.push_str("      const x = event.clientX - rect.left;\n");
     js.push_str("      const y = event.clientY - rect.top;\n");
@@ -78,7 +78,7 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     
     // Scroll effects
     js.push_str("    initScrollEffects() {\n");
-    js.push_str("      const elements = document.querySelectorAll('reed[fx*=\"scroll:\"]');\n");
+    js.push_str("      const elements = document.querySelectorAll('r-s[fx*=\"scroll:\"]');\n");
     js.push_str("      if (elements.length === 0) return;\n\n");
     js.push_str("      console.log('Found', elements.length, 'elements with scroll effects');\n\n");
     js.push_str("      const observer = new IntersectionObserver(\n");
@@ -120,7 +120,7 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     // Stagger support
     js.push_str("    applyStagger(element, fx) {\n");
     js.push_str("      const siblings = [...element.parentElement.children].filter(el => \n");
-    js.push_str("        el.tagName === 'REED' && el.getAttribute('fx')?.includes('stagger:')\n");
+    js.push_str("        el.tagName === 'R-S' && el.getAttribute('fx')?.includes('stagger:')\n");
     js.push_str("      );\n");
     js.push_str("      const index = siblings.indexOf(element);\n");
     js.push_str("      const staggerMatch = fx.match(/stagger:(\\w+)/);\n");
@@ -139,7 +139,7 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("  // Inject CSS for dynamic effects\n");
     js.push_str("  const style = document.createElement('style');\n");
     js.push_str("  style.textContent = `\n");
-    js.push_str("    .reed-ripple {\n");
+    js.push_str("    .r-s-ripple {\n");
     js.push_str("      position: absolute;\n");
     js.push_str("      border-radius: 50%;\n");
     js.push_str("      background: rgba(255, 255, 255, 0.6);\n");

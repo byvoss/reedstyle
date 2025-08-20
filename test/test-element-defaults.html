@@ -8,273 +8,273 @@
     <script src="../dist/reedstyle.js" defer></script>
 </head>
 <body>
-    <reed as="header" box="[padding:8]" face="[bg:brand-a]" text="[color:base-0, align:center]">
-        <reed as="h1" text="[size:ultra, weight:bold]">Reed Element Defaults Test</reed>
-        <reed as="p" text="[size:large]">Testing that reed elements inherit HTML element defaults correctly</reed>
-    </reed>
+    <r-s as="header" box="[padding:8]" face="[bg:brand-a]" text="[color:base-0, align:center]">
+        <r-s as="h1" text="[size:ultra, weight:bold]">Reed Element Defaults Test</r-s>
+        <r-s as="p" text="[size:large]">Testing that reed elements inherit HTML element defaults correctly</r-s>
+    </r-s>
 
-    <reed as="main" box="[max-width:1200, margin-x:auto, padding:4]">
+    <r-s as="main" box="[max-width:1200, margin-x:auto, padding:4]">
         
         <!-- Headings Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Headings (using as="h1" through as="h6")</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Headings (using as="h1" through as="h6")</r-s>
             
-            <reed as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
-                <reed as="p" text="[size:small, color:base-600]">These headings use ONLY the 'as' attribute - no additional styling:</reed>
-                <reed as="h1">H1 Heading - should have 2em size, bold, and margins</reed>
-                <reed as="h2">H2 Heading - should have 1.5em size, bold, and margins</reed>
-                <reed as="h3">H3 Heading - should have 1.17em size, bold, and margins</reed>
-                <reed as="h4">H4 Heading - should have 1em size, bold, and margins</reed>
-                <reed as="h5">H5 Heading - should have 0.83em size, bold, and margins</reed>
-                <reed as="h6">H6 Heading - should have 0.67em size, bold, and margins</reed>
-                <reed as="p" text="[size:small, color:base-600]">Note the varying sizes and spacing between headings.</reed>
-            </reed>
+            <r-s as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
+                <r-s as="p" text="[size:small, color:base-600]">These headings use ONLY the 'as' attribute - no additional styling:</r-s>
+                <r-s as="h1">H1 Heading - should have 2em size, bold, and margins</r-s>
+                <r-s as="h2">H2 Heading - should have 1.5em size, bold, and margins</r-s>
+                <r-s as="h3">H3 Heading - should have 1.17em size, bold, and margins</r-s>
+                <r-s as="h4">H4 Heading - should have 1em size, bold, and margins</r-s>
+                <r-s as="h5">H5 Heading - should have 0.83em size, bold, and margins</r-s>
+                <r-s as="h6">H6 Heading - should have 0.67em size, bold, and margins</r-s>
+                <r-s as="p" text="[size:small, color:base-600]">Note the varying sizes and spacing between headings.</r-s>
+            </r-s>
             
-            <reed as="p" text="[size:small, color:base-600, margin-top:3]">
+            <r-s as="p" text="[size:small, color:base-600, margin-top:3]">
                 Note: These headings should have their standard sizes and margins without any explicit styling.
-            </reed>
-        </reed>
+            </r-s>
+        </r-s>
         
         <!-- Text Elements Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Text Elements</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Text Elements</r-s>
             
-            <reed as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
-                <reed as="p">This is a paragraph using as="p" with default margins.</reed>
-                <reed as="p">
-                    This paragraph has <reed as="strong">strong text</reed> and <reed as="em">emphasized text</reed>.
-                </reed>
-                <reed as="p">
-                    Also <reed as="b">bold</reed>, <reed as="i">italic</reed>, and <reed as="small">small text</reed>.
-                </reed>
-                <reed as="p">
-                    Here's some <reed as="code">inline code</reed> and <reed as="mark">highlighted text</reed>.
-                </reed>
-                <reed as="p">
-                    Subscript: H<reed as="sub">2</reed>O and Superscript: E=mc<reed as="sup">2</reed>
-                </reed>
-                <reed as="blockquote">This is a blockquote with default indentation and margins.</reed>
-                <reed as="pre">This is preformatted text
+            <r-s as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
+                <r-s as="p">This is a paragraph using as="p" with default margins.</r-s>
+                <r-s as="p">
+                    This paragraph has <r-s as="strong">strong text</r-s> and <r-s as="em">emphasized text</r-s>.
+                </r-s>
+                <r-s as="p">
+                    Also <r-s as="b">bold</r-s>, <r-s as="i">italic</r-s>, and <r-s as="small">small text</r-s>.
+                </r-s>
+                <r-s as="p">
+                    Here's some <r-s as="code">inline code</r-s> and <r-s as="mark">highlighted text</r-s>.
+                </r-s>
+                <r-s as="p">
+                    Subscript: H<r-s as="sub">2</r-s>O and Superscript: E=mc<r-s as="sup">2</r-s>
+                </r-s>
+                <r-s as="blockquote">This is a blockquote with default indentation and margins.</r-s>
+                <r-s as="pre">This is preformatted text
     with preserved spacing
-        and line breaks</reed>
-            </reed>
-        </reed>
+        and line breaks</r-s>
+            </r-s>
+        </r-s>
         
         <!-- Lists Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Lists</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Lists</r-s>
             
-            <reed as="div" layout="[grid:2, gap:4]">
-                <reed as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
-                    <reed as="h3" text="[weight:semibold, margin-bottom:3]">Unordered List</reed>
-                    <reed as="ul">
-                        <reed as="li">First item with bullet</reed>
-                        <reed as="li">Second item with bullet</reed>
-                        <reed as="li">Third item with bullet</reed>
-                    </reed>
-                </reed>
+            <r-s as="div" layout="[grid:2, gap:4]">
+                <r-s as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
+                    <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Unordered List</r-s>
+                    <r-s as="ul">
+                        <r-s as="li">First item with bullet</r-s>
+                        <r-s as="li">Second item with bullet</r-s>
+                        <r-s as="li">Third item with bullet</r-s>
+                    </r-s>
+                </r-s>
                 
-                <reed as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
-                    <reed as="h3" text="[weight:semibold, margin-bottom:3]">Ordered List</reed>
-                    <reed as="ol">
-                        <reed as="li">First item numbered</reed>
-                        <reed as="li">Second item numbered</reed>
-                        <reed as="li">Third item numbered</reed>
-                    </reed>
-                </reed>
-            </reed>
+                <r-s as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
+                    <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Ordered List</r-s>
+                    <r-s as="ol">
+                        <r-s as="li">First item numbered</r-s>
+                        <r-s as="li">Second item numbered</r-s>
+                        <r-s as="li">Third item numbered</r-s>
+                    </r-s>
+                </r-s>
+            </r-s>
             
-            <reed as="div" face="[bg:base-50, radius:md]" box="[padding:4, margin-top:4]">
-                <reed as="h3" text="[weight:semibold, margin-bottom:3]">Definition List</reed>
-                <reed as="dl">
-                    <reed as="dt">Definition Term</reed>
-                    <reed as="dd">Definition Description with indentation</reed>
-                    <reed as="dt">Another Term</reed>
-                    <reed as="dd">Another Description with indentation</reed>
-                </reed>
-            </reed>
-        </reed>
+            <r-s as="div" face="[bg:base-50, radius:md]" box="[padding:4, margin-top:4]">
+                <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Definition List</r-s>
+                <r-s as="dl">
+                    <r-s as="dt">Definition Term</r-s>
+                    <r-s as="dd">Definition Description with indentation</r-s>
+                    <r-s as="dt">Another Term</r-s>
+                    <r-s as="dd">Another Description with indentation</r-s>
+                </r-s>
+            </r-s>
+        </r-s>
         
         <!-- Tables Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Tables</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Tables</r-s>
             
-            <reed as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
-                <reed as="table" face="[border:1:base-300]">
-                    <reed as="caption">Table Caption (centered by default)</reed>
-                    <reed as="thead">
-                        <reed as="tr">
-                            <reed as="th" face="[bg:base-100]">Header 1 (bold & centered)</reed>
-                            <reed as="th" face="[bg:base-100]">Header 2 (bold & centered)</reed>
-                        </reed>
-                    </reed>
-                    <reed as="tbody">
-                        <reed as="tr">
-                            <reed as="td">Cell 1</reed>
-                            <reed as="td">Cell 2</reed>
-                        </reed>
-                        <reed as="tr">
-                            <reed as="td">Cell 3</reed>
-                            <reed as="td">Cell 4</reed>
-                        </reed>
-                    </reed>
-                </reed>
-            </reed>
-        </reed>
+            <r-s as="div" face="[bg:base-50, radius:md]" box="[padding:4]">
+                <r-s as="table" face="[border:1:base-300]">
+                    <r-s as="caption">Table Caption (centered by default)</r-s>
+                    <r-s as="thead">
+                        <r-s as="tr">
+                            <r-s as="th" face="[bg:base-100]">Header 1 (bold & centered)</r-s>
+                            <r-s as="th" face="[bg:base-100]">Header 2 (bold & centered)</r-s>
+                        </r-s>
+                    </r-s>
+                    <r-s as="tbody">
+                        <r-s as="tr">
+                            <r-s as="td">Cell 1</r-s>
+                            <r-s as="td">Cell 2</r-s>
+                        </r-s>
+                        <r-s as="tr">
+                            <r-s as="td">Cell 3</r-s>
+                            <r-s as="td">Cell 4</r-s>
+                        </r-s>
+                    </r-s>
+                </r-s>
+            </r-s>
+        </r-s>
         
         <!-- Default Behavior Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Default Behavior (no 'as' attribute)</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Default Behavior (no 'as' attribute)</r-s>
             
-            <reed as="p" text="[margin-bottom:3]">
+            <r-s as="p" text="[margin-bottom:3]">
                 Reed elements without 'as' attribute should behave as div (block element):
-            </reed>
+            </r-s>
             
-            <reed face="[bg:brand-a-weak, radius:md]" box="[padding:3, margin-y:2]">
+            <r-s face="[bg:brand-a-weak, radius:md]" box="[padding:3, margin-y:2]">
                 This is a reed without 'as' attribute - should display as block
-            </reed>
-            <reed face="[bg:brand-b-weak, radius:md]" box="[padding:3, margin-y:2]">
+            </r-s>
+            <r-s face="[bg:brand-b-weak, radius:md]" box="[padding:3, margin-y:2]">
                 Another reed without 'as' - should be on new line
-            </reed>
-            <reed face="[bg:brand-c-weak, radius:md]" box="[padding:3, margin-y:2]">
+            </r-s>
+            <r-s face="[bg:brand-c-weak, radius:md]" box="[padding:3, margin-y:2]">
                 Third reed - also block display
-            </reed>
-        </reed>
+            </r-s>
+        </r-s>
         
         <!-- Inline vs Block Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Inline vs Block Display</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Inline vs Block Display</r-s>
             
-            <reed as="div" box="[margin-y:4]">
-                <reed as="h3" text="[weight:semibold, margin-bottom:3]">Block Elements (stack vertically)</reed>
-                <reed as="div" face="[bg:state-error-weak]" box="[padding:2, margin-y:1]">Div element (block)</reed>
-                <reed as="p" face="[bg:state-success-weak]" box="[padding:2, margin-y:1]">Paragraph element (block)</reed>
-                <reed as="section" face="[bg:state-info-weak]" box="[padding:2, margin-y:1]">Section element (block)</reed>
-                <reed as="article" face="[bg:state-warning-weak]" box="[padding:2, margin-y:1]">Article element (block)</reed>
-            </reed>
+            <r-s as="div" box="[margin-y:4]">
+                <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Block Elements (stack vertically)</r-s>
+                <r-s as="div" face="[bg:state-error-weak]" box="[padding:2, margin-y:1]">Div element (block)</r-s>
+                <r-s as="p" face="[bg:state-success-weak]" box="[padding:2, margin-y:1]">Paragraph element (block)</r-s>
+                <r-s as="section" face="[bg:state-info-weak]" box="[padding:2, margin-y:1]">Section element (block)</r-s>
+                <r-s as="article" face="[bg:state-warning-weak]" box="[padding:2, margin-y:1]">Article element (block)</r-s>
+            </r-s>
             
-            <reed as="div" box="[margin-y:4]">
-                <reed as="h3" text="[weight:semibold, margin-bottom:3]">Inline Elements (flow horizontally)</reed>
-                <reed as="div" face="[bg:base-100]" box="[padding:3]">
-                    <reed as="span" face="[bg:state-error-weak]" box="[padding:1]">Span</reed>
-                    <reed as="strong" face="[bg:state-success-weak]" box="[padding:1]">Strong</reed>
-                    <reed as="em" face="[bg:state-info-weak]" box="[padding:1]">Em</reed>
-                    <reed as="code" face="[bg:state-warning-weak]" box="[padding:1]">Code</reed>
-                    <reed as="small" face="[bg:brand-a-weak]" box="[padding:1]">Small</reed>
-                    <reed as="b" face="[bg:brand-b-weak]" box="[padding:1]">Bold</reed>
-                    <reed as="i" face="[bg:brand-c-weak]" box="[padding:1]">Italic</reed>
-                </reed>
-            </reed>
-        </reed>
+            <r-s as="div" box="[margin-y:4]">
+                <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Inline Elements (flow horizontally)</r-s>
+                <r-s as="div" face="[bg:base-100]" box="[padding:3]">
+                    <r-s as="span" face="[bg:state-error-weak]" box="[padding:1]">Span</r-s>
+                    <r-s as="strong" face="[bg:state-success-weak]" box="[padding:1]">Strong</r-s>
+                    <r-s as="em" face="[bg:state-info-weak]" box="[padding:1]">Em</r-s>
+                    <r-s as="code" face="[bg:state-warning-weak]" box="[padding:1]">Code</r-s>
+                    <r-s as="small" face="[bg:brand-a-weak]" box="[padding:1]">Small</r-s>
+                    <r-s as="b" face="[bg:brand-b-weak]" box="[padding:1]">Bold</r-s>
+                    <r-s as="i" face="[bg:brand-c-weak]" box="[padding:1]">Italic</r-s>
+                </r-s>
+            </r-s>
+        </r-s>
         
         <!-- Custom Components Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Custom Components (from YAML)</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Custom Components (from YAML)</r-s>
             
-            <reed as="p" text="[margin-bottom:4]">
-                These components are defined in <reed as="code">reedstyle.components.yaml</reed>
-            </reed>
+            <r-s as="p" text="[margin-bottom:4]">
+                These components are defined in <r-s as="code">reedstyle.components.yaml</r-s>
+            </r-s>
             
-            <reed as="div" box="[margin-y:4]">
-                <reed as="h3" text="[weight:semibold, margin-bottom:3]">Card Component</reed>
-                <reed as="card">
-                    <reed as="card-header">Card Header</reed>
-                    <reed as="card-body">
+            <r-s as="div" box="[margin-y:4]">
+                <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Card Component</r-s>
+                <r-s as="card">
+                    <r-s as="card-header">Card Header</r-s>
+                    <r-s as="card-body">
                         This is the card body content. The card component inherits from 'article' element
                         and adds custom styling through namespaces.
-                    </reed>
-                    <reed as="card-footer">Card Footer</reed>
-                </reed>
-            </reed>
+                    </r-s>
+                    <r-s as="card-footer">Card Footer</r-s>
+                </r-s>
+            </r-s>
             
-            <reed as="div" box="[margin-y:4]">
-                <reed as="h3" text="[weight:semibold, margin-bottom:3]">Button Components</reed>
-                <reed as="div" layout="[flex:row, gap:3]">
-                    <reed as="button-primary">Primary Button</reed>
-                    <reed as="button-secondary">Secondary Button</reed>
-                    <reed as="button-ghost">Ghost Button</reed>
-                </reed>
-            </reed>
+            <r-s as="div" box="[margin-y:4]">
+                <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Button Components</r-s>
+                <r-s as="div" layout="[flex:row, gap:3]">
+                    <r-s as="button-primary">Primary Button</r-s>
+                    <r-s as="button-secondary">Secondary Button</r-s>
+                    <r-s as="button-ghost">Ghost Button</r-s>
+                </r-s>
+            </r-s>
             
-            <reed as="div" box="[margin-y:4]">
-                <reed as="h3" text="[weight:semibold, margin-bottom:3]">Alert Components</reed>
-                <reed as="div" layout="[stack, gap:2]">
-                    <reed as="alert-success">Success alert message</reed>
-                    <reed as="alert-warning">Warning alert message</reed>
-                    <reed as="alert-error">Error alert message</reed>
-                    <reed as="alert-info">Info alert message</reed>
-                </reed>
-            </reed>
-        </reed>
+            <r-s as="div" box="[margin-y:4]">
+                <r-s as="h3" text="[weight:semibold, margin-bottom:3]">Alert Components</r-s>
+                <r-s as="div" layout="[stack, gap:2]">
+                    <r-s as="alert-success">Success alert message</r-s>
+                    <r-s as="alert-warning">Warning alert message</r-s>
+                    <r-s as="alert-error">Error alert message</r-s>
+                    <r-s as="alert-info">Info alert message</r-s>
+                </r-s>
+            </r-s>
+        </r-s>
         
         <!-- Form Elements Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Form Elements</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Form Elements</r-s>
             
-            <reed as="form" layout="[stack, gap:4]">
-                <reed as="fieldset" face="[border:2:base-400]">
-                    <reed as="legend">Fieldset Legend</reed>
+            <r-s as="form" layout="[stack, gap:4]">
+                <r-s as="fieldset" face="[border:2:base-400]">
+                    <r-s as="legend">Fieldset Legend</r-s>
                     
-                    <reed as="div" layout="[stack, gap:3]" box="[padding:3]">
-                        <reed as="div">
-                            <reed as="label">Label for input: </reed>
-                            <reed as="input" face="[border:1:base-300]" box="[padding:2]" />
-                        </reed>
+                    <r-s as="div" layout="[stack, gap:3]" box="[padding:3]">
+                        <r-s as="div">
+                            <r-s as="label">Label for input: </r-s>
+                            <r-s as="input" face="[border:1:base-300]" box="[padding:2]" />
+                        </r-s>
                         
-                        <reed as="div">
-                            <reed as="label">Textarea: </reed>
-                            <reed as="textarea" face="[border:1:base-300]" box="[padding:2, width:full]">Default textarea content</reed>
-                        </reed>
+                        <r-s as="div">
+                            <r-s as="label">Textarea: </r-s>
+                            <r-s as="textarea" face="[border:1:base-300]" box="[padding:2, width:full]">Default textarea content</r-s>
+                        </r-s>
                         
-                        <reed as="div">
-                            <reed as="button" face="[bg:brand-a]" text="[color:base-0]" box="[padding-x:4, padding-y:2]">
+                        <r-s as="div">
+                            <r-s as="button" face="[bg:brand-a]" text="[color:base-0]" box="[padding-x:4, padding-y:2]">
                                 Button Element
-                            </reed>
-                        </reed>
-                    </reed>
-                </reed>
-            </reed>
-        </reed>
+                            </r-s>
+                        </r-s>
+                    </r-s>
+                </r-s>
+            </r-s>
+        </r-s>
         
         <!-- Details/Summary Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Interactive Elements</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Interactive Elements</r-s>
             
-            <reed as="details" face="[border:1:base-300]" box="[padding:3]">
-                <reed as="summary" text="[weight:semibold]">Click to expand details</reed>
-                <reed as="p" box="[margin-top:3]">
+            <r-s as="details" face="[border:1:base-300]" box="[padding:3]">
+                <r-s as="summary" text="[weight:semibold]">Click to expand details</r-s>
+                <r-s as="p" box="[margin-top:3]">
                     This content is hidden until the summary is clicked.
                     The details/summary elements provide native expand/collapse functionality.
-                </reed>
-            </reed>
-        </reed>
+                </r-s>
+            </r-s>
+        </r-s>
         
         <!-- Other Elements Test -->
-        <reed as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
-            <reed as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Other Elements</reed>
+        <r-s as="section" box="[margin-y:6, padding:6]" face="[border:1:base-200, radius:lg]">
+            <r-s as="h2" text="[size:huge, weight:bold, color:base-900, margin-bottom:4]">Other Elements</r-s>
             
-            <reed as="p">Text before horizontal rule:</reed>
-            <reed as="hr" />
-            <reed as="p">Text after horizontal rule</reed>
+            <r-s as="p">Text before horizontal rule:</r-s>
+            <r-s as="hr" />
+            <r-s as="p">Text after horizontal rule</r-s>
             
-            <reed as="p">
-                Line breaks: First line<reed as="br" />Second line<reed as="br" />Third line
-            </reed>
+            <r-s as="p">
+                Line breaks: First line<r-s as="br" />Second line<r-s as="br" />Third line
+            </r-s>
             
-            <reed as="address">
-                123 Main Street<reed as="br" />
-                City, State 12345<reed as="br" />
+            <r-s as="address">
+                123 Main Street<r-s as="br" />
+                City, State 12345<r-s as="br" />
                 email@example.com
-            </reed>
-        </reed>
+            </r-s>
+        </r-s>
         
-    </reed>
+    </r-s>
 
-    <reed as="footer" box="[padding:6, margin-top:8]" face="[bg:base-900]" text="[color:base-300, align:center]">
-        <reed as="p">ReedSTYLE Element Defaults Test</reed>
-        <reed as="p" text="[size:small, color:base-500]">
+    <r-s as="footer" box="[padding:6, margin-top:8]" face="[bg:base-900]" text="[color:base-300, align:center]">
+        <r-s as="p">ReedSTYLE Element Defaults Test</r-s>
+        <r-s as="p" text="[size:small, color:base-500]">
             All elements above use only reed components with 'as' attributes
-        </reed>
-    </reed>
+        </r-s>
+    </r-s>
 </body>
 </html>
