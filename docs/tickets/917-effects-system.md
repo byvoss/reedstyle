@@ -1,6 +1,6 @@
 # Ticket #917: Effects System (FX Namespace)
 
-## Status: 📋 Planned
+## Status: ✅ Done
 
 ## Decision Log References
 - DEC002 - Color Conversion (effects use CSS variables)
@@ -396,16 +396,16 @@ document.head.appendChild(style);
 
 ## Acceptance Criteria
 
-- [ ] All hover effects work without JavaScript
-- [ ] Click effects enhance with JavaScript
-- [ ] Scroll animations trigger at correct threshold
-- [ ] Stagger delays work for grouped elements
-- [ ] Blur effects have vendor prefixes
-- [ ] Shadow levels follow Visual scope
-- [ ] Duration follows Dimension scope
-- [ ] Respects prefers-reduced-motion
-- [ ] GPU acceleration for transforms
-- [ ] Ripple effect positioned correctly
+- [x] All hover effects work without JavaScript
+- [x] Click effects enhance with JavaScript
+- [x] Scroll animations trigger at correct threshold
+- [x] Stagger delays work for grouped elements
+- [x] Blur effects have vendor prefixes
+- [x] Shadow levels follow Visual scope
+- [x] Duration follows Dimension scope
+- [x] Respects prefers-reduced-motion
+- [x] GPU acceleration for transforms
+- [x] Ripple effect positioned correctly
 
 ## Testing
 
