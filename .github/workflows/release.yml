@@ -1,0 +1,113 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+      
+      - name: Cache Cargo dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+      
+      - name: Build release files
+        run: |
+          echo "🔨 Building ReedSTYLE release ${{ github.ref_name }}..."
+          cargo run --release
+      
+      - name: Run tests
+        run: cargo test
+      
+      - name: Prepare release notes
+        run: |
+          cat > release-notes.md << 'EOF'
+          ## ReedSTYLE ${{ github.ref_name }}
+          
+          ### 📦 Installation
+          
+          #### CDN (jsDelivr)
+          ```html
+          <!-- CSS only -->
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/byvoss/reedstyle@${{ github.ref_name }}/dist/reedstyle.min.css">
+          
+          <!-- With optional JavaScript enhancements -->
+          <script src="https://cdn.jsdelivr.net/gh/byvoss/reedstyle@${{ github.ref_name }}/dist/reedstyle.min.js" defer></script>
+          ```
+          
+          #### Direct Download
+          Download the files from the assets below and include them in your project.
+          
+          ### 📁 Files
+          - `reedstyle.css` - Development version with comments (82KB)
+          - `reedstyle.min.css` - Production minified version (69KB)
+          - `reedstyle.js` - Optional JavaScript with JSDoc types (11KB)
+          - `reedstyle.min.js` - Production minified JS (7KB)
+          - `LICENSE` - Apache 2.0 License
+          
+          ### 🎯 Features
+          - Semantic HTML with `<r-s>` elements
+          - Namespace system: box, device, face, fx, layout, text
+          - CSS Layer architecture for customization
+          - Optional typography engine with smart quotes
+          - Optional effects system with animations
+          - Zero build process required for users
+          
+          ### 💡 Usage Example
+          ```html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <link rel="stylesheet" href="reedstyle.min.css">
+              <script src="reedstyle.min.js" defer></script>
+          </head>
+          <body>
+              <r-s as="hero" layout="[flex:column, align:center]" box="[padding:8]">
+                  <r-s as="h1" text="[size:ultra, weight:bold]">Welcome to ReedSTYLE</r-s>
+                  <r-s as="p" text="[size:large]">No build process required!</r-s>
+                  <r-s as="button-primary">Get Started</r-s>
+              </r-s>
+          </body>
+          </html>
+          ```
+          
+          ### 🔄 Changes
+          See [CHANGELOG.md](https://github.com/byvoss/reedstyle/blob/main/CHANGELOG.md) for detailed changes.
+          
+          ---
+          Built with Rust 🦀 | Apache License 2.0
+          EOF
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: release-notes.md
+          files: |
+            dist/reedstyle.css
+            dist/reedstyle.min.css
+            dist/reedstyle.js
+            dist/reedstyle.min.js
+            dist/LICENSE
+          fail_on_unmatched_files: true
+          generate_release_notes: false

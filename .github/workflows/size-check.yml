@@ -1,0 +1,126 @@
+name: Size Check
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+
+jobs:
+  size-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+      
+      - name: Cache Cargo dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+      
+      - name: Build PR version
+        run: |
+          cargo run --release
+          mkdir -p /tmp/pr-dist
+          cp dist/* /tmp/pr-dist/
+      
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      
+      - name: Build main version
+        run: |
+          cargo run --release
+          mkdir -p /tmp/main-dist
+          cp dist/* /tmp/main-dist/
+      
+      - name: Compare file sizes
+        run: |
+          echo "## 📊 File Size Comparison" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| File | Main | PR | Diff | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|----|----|--------|" >> $GITHUB_STEP_SUMMARY
+          
+          # Function to get file size in bytes
+          get_size() {
+            if [ -f "$1" ]; then
+              wc -c < "$1" | xargs
+            else
+              echo "0"
+            fi
+          }
+          
+          # Function to format size
+          format_size() {
+            local size=$1
+            if [ $size -gt 1048576 ]; then
+              echo "$(($size / 1048576))MB"
+            elif [ $size -gt 1024 ]; then
+              echo "$(($size / 1024))KB"
+            else
+              echo "${size}B"
+            fi
+          }
+          
+          # Check each file
+          for file in reedstyle.css reedstyle.min.css reedstyle.js reedstyle.min.js; do
+            MAIN_SIZE=$(get_size "/tmp/main-dist/$file")
+            PR_SIZE=$(get_size "/tmp/pr-dist/$file")
+            DIFF=$((PR_SIZE - MAIN_SIZE))
+            
+            # Format sizes for display
+            MAIN_DISPLAY=$(format_size $MAIN_SIZE)
+            PR_DISPLAY=$(format_size $PR_SIZE)
+            
+            # Determine status emoji
+            if [ $DIFF -eq 0 ]; then
+              STATUS="✅"
+              DIFF_DISPLAY="0"
+            elif [ $DIFF -gt 0 ]; then
+              PERCENT=$((DIFF * 100 / MAIN_SIZE))
+              if [ $PERCENT -gt 10 ]; then
+                STATUS="⚠️"
+              else
+                STATUS="📈"
+              fi
+              DIFF_DISPLAY="+$(format_size $DIFF) (+${PERCENT}%)"
+            else
+              PERCENT=$((-DIFF * 100 / MAIN_SIZE))
+              STATUS="✅"
+              DIFF_DISPLAY="-$(format_size ${DIFF#-}) (-${PERCENT}%)"
+            fi
+            
+            echo "| $file | $MAIN_DISPLAY | $PR_DISPLAY | $DIFF_DISPLAY | $STATUS |" >> $GITHUB_STEP_SUMMARY
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Check limits
+          CSS_MIN_SIZE=$(get_size "/tmp/pr-dist/reedstyle.min.css")
+          JS_MIN_SIZE=$(get_size "/tmp/pr-dist/reedstyle.min.js")
+          
+          if [ $CSS_MIN_SIZE -gt 204800 ]; then
+            echo "### ❌ CSS exceeds 200KB limit!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          elif [ $JS_MIN_SIZE -gt 51200 ]; then
+            echo "### ❌ JS exceeds 50KB limit!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "### ✅ All files within size limits" >> $GITHUB_STEP_SUMMARY
+            echo "- CSS limit: 200KB (current: $(format_size $CSS_MIN_SIZE))" >> $GITHUB_STEP_SUMMARY
+            echo "- JS limit: 50KB (current: $(format_size $JS_MIN_SIZE))" >> $GITHUB_STEP_SUMMARY
+          fi

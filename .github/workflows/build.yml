@@ -1,122 +1,112 @@
-name: Build and Release
+name: Build and Test
 
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*' ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
       
-    - name: Build reedSTYLE
-      run: npm run build
+      - name: Cache Cargo dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
       
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: reedstyle-dist-${{ github.sha }}
-        path: dist/
-        retention-days: 30
-        
-    - name: Create Release (on tag)
-      if: startsWith(github.ref, 'refs/tags/v')
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: 'dist/*'
-        artifactContentType: 'text/css'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        name: 'reedSTYLE ${{ github.ref_name }}'
-        body: |
-          ## reedSTYLE ${{ github.ref_name }}
+      - name: Build ReedSTYLE
+        run: cargo run --release
+      
+      - name: Run Rust tests
+        run: cargo test
+      
+      - name: Validate output files
+        run: |
+          echo "🔍 Checking generated files..."
+          test -f dist/reedstyle.css
+          test -f dist/reedstyle.min.css
+          test -f dist/reedstyle.js
+          test -f dist/reedstyle.min.js
+          test -f dist/LICENSE
+          echo "✅ All distribution files present"
+      
+      - name: Check file sizes
+        run: |
+          echo "📊 File sizes:"
+          echo "CSS: $(wc -c < dist/reedstyle.css | xargs) bytes ($(du -h dist/reedstyle.css | cut -f1))"
+          echo "CSS min: $(wc -c < dist/reedstyle.min.css | xargs) bytes ($(du -h dist/reedstyle.min.css | cut -f1))"
+          echo "JS: $(wc -c < dist/reedstyle.js | xargs) bytes ($(du -h dist/reedstyle.js | cut -f1))"
+          echo "JS min: $(wc -c < dist/reedstyle.min.js | xargs) bytes ($(du -h dist/reedstyle.min.js | cut -f1))"
           
-          ### 🎯 Features
-          - Root Variables System with data-r-root-* syntax
-          - Proportional scaling of all framework elements
-          - Pure reedSTYLE implementation without custom CSS
-          - Font family and color theme switching
+          # Check size limits (200KB for CSS, 50KB for JS)
+          CSS_SIZE=$(wc -c < dist/reedstyle.min.css)
+          JS_SIZE=$(wc -c < dist/reedstyle.min.js)
           
-          ### 📦 Usage
-          ```html
-          <!-- Via jsDelivr CDN -->
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/byvoss/reedstyle@${{ github.ref_name }}/dist/reedstyle.min.css">
+          if [ $CSS_SIZE -gt 204800 ]; then
+            echo "❌ CSS exceeds 200KB limit!"
+            exit 1
+          fi
           
-          <!-- Root Variables Example -->
-          <body data-r-root-font="[size:16, family:sans]"
-                data-r-root-colors="[brand-a:240]">
-            <h1 data-r-typo="[size:giga, color:brand-a]">Hello reedSTYLE!</h1>
-          </body>
-          ```
+          if [ $JS_SIZE -gt 51200 ]; then
+            echo "❌ JS exceeds 50KB limit!"
+            exit 1
+          fi
           
-          ### 📁 Files
-          - `reedstyle.css` - Full development version
-          - `reedstyle.min.css` - Minified production version  
-          - `reedstyle.raw.css` - Unprocessed development version
-          
-          🚀 Generated with [Claude Code](https://claude.ai/code)
-          
-        draft: false
-        prerelease: false
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+          echo "✅ File sizes within limits"
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
+      - name: Validate CSS content
+        run: |
+          echo "🔍 Validating CSS content..."
+          # Check for r-s selectors
+          if ! grep -q 'r-s\[' dist/reedstyle.css; then
+            echo "❌ CSS missing r-s selectors"
+            exit 1
+          fi
+          # Check for layer definitions
+          if ! grep -q '@layer settings, bridge, theme, free' dist/reedstyle.css; then
+            echo "❌ CSS missing layer definitions"
+            exit 1
+          fi
+          echo "✅ CSS content valid"
       
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: reedstyle-dist-${{ github.sha }}
-        path: dist/
+      - name: Validate JS content
+        run: |
+          echo "🔍 Validating JS content..."
+          # Check for JSDoc comments
+          if ! grep -q '@typedef.*ReedStyleAPI' dist/reedstyle.js; then
+            echo "❌ JS missing JSDoc type definitions"
+            exit 1
+          fi
+          # Check for version
+          if ! grep -q "version: '0.1.0'" dist/reedstyle.js; then
+            echo "❌ JS missing version"
+            exit 1
+          fi
+          echo "✅ JS content valid"
       
-    - name: Run tests
-      run: npm run test
-      
-  lint:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Check SCSS syntax
-      run: |
-        npx sass --no-source-map --style=compressed src/reedstyle.scss dist/test.css
-        echo "✅ SCSS syntax valid"
-        rm dist/test.css
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: |
+            dist/reedstyle.css
+            dist/reedstyle.min.css
+            dist/reedstyle.js
+            dist/reedstyle.min.js
+            dist/LICENSE

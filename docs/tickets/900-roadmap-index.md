@@ -96,6 +96,7 @@ Starting fresh with the `<reed>` element system and clear architectural principl
 14. 920 - CLI Tool
 15. 921 - VS Code Extension
 16. 929 - Migration Tools
+17. 943 - Typography Test Fixes (Fix failing regex patterns)
 
 ### Phase 5: Ecosystem
 17. 923 - CMS Integrations
