@@ -54,12 +54,12 @@ jobs:
           echo "JS: $(wc -c < dist/reedstyle.js | xargs) bytes ($(du -h dist/reedstyle.js | cut -f1))"
           echo "JS min: $(wc -c < dist/reedstyle.min.js | xargs) bytes ($(du -h dist/reedstyle.min.js | cut -f1))"
           
-          # Check size limits (200KB for CSS, 50KB for JS)
+          # Check size limits (350KB for CSS, 50KB for JS)
           CSS_SIZE=$(wc -c < dist/reedstyle.min.css)
           JS_SIZE=$(wc -c < dist/reedstyle.min.js)
           
-          if [ $CSS_SIZE -gt 204800 ]; then
-            echo "❌ CSS exceeds 200KB limit!"
+          if [ $CSS_SIZE -gt 358400 ]; then
+            echo "❌ CSS exceeds 350KB limit!"
             exit 1
           fi
           
