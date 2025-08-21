@@ -18,23 +18,23 @@ ReedSTYLE organizes all CSS properties into 6 logical namespaces, each controlli
 ### Basic Syntax
 
 ```html
-<reed as="div" [namespace]="[property:value]">
+<r-s as="div" [namespace]="[property:value]">
 ```
 
 ### Single Property
 
 ```html
-<reed as="div" box="padding:4">
-<reed as="div" text="align:center">
-<reed as="div" face="bg:brand-a">
+<r-s as="div" box="padding:4">
+<r-s as="div" text="align:center">
+<r-s as="div" face="bg:brand-a">
 ```
 
 ### Multiple Properties (Array Syntax)
 
 ```html
-<reed as="div" box="[padding:4, margin:2, width:full]">
-<reed as="div" layout="[grid:3, gap:4, align:center]">
-<reed as="div" face="[bg:brand-a, radius:lg, shadow:md]">
+<r-s as="div" box="[padding:4, margin:2, width:full]">
+<r-s as="div" layout="[grid:3, gap:4, align:center]">
+<r-s as="div" face="[bg:brand-a, radius:lg, shadow:md]">
 ```
 
 ## Property Value Types
@@ -60,7 +60,7 @@ Used for spacing, sizes, and dimensions:
 
 Example:
 ```html
-<reed as="div" box="[padding:4, margin:8]">
+<r-s as="div" box="[padding:4, margin:8]">
 <!-- padding: 1rem, margin: 2rem -->
 ```
 
@@ -69,10 +69,10 @@ Example:
 Semantic values that map to CSS:
 
 ```html
-<reed as="div" box="width:full">        <!-- width: 100% -->
-<reed as="div" box="width:half">        <!-- width: 50% -->
-<reed as="div" layout="position:fixed"> <!-- position: fixed -->
-<reed as="div" text="weight:bold">      <!-- font-weight: 700 -->
+<r-s as="div" box="width:full">        <!-- width: 100% -->
+<r-s as="div" box="width:half">        <!-- width: 50% -->
+<r-s as="div" layout="position:fixed"> <!-- position: fixed -->
+<r-s as="div" text="weight:bold">      <!-- font-weight: 700 -->
 ```
 
 ### 3. Colors
@@ -81,18 +81,18 @@ Brand and semantic color system:
 
 ```html
 <!-- Brand colors -->
-<reed as="div" face="bg:brand-a">    <!-- Primary brand color -->
-<reed as="div" face="bg:brand-b">    <!-- Secondary brand color -->
+<r-s as="div" face="bg:brand-a">    <!-- Primary brand color -->
+<r-s as="div" face="bg:brand-b">    <!-- Secondary brand color -->
 
 <!-- Base colors (neutrals) -->
-<reed as="div" face="bg:base-0">     <!-- White -->
-<reed as="div" face="bg:base-100">   <!-- Light gray -->
-<reed as="div" face="bg:base-900">   <!-- Dark gray -->
+<r-s as="div" face="bg:base-0">     <!-- White -->
+<r-s as="div" face="bg:base-100">   <!-- Light gray -->
+<r-s as="div" face="bg:base-900">   <!-- Dark gray -->
 
 <!-- Semantic colors -->
-<reed as="div" face="bg:state-success">
-<reed as="div" face="bg:state-warning">
-<reed as="div" face="bg:state-error">
+<r-s as="div" face="bg:state-success">
+<r-s as="div" face="bg:state-warning">
+<r-s as="div" face="bg:state-error">
 ```
 
 ### 4. Complex Values
@@ -101,13 +101,13 @@ Multiple values separated by colons:
 
 ```html
 <!-- border: width : style : color -->
-<reed as="div" face="border:2:solid:brand-a">
+<r-s as="div" face="border:2:solid:brand-a">
 
 <!-- transform: function : value -->
-<reed as="div" fx="transform:rotate:45deg">
+<r-s as="div" fx="transform:rotate:45deg">
 
 <!-- shadow: size : color -->
-<reed as="div" face="shadow:lg:brand-a">
+<r-s as="div" face="shadow:lg:brand-a">
 ```
 
 ## Responsive System
@@ -119,21 +119,17 @@ Every namespace supports responsive variants:
 | Suffix | Min-Width | Use Case |
 |--------|-----------|----------|
 | (none) | 0px | Mobile-first base |
-| `-phone` | 320px | Small phones |
 | `-tablet` | 560px | Tablets & large phones |
 | `-screen` | 960px | Desktop screens |
-| `-wide` | 1260px | Wide screens |
 
 ### Responsive Usage
 
 ```html
 <!-- Different layouts at each breakpoint -->
-<reed as="div" 
+<r-s as="div" 
       layout="[flex:column]"
-      layout-phone="[flex:column, gap:2]"
       layout-tablet="[flex:row, gap:4]"
-      layout-screen="[grid:3, gap:6]"
-      layout-wide="[grid:4, gap:8]">
+      layout-screen="[grid:3, gap:6]">
 ```
 
 ### Mobile-First Approach
@@ -142,17 +138,17 @@ Start with mobile styles, add larger breakpoints:
 
 ```html
 <!-- Base (mobile) -->
-<reed as="div" 
+<r-s as="div" 
       box="[padding:2]"
       text="[size:small]">
   
   <!-- Tablet and up -->
-  <reed as="div"
+  <r-s as="div"
         box-tablet="[padding:4]"
         text-tablet="[size:medium]">
     
     <!-- Desktop and up -->
-    <reed as="div"
+    <r-s as="div"
           box-screen="[padding:6]"
           text-screen="[size:large]">
 ```
@@ -164,7 +160,7 @@ Start with mobile styles, add larger breakpoints:
 Namespaces work together to create complete designs:
 
 ```html
-<reed as="card"
+<r-s as="card"
       layout="[flex:column]"        <!-- Structure -->
       box="[padding:6, margin:4]"   <!-- Spacing -->
       face="[bg:base-0, radius:lg, shadow:md]" <!-- Appearance -->
@@ -172,7 +168,7 @@ Namespaces work together to create complete designs:
       fx="[hover:lift]"              <!-- Effects -->
       device="[cursor:pointer]">     <!-- Interaction -->
   Complete component styling
-</reed>
+</r-s>
 ```
 
 ### Priority and Cascading
@@ -184,7 +180,7 @@ Namespaces work together to create complete designs:
 
 ```html
 <!-- Preset provides defaults -->
-<reed as="card" 
+<r-s as="card" 
       face="bg:brand-a">  <!-- Overrides preset background -->
 ```
 
@@ -196,14 +192,14 @@ Each namespace has a specific purpose:
 
 ```html
 <!-- Good: Using appropriate namespaces -->
-<reed as="div" 
+<r-s as="div" 
       layout="[grid:3]"      <!-- Grid is layout -->
       box="[padding:4]"      <!-- Padding is box -->
       face="[bg:brand-a]">   <!-- Background is face -->
 
 <!-- Avoid: Wrong namespace for property -->
 <!-- (These would not work) -->
-<reed as="div" 
+<r-s as="div" 
       box="[grid:3]"         <!-- Grid isn't in box -->
       layout="[padding:4]">  <!-- Padding isn't in layout -->
 ```
@@ -214,10 +210,10 @@ Use arrays to group related properties:
 
 ```html
 <!-- Good: Combined in array -->
-<reed as="div" box="[padding:4, margin:2, width:full]">
+<r-s as="div" box="[padding:4, margin:2, width:full]">
 
 <!-- Less efficient: Separate attributes -->
-<reed as="div" 
+<r-s as="div" 
       box="padding:4"
       box-margin="2"
       box-width="full">
@@ -227,12 +223,12 @@ Use arrays to group related properties:
 
 ```html
 <!-- Good: Start small, add breakpoints -->
-<reed as="div" 
+<r-s as="div" 
       layout="[flex:column]"
       layout-tablet="[flex:row]">
 
 <!-- Avoid: Starting with desktop -->
-<reed as="div" 
+<r-s as="div" 
       layout="[flex:row]"
       layout-phone="[flex:column]">
 ```
@@ -243,10 +239,10 @@ Choose properties based on meaning, not just appearance:
 
 ```html
 <!-- Good: Semantic color -->
-<reed as="alert" face="bg:state-error">
+<r-s as="alert" face="bg:state-error">
 
 <!-- Avoid: Visual color -->
-<reed as="alert" face="bg:red">
+<r-s as="alert" face="bg:red">
 ```
 
 ## Common Patterns
@@ -254,14 +250,14 @@ Choose properties based on meaning, not just appearance:
 ### Centered Container
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       box="[width:full, max-width:1200, margin-x:auto, padding-x:4]">
 ```
 
 ### Responsive Grid
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[flex:column]"
       layout-tablet="[grid:2, gap:4]"
       layout-screen="[grid:3, gap:6]">
@@ -270,7 +266,7 @@ Choose properties based on meaning, not just appearance:
 ### Interactive Card
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       box="[padding:6]"
       face="[bg:base-0, radius:lg, shadow:md]"
       fx="[hover:lift, transition:smooth]"

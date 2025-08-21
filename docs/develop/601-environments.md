@@ -46,12 +46,12 @@ environments:
 
 ```html
 <!-- Different padding in different environments -->
-<reed as="div" 
+<r-s as="div" 
       box="[padding:4]"           <!-- Default -->
       box-dev="[padding:8]"        <!-- Development: more space -->
       box-prod="[padding:2]">      <!-- Production: compact -->
   Environment-aware spacing
-</reed>
+</r-s>
 ```
 
 ### Combining Environments with Breakpoints
@@ -59,7 +59,7 @@ environments:
 Environments and breakpoints can be combined for ultimate flexibility:
 
 ```html
-<reed as="section"
+<r-s as="section"
       box="[padding:2]"                <!-- Mobile default -->
       box-tablet="[padding:4]"          <!-- Tablet -->
       box-screen="[padding:6]"          <!-- Desktop -->
@@ -73,7 +73,7 @@ Environments and breakpoints can be combined for ultimate flexibility:
       box-prod-screen="[padding:4]">    <!-- Prod desktop -->
   
   Fully responsive and environment-aware
-</reed>
+</r-s>
 ```
 
 ### Priority Order
@@ -116,9 +116,9 @@ cargo run --theme=client-a
 This keeps your HTML clean:
 ```html
 <!-- Same HTML for all themes -->
-<reed as="card" box="[padding:4]">
+<r-s as="card" box="[padding:4]">
   Content
-</reed>
+</r-s>
 ```
 
 ## Limited Use Cases
@@ -137,11 +137,11 @@ environments:
 
 ```html
 <!-- Show debug outlines only in dev -->
-<reed as="div"
+<r-s as="div"
       face-dev="[outline:1:red]"
       box-dev="[padding:8]">
   Debug helpers in development
-</reed>
+</r-s>
 ```
 
 ### 2. A/B Testing (Acceptable)
@@ -155,11 +155,11 @@ environments:
 
 ```html
 <!-- Test different CTA sizes -->
-<reed as="button-primary"
+<r-s as="button-primary"
       text="[size:normal]"
       text-test-b="[size:large]">
   Buy Now
-</reed>
+</r-s>
 ```
 
 ### 3. Production Optimizations (Acceptable)
@@ -175,11 +175,11 @@ environments:
 
 ```html
 <!-- Simpler effects in production -->
-<reed as="button"
+<r-s as="button"
       fx="[hover:scale:1.1, transition:smooth]"      <!-- Dev: fancy -->
       fx-prod="[hover:brightness:110]">              <!-- Prod: simple -->
   Performance-conscious effects
-</reed>
+</r-s>
 ```
 
 ## Why NOT to Use Environments
@@ -201,13 +201,13 @@ environments:
 
 ```html
 <!-- Different CTA styles for testing -->
-<reed as="button-primary"
+<r-s as="button-primary"
       face-variant-a="[bg:brand-a]"
       face-variant-b="[bg:brand-b]"
       text-variant-a="[size:large]"
       text-variant-b="[size:huge]">
   A/B Test Button
-</reed>
+</r-s>
 ```
 
 ## Environment Detection
@@ -295,9 +295,9 @@ ReedStyle.environment.setFromConfig({
 });
 
 // From React
-<ReedStyleProvider environments={{ prod: true }}>
+<r-sStyleProvider environments={{ prod: true }}>
   <App />
-</ReedStyleProvider>
+</r-sStyleProvider>
 
 // From build
 REEDSTYLE_ENV=prod cargo run
@@ -320,11 +320,11 @@ combinations:
 
 ```html
 <!-- Works with combined environments -->
-<reed as="div"
+<r-s as="div"
       face="[bg:base-0]"
       face-dev-dark="[bg:base-900, outline:1:debug]">
   Combined environment styling
-</reed>
+</r-s>
 ```
 
 ## Best Practices
@@ -341,7 +341,7 @@ Use clear, consistent names:
 
 ```html
 <!-- Start simple, enhance per environment -->
-<reed as="card"
+<r-s as="card"
       box="[padding:4]"           <!-- Base: works everywhere -->
       fx-dev="[animate:fade-in]"  <!-- Dev: see animations -->
       fx-prod="">                 <!-- Prod: no animation -->
@@ -362,11 +362,11 @@ environments:
 
 ```html
 <!-- Test-specific attributes -->
-<reed as="button"
+<r-s as="button"
       data-test-id="submit-button"      <!-- Always present -->
       box-test="[outline:2:green]">     <!-- Only in test env -->
   Testable button
-</reed>
+</r-s>
 ```
 
 ## Environment Indicators
@@ -395,9 +395,9 @@ Gradually migrate with environments:
   <!-- Old implementation for dev -->
 </div>
 
-<reed as="card" data-env-prod>
+<r-s as="card" data-env-prod>
   <!-- New implementation for prod -->
-</reed>
+</r-s>
 ```
 
 ## Build Optimization
@@ -413,7 +413,7 @@ REEDSTYLE_ENV=prod cargo run
 
 # Output
 dist/reedstyle-dev.css    # 400KB with sourcemaps
-dist/reedstyle-prod.css   # 180KB minified
+dist/reedstyle-prod.css   # 346KB minified
 ```
 
 ## Summary

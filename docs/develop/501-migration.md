@@ -209,11 +209,11 @@ Use both syntaxes in HTML:
 <div class="btn btn-primary">Old Button</div>
 
 <!-- New ReedSTYLE -->
-<reed as="button-primary">New Button</reed>
+<r-s as="button-primary">New Button</r-s>
 
 <!-- Mixed during migration -->
 <div class="card">
-  <reed as="card-header">Header</reed>
+  <r-s as="card-header">Header</r-s>
   <div class="card-body">Body</div>
 </div>
 ```
@@ -278,14 +278,14 @@ Migration mapping:
 
 | Bootstrap | ReedSTYLE |
 |-----------|-----------|
-| `.btn` | `<reed as="button">` |
-| `.btn-primary` | `<reed as="button-primary">` |
-| `.card` | `<reed as="card">` |
-| `.container` | `<reed as="container">` |
-| `.row` | `<reed layout="[grid:12]">` |
-| `.col-md-6` | `<reed layout="[col-span:6]">` |
-| `.p-4` | `<reed box="padding:4">` |
-| `.mt-3` | `<reed box="margin-top:3">` |
+| `.btn` | `<r-s as="button">` |
+| `.btn-primary` | `<r-s as="button-primary">` |
+| `.card` | `<r-s as="card">` |
+| `.container` | `<r-s as="container">` |
+| `.row` | `<r-s layout="[grid:12]">` |
+| `.col-md-6` | `<r-s layout="[col-span:6]">` |
+| `.p-4` | `<r-s box="padding:4">` |
+| `.mt-3` | `<r-s box="margin-top:3">` |
 
 ### Tailwind → ReedSTYLE
 

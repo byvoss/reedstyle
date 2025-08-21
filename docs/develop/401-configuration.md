@@ -145,9 +145,9 @@ components:
 
 Usage:
 ```html
-<reed as="product-card">
+<r-s as="product-card">
   <!-- Content -->
-</reed>
+</r-s>
 ```
 
 ### Component with Children

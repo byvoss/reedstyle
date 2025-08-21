@@ -8,75 +8,75 @@ Controls spatial arrangement: flexbox, grid, positioning, and z-index.
 
 ```html
 <!-- Enable flex -->
-<reed as="div" layout="flex">
+<r-s as="div" layout="flex">
 
 <!-- Flex direction -->
-<reed as="div" layout="flex:row">       <!-- Default: horizontal -->
-<reed as="div" layout="flex:column">    <!-- Vertical -->
-<reed as="div" layout="flex:row-reverse">
-<reed as="div" layout="flex:column-reverse">
+<r-s as="div" layout="flex:row">       <!-- Default: horizontal -->
+<r-s as="div" layout="flex:column">    <!-- Vertical -->
+<r-s as="div" layout="flex:row-reverse">
+<r-s as="div" layout="flex:column-reverse">
 
 <!-- Combined setup -->
-<reed as="div" layout="[flex:row, gap:4, align:center, justify:between]">
+<r-s as="div" layout="[flex:row, gap:4, align:center, justify:between]">
 ```
 
 ### Flex Alignment
 
 ```html
 <!-- Justify content (main axis) -->
-<reed as="div" layout="justify:start">    <!-- flex-start -->
-<reed as="div" layout="justify:center">   <!-- center -->
-<reed as="div" layout="justify:end">      <!-- flex-end -->
-<reed as="div" layout="justify:between">  <!-- space-between -->
-<reed as="div" layout="justify:around">   <!-- space-around -->
-<reed as="div" layout="justify:evenly">   <!-- space-evenly -->
+<r-s as="div" layout="justify:start">    <!-- flex-start -->
+<r-s as="div" layout="justify:center">   <!-- center -->
+<r-s as="div" layout="justify:end">      <!-- flex-end -->
+<r-s as="div" layout="justify:between">  <!-- space-between -->
+<r-s as="div" layout="justify:around">   <!-- space-around -->
+<r-s as="div" layout="justify:evenly">   <!-- space-evenly -->
 
 <!-- Align items (cross axis) -->
-<reed as="div" layout="align:start">      <!-- flex-start -->
-<reed as="div" layout="align:center">     <!-- center -->
-<reed as="div" layout="align:end">        <!-- flex-end -->
-<reed as="div" layout="align:stretch">    <!-- stretch -->
-<reed as="div" layout="align:baseline">   <!-- baseline -->
+<r-s as="div" layout="align:start">      <!-- flex-start -->
+<r-s as="div" layout="align:center">     <!-- center -->
+<r-s as="div" layout="align:end">        <!-- flex-end -->
+<r-s as="div" layout="align:stretch">    <!-- stretch -->
+<r-s as="div" layout="align:baseline">   <!-- baseline -->
 
 <!-- Align content (multi-line) -->
-<reed as="div" layout="content:start">
-<reed as="div" layout="content:center">
-<reed as="div" layout="content:end">
-<reed as="div" layout="content:between">
-<reed as="div" layout="content:around">
-<reed as="div" layout="content:stretch">
+<r-s as="div" layout="content:start">
+<r-s as="div" layout="content:center">
+<r-s as="div" layout="content:end">
+<r-s as="div" layout="content:between">
+<r-s as="div" layout="content:around">
+<r-s as="div" layout="content:stretch">
 ```
 
 ### Flex Wrap
 
 ```html
-<reed as="div" layout="wrap:nowrap">     <!-- Default -->
-<reed as="div" layout="wrap:wrap">
-<reed as="div" layout="wrap:wrap-reverse">
+<r-s as="div" layout="wrap:nowrap">     <!-- Default -->
+<r-s as="div" layout="wrap:wrap">
+<r-s as="div" layout="wrap:wrap-reverse">
 ```
 
 ### Flex Item Properties
 
 ```html
 <!-- Flex grow/shrink/basis -->
-<reed as="div" layout="grow:1">          <!-- flex-grow: 1 -->
-<reed as="div" layout="grow:0">          <!-- flex-grow: 0 -->
-<reed as="div" layout="shrink:1">        <!-- flex-shrink: 1 -->
-<reed as="div" layout="shrink:0">        <!-- flex-shrink: 0 -->
-<reed as="div" layout="basis:auto">      <!-- flex-basis: auto -->
-<reed as="div" layout="basis:full">      <!-- flex-basis: 100% -->
+<r-s as="div" layout="grow:1">          <!-- flex-grow: 1 -->
+<r-s as="div" layout="grow:0">          <!-- flex-grow: 0 -->
+<r-s as="div" layout="shrink:1">        <!-- flex-shrink: 1 -->
+<r-s as="div" layout="shrink:0">        <!-- flex-shrink: 0 -->
+<r-s as="div" layout="basis:auto">      <!-- flex-basis: auto -->
+<r-s as="div" layout="basis:full">      <!-- flex-basis: 100% -->
 
 <!-- Self alignment -->
-<reed as="div" layout="self:auto">
-<reed as="div" layout="self:start">
-<reed as="div" layout="self:center">
-<reed as="div" layout="self:end">
-<reed as="div" layout="self:stretch">
+<r-s as="div" layout="self:auto">
+<r-s as="div" layout="self:start">
+<r-s as="div" layout="self:center">
+<r-s as="div" layout="self:end">
+<r-s as="div" layout="self:stretch">
 
 <!-- Order -->
-<reed as="div" layout="order:1">
-<reed as="div" layout="order:2">
-<reed as="div" layout="order:-1">        <!-- Move to front -->
+<r-s as="div" layout="order:1">
+<r-s as="div" layout="order:2">
+<r-s as="div" layout="order:-1">        <!-- Move to front -->
 ```
 
 ## Grid Properties
@@ -85,131 +85,131 @@ Controls spatial arrangement: flexbox, grid, positioning, and z-index.
 
 ```html
 <!-- Enable grid -->
-<reed as="div" layout="grid">
+<r-s as="div" layout="grid">
 
 <!-- Column templates -->
-<reed as="div" layout="grid:2">         <!-- 2 equal columns -->
-<reed as="div" layout="grid:3">         <!-- 3 equal columns -->
-<reed as="div" layout="grid:4">         <!-- 4 equal columns -->
-<reed as="div" layout="grid:6">         <!-- 6 equal columns -->
-<reed as="div" layout="grid:12">        <!-- 12 equal columns -->
+<r-s as="div" layout="grid:2">         <!-- 2 equal columns -->
+<r-s as="div" layout="grid:3">         <!-- 3 equal columns -->
+<r-s as="div" layout="grid:4">         <!-- 4 equal columns -->
+<r-s as="div" layout="grid:6">         <!-- 6 equal columns -->
+<r-s as="div" layout="grid:12">        <!-- 12 equal columns -->
 
 <!-- Custom grid -->
-<reed as="div" layout="[grid, cols:1fr:2fr:1fr]">
-<reed as="div" layout="[grid, cols:200px:1fr:200px]">
+<r-s as="div" layout="[grid, cols:1fr:2fr:1fr]">
+<r-s as="div" layout="[grid, cols:200px:1fr:200px]">
 
 <!-- Row templates -->
-<reed as="div" layout="rows:auto">
-<reed as="div" layout="rows:1fr:2fr">
-<reed as="div" layout="rows:100px:1fr:100px">
+<r-s as="div" layout="rows:auto">
+<r-s as="div" layout="rows:1fr:2fr">
+<r-s as="div" layout="rows:100px:1fr:100px">
 
 <!-- Auto flow -->
-<reed as="div" layout="flow:row">       <!-- Default -->
-<reed as="div" layout="flow:column">
-<reed as="div" layout="flow:dense">
+<r-s as="div" layout="flow:row">       <!-- Default -->
+<r-s as="div" layout="flow:column">
+<r-s as="div" layout="flow:dense">
 ```
 
 ### Grid Alignment
 
 ```html
 <!-- Justify items -->
-<reed as="div" layout="justify-items:start">
-<reed as="div" layout="justify-items:center">
-<reed as="div" layout="justify-items:end">
-<reed as="div" layout="justify-items:stretch">
+<r-s as="div" layout="justify-items:start">
+<r-s as="div" layout="justify-items:center">
+<r-s as="div" layout="justify-items:end">
+<r-s as="div" layout="justify-items:stretch">
 
 <!-- Align items -->
-<reed as="div" layout="align-items:start">
-<reed as="div" layout="align-items:center">
-<reed as="div" layout="align-items:end">
-<reed as="div" layout="align-items:stretch">
+<r-s as="div" layout="align-items:start">
+<r-s as="div" layout="align-items:center">
+<r-s as="div" layout="align-items:end">
+<r-s as="div" layout="align-items:stretch">
 
 <!-- Place items (shorthand) -->
-<reed as="div" layout="place:center">    <!-- Center both -->
+<r-s as="div" layout="place:center">    <!-- Center both -->
 ```
 
 ### Grid Item Properties
 
 ```html
 <!-- Column span -->
-<reed as="div" layout="col-span:2">      <!-- Span 2 columns -->
-<reed as="div" layout="col-span:3">
-<reed as="div" layout="col-span:full">   <!-- Span all columns -->
+<r-s as="div" layout="col-span:2">      <!-- Span 2 columns -->
+<r-s as="div" layout="col-span:3">
+<r-s as="div" layout="col-span:full">   <!-- Span all columns -->
 
 <!-- Row span -->
-<reed as="div" layout="row-span:2">      <!-- Span 2 rows -->
-<reed as="div" layout="row-span:3">
+<r-s as="div" layout="row-span:2">      <!-- Span 2 rows -->
+<r-s as="div" layout="row-span:3">
 
 <!-- Grid area -->
-<reed as="div" layout="area:header">     <!-- Named area -->
-<reed as="div" layout="area:sidebar">
-<reed as="div" layout="area:content">
+<r-s as="div" layout="area:header">     <!-- Named area -->
+<r-s as="div" layout="area:sidebar">
+<r-s as="div" layout="area:content">
 ```
 
 ## Gap (Flexbox & Grid)
 
 ```html
 <!-- Universal gap -->
-<reed as="div" layout="gap:0">          <!-- No gap -->
-<reed as="div" layout="gap:1">          <!-- 0.25rem -->
-<reed as="div" layout="gap:2">          <!-- 0.5rem -->
-<reed as="div" layout="gap:4">          <!-- 1rem -->
-<reed as="div" layout="gap:6">          <!-- 1.5rem -->
-<reed as="div" layout="gap:8">          <!-- 2rem -->
+<r-s as="div" layout="gap:0">          <!-- No gap -->
+<r-s as="div" layout="gap:1">          <!-- 0.25rem -->
+<r-s as="div" layout="gap:2">          <!-- 0.5rem -->
+<r-s as="div" layout="gap:4">          <!-- 1rem -->
+<r-s as="div" layout="gap:6">          <!-- 1.5rem -->
+<r-s as="div" layout="gap:8">          <!-- 2rem -->
 
 <!-- Separate row/column gaps -->
-<reed as="div" layout="gap-x:4">        <!-- Column gap -->
-<reed as="div" layout="gap-y:2">        <!-- Row gap -->
-<reed as="div" layout="[gap-x:4, gap-y:2]">
+<r-s as="div" layout="gap-x:4">        <!-- Column gap -->
+<r-s as="div" layout="gap-y:2">        <!-- Row gap -->
+<r-s as="div" layout="[gap-x:4, gap-y:2]">
 ```
 
 ## Position
 
 ```html
 <!-- Position types -->
-<reed as="div" layout="position:static">   <!-- Default -->
-<reed as="div" layout="position:relative">
-<reed as="div" layout="position:absolute">
-<reed as="div" layout="position:fixed">
-<reed as="div" layout="position:sticky">
+<r-s as="div" layout="position:static">   <!-- Default -->
+<r-s as="div" layout="position:relative">
+<r-s as="div" layout="position:absolute">
+<r-s as="div" layout="position:fixed">
+<r-s as="div" layout="position:sticky">
 
 <!-- Position values -->
-<reed as="div" layout="[position:absolute, top:0, left:0]">
-<reed as="div" layout="[position:fixed, bottom:4, right:4]">
-<reed as="div" layout="[position:sticky, top:0]">
+<r-s as="div" layout="[position:absolute, top:0, left:0]">
+<r-s as="div" layout="[position:fixed, bottom:4, right:4]">
+<r-s as="div" layout="[position:sticky, top:0]">
 
 <!-- Inset shortcuts -->
-<reed as="div" layout="inset:0">         <!-- All sides 0 -->
-<reed as="div" layout="inset:4">         <!-- All sides 1rem -->
-<reed as="div" layout="inset-x:0">       <!-- Left & right 0 -->
-<reed as="div" layout="inset-y:0">       <!-- Top & bottom 0 -->
+<r-s as="div" layout="inset:0">         <!-- All sides 0 -->
+<r-s as="div" layout="inset:4">         <!-- All sides 1rem -->
+<r-s as="div" layout="inset-x:0">       <!-- Left & right 0 -->
+<r-s as="div" layout="inset-y:0">       <!-- Top & bottom 0 -->
 ```
 
 ## Z-Index
 
 ```html
-<reed as="div" layout="z:0">            <!-- z-index: 0 -->
-<reed as="div" layout="z:10">           <!-- z-index: 10 -->
-<reed as="div" layout="z:20">           <!-- z-index: 20 -->
-<reed as="div" layout="z:30">           <!-- z-index: 30 -->
-<reed as="div" layout="z:40">           <!-- z-index: 40 -->
-<reed as="div" layout="z:50">           <!-- z-index: 50 -->
-<reed as="div" layout="z:auto">         <!-- z-index: auto -->
-<reed as="div" layout="z:-1">           <!-- Behind content -->
+<r-s as="div" layout="z:0">            <!-- z-index: 0 -->
+<r-s as="div" layout="z:10">           <!-- z-index: 10 -->
+<r-s as="div" layout="z:20">           <!-- z-index: 20 -->
+<r-s as="div" layout="z:30">           <!-- z-index: 30 -->
+<r-s as="div" layout="z:40">           <!-- z-index: 40 -->
+<r-s as="div" layout="z:50">           <!-- z-index: 50 -->
+<r-s as="div" layout="z:auto">         <!-- z-index: auto -->
+<r-s as="div" layout="z:-1">           <!-- Behind content -->
 ```
 
 ## Float & Clear
 
 ```html
 <!-- Float -->
-<reed as="div" layout="float:left">
-<reed as="div" layout="float:right">
-<reed as="div" layout="float:none">
+<r-s as="div" layout="float:left">
+<r-s as="div" layout="float:right">
+<r-s as="div" layout="float:none">
 
 <!-- Clear -->
-<reed as="div" layout="clear:left">
-<reed as="div" layout="clear:right">
-<reed as="div" layout="clear:both">
+<r-s as="div" layout="clear:left">
+<r-s as="div" layout="clear:right">
+<r-s as="div" layout="clear:both">
 ```
 
 ## Common Patterns
@@ -217,79 +217,79 @@ Controls spatial arrangement: flexbox, grid, positioning, and z-index.
 ### Centered Flexbox
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[flex, align:center, justify:center]">
   Centered content
-</reed>
+</r-s>
 ```
 
 ### Responsive Grid
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[grid:1, gap:4]"
       layout-tablet="[grid:2, gap:6]"
       layout-screen="[grid:3, gap:8]">
-  <reed as="card">Item 1</reed>
-  <reed as="card">Item 2</reed>
-  <reed as="card">Item 3</reed>
-</reed>
+  <r-s as="card">Item 1</r-s>
+  <r-s as="card">Item 2</r-s>
+  <r-s as="card">Item 3</r-s>
+</r-s>
 ```
 
 ### Sidebar Layout
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[grid, cols:250px:1fr, gap:6]">
-  <reed as="aside">Sidebar</reed>
-  <reed as="main">Content</reed>
-</reed>
+  <r-s as="aside">Sidebar</r-s>
+  <r-s as="main">Content</r-s>
+</r-s>
 ```
 
 ### Holy Grail Layout
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[grid, rows:auto:1fr:auto, cols:200px:1fr:200px]">
-  <reed as="header" layout="col-span:3">Header</reed>
-  <reed as="nav">Left</reed>
-  <reed as="main">Content</reed>
-  <reed as="aside">Right</reed>
-  <reed as="footer" layout="col-span:3">Footer</reed>
-</reed>
+  <r-s as="header" layout="col-span:3">Header</r-s>
+  <r-s as="nav">Left</r-s>
+  <r-s as="main">Content</r-s>
+  <r-s as="aside">Right</r-s>
+  <r-s as="footer" layout="col-span:3">Footer</r-s>
+</r-s>
 ```
 
 ### Sticky Header
 
 ```html
-<reed as="header" 
+<r-s as="header" 
       layout="[position:sticky, top:0, z:50]">
   Sticky navigation
-</reed>
+</r-s>
 ```
 
 ### Modal Overlay
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[position:fixed, inset:0, z:100]"
       face="[bg:base-1000, opacity:50]">
-  <reed as="modal" 
+  <r-s as="modal" 
         layout="[position:absolute, top:50%, left:50%, transform:translate:-50%:-50%]">
     Modal content
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ### Masonry Grid
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[grid:3, gap:4, flow:dense]">
-  <reed as="card" layout="row-span:2">Tall</reed>
-  <reed as="card">Normal</reed>
-  <reed as="card" layout="col-span:2">Wide</reed>
-</reed>
+  <r-s as="card" layout="row-span:2">Tall</r-s>
+  <r-s as="card">Normal</r-s>
+  <r-s as="card" layout="col-span:2">Wide</r-s>
+</r-s>
 ```
 
 ## Best Practices

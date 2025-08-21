@@ -9,10 +9,8 @@ Build adaptive layouts with ReedSTYLE's mobile-first responsive system.
 | Name | Min-Width | Target Devices |
 |------|-----------|----------------|
 | (base) | 0px | Mobile phones (default) |
-| phone | 320px | Small phones |
 | tablet | 560px | Tablets & large phones |
 | screen | 960px | Desktop screens |
-| wide | 1260px | Wide screens |
 
 ### Mobile-First Approach
 
@@ -22,14 +20,12 @@ Start with mobile styles, add complexity for larger screens:
 <!-- Mobile: Single column -->
 <!-- Tablet: 2 columns -->
 <!-- Desktop: 3 columns -->
-<!-- Wide: 4 columns -->
-<reed as="div"
+<r-s as="div"
       layout="[flex:column, gap:4]"
       layout-tablet="[grid:2, gap:6]"
-      layout-screen="[grid:3, gap:8]"
-      layout-wide="[grid:4, gap:10]">
+      layout-screen="[grid:3, gap:8]">
   <!-- Content -->
-</reed>
+</r-s>
 ```
 
 ## Responsive Syntax
@@ -37,17 +33,15 @@ Start with mobile styles, add complexity for larger screens:
 ### Basic Pattern
 
 ```html
-<reed as="element" 
+<r-s as="element" 
       [namespace]="mobile styles"
-      [namespace]-[breakpoint]="larger screen styles"
-      [namespace]-[environment]="environment styles"
-      [namespace]-[environment]-[breakpoint]="combined styles">
+      [namespace]-[breakpoint]="larger screen styles">
 ```
 
 ### All Namespaces Support Breakpoints
 
 ```html
-<reed as="section"
+<r-s as="section"
       box="[padding:4]"
       box-tablet="[padding:6]"
       box-screen="[padding:8]"
@@ -63,7 +57,7 @@ Start with mobile styles, add complexity for larger screens:
       layout-tablet="[flex:row]"
       layout-screen="[grid:3]">
   Fully responsive element
-</reed>
+</r-s>
 ```
 
 ## Common Responsive Patterns
@@ -71,103 +65,100 @@ Start with mobile styles, add complexity for larger screens:
 ### Responsive Navigation
 
 ```html
-<reed as="nav"
+<r-s as="nav"
       layout="[flex:column, gap:2]"
       layout-screen="[flex:row, justify:between, align:center]">
   
   <!-- Brand -->
-  <reed as="nav-brand">Logo</reed>
+  <r-s as="nav-brand">Logo</r-s>
   
   <!-- Mobile menu button -->
-  <reed as="button"
+  <r-s as="button"
         box="display:block"
         box-screen="display:none">
     ☰ Menu
-  </reed>
+  </r-s>
   
   <!-- Navigation links -->
-  <reed as="nav-links"
+  <r-s as="nav-links"
         box="display:none"
         box-screen="display:flex"
         layout-screen="[flex:row, gap:4]">
     <a href="/">Home</a>
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ### Responsive Grid
 
 ```html
 <!-- Product grid -->
-<reed as="div"
+<r-s as="div"
       layout="[grid:1, gap:4]"
-      layout-phone="[grid:2, gap:4]"
-      layout-tablet="[grid:3, gap:6]"
-      layout-screen="[grid:4, gap:8]"
-      layout-wide="[grid:6, gap:8]">
+      layout-tablet="[grid:2, gap:6]"
+      layout-screen="[grid:4, gap:8]">
   
-  <reed as="product-card">Product 1</reed>
-  <reed as="product-card">Product 2</reed>
-  <reed as="product-card">Product 3</reed>
+  <r-s as="product-card">Product 1</r-s>
+  <r-s as="product-card">Product 2</r-s>
+  <r-s as="product-card">Product 3</r-s>
   <!-- More products -->
-</reed>
+</r-s>
 ```
 
 ### Responsive Typography
 
 ```html
-<reed as="h1"
+<r-s as="h1"
       text="[size:large, weight:bold]"
       text-tablet="[size:huge]"
       text-screen="[size:mega]">
   Responsive Heading
-</reed>
+</r-s>
 
-<reed as="p"
+<r-s as="p"
       text="[size:small, leading:normal]"
       text-tablet="[size:normal, leading:relaxed]"
       text-screen="[size:large, leading:loose]">
   Body text that scales with viewport
-</reed>
+</r-s>
 ```
 
 ### Responsive Spacing
 
 ```html
-<reed as="section"
+<r-s as="section"
       box="[padding:4, margin-y:4]"
       box-tablet="[padding:6, margin-y:6]"
-      box-screen="[padding:8, margin-y:8]"
-      box-wide="[padding:12, margin-y:12]">
+      box-screen="[padding:8, margin-y:8]">
   Content with responsive spacing
-</reed>
+</r-s>
 ```
 
 ### Hide/Show Elements
 
 ```html
 <!-- Mobile only -->
-<reed as="div"
+<r-s as="div"
       box="display:block"
       box-tablet="display:none">
   Mobile menu
-</reed>
+</r-s>
 
 <!-- Desktop only -->
-<reed as="aside"
+<r-s as="aside"
       box="display:none"
       box-screen="display:block">
   Desktop sidebar
-</reed>
+</r-s>
 
 <!-- Tablet and up -->
-<reed as="div"
+<r-s as="div"
       box="display:none"
       box-tablet="display:block">
   Tablet+ content
-</reed>
+</r-s>
 ```
 
 ## Layout Strategies
@@ -176,27 +167,27 @@ Start with mobile styles, add complexity for larger screens:
 
 ```html
 <!-- When container queries are supported -->
-<reed as="card"
+<r-s as="card"
       container="inline-size"
       layout="[flex:column]"
       layout-container="[flex:row]">
   Responds to container, not viewport
-</reed>
+</r-s>
 ```
 
 ### Fluid Typography
 
 ```html
-<reed as="h1"
+<r-s as="h1"
       text="[size:clamp(1.5rem,4vw,3rem)]">
   Fluid heading
-</reed>
+</r-s>
 ```
 
 ### Responsive Images
 
 ```html
-<reed as="figure"
+<r-s as="figure"
       box="[width:full, max-width:600]">
   <img srcset="small.jpg 320w,
                medium.jpg 768w,
@@ -205,20 +196,21 @@ Start with mobile styles, add complexity for larger screens:
               (max-width: 768px) 768px,
               1200px"
        alt="Responsive image">
-</reed>
+</r-s>
 ```
 
 ## Advanced Responsive Techniques
 
-### Orientation-Based Styles
+### Future: Orientation-Based Styles
 
 ```html
-<reed as="div"
+<!-- Planned for future release -->
+<r-s as="div"
       layout="[grid:2]"
       layout-landscape="[grid:4]"
       layout-portrait="[flex:column]">
   Orientation-aware layout
-</reed>
+</r-s>
 ```
 
 ### Responsive Components
@@ -244,19 +236,19 @@ components:
 
 ```html
 <!-- Responsive flex utilities -->
-<reed as="div"
+<r-s as="div"
       layout="[flex:column]"
       layout-tablet="[flex:row, wrap:wrap]"
       layout-screen="[flex:row, wrap:nowrap]">
   
   <!-- Responsive flex children -->
-  <reed as="div"
+  <r-s as="div"
         layout="[basis:full]"
         layout-tablet="[basis:half]"
         layout-screen="[basis:third]">
     Responsive flex item
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ## Testing Responsive Designs
@@ -266,10 +258,8 @@ components:
 ```javascript
 // Test breakpoints programmatically
 const breakpoints = {
-  phone: 320,
   tablet: 560,
-  screen: 960,
-  wide: 1260
+  screen: 960
 };
 
 Object.entries(breakpoints).forEach(([name, width]) => {
@@ -326,11 +316,11 @@ if (window.matchMedia('(min-width: 960px)').matches) {
 ### CSS Containment
 
 ```html
-<reed as="div"
+<r-s as="div"
       layout="contain:layout"
       layout-screen="contain:none">
   Optimized for mobile rendering
-</reed>
+</r-s>
 ```
 
 ## Responsive Design Patterns
@@ -338,25 +328,25 @@ if (window.matchMedia('(min-width: 960px)').matches) {
 ### The Hamburger Menu
 
 ```html
-<reed as="header">
-  <reed as="nav"
+<r-s as="header">
+  <r-s as="nav"
         layout="[flex:row, justify:between, align:center]">
     
     <!-- Logo -->
-    <reed as="logo">Brand</reed>
+    <r-s as="logo">Brand</r-s>
     
     <!-- Mobile menu toggle -->
-    <reed as="button"
+    <r-s as="button"
           id="menu-toggle"
           box="display:block"
           box-screen="display:none"
           face="[bg:transparent, border:none]"
           text="size:large">
       ☰
-    </reed>
+    </r-s>
     
     <!-- Menu items -->
-    <reed as="nav-menu"
+    <r-s as="nav-menu"
           id="menu"
           box="[display:none, position:absolute, top:full, left:0, width:full]"
           box-screen="[display:flex, position:static, width:auto]"
@@ -367,67 +357,67 @@ if (window.matchMedia('(min-width: 960px)').matches) {
       <a href="/about">About</a>
       <a href="/services">Services</a>
       <a href="/contact">Contact</a>
-    </reed>
-  </reed>
-</reed>
+    </r-s>
+  </r-s>
+</r-s>
 ```
 
 ### Card to List Transform
 
 ```html
 <!-- Cards on desktop, list on mobile -->
-<reed as="div"
+<r-s as="div"
       layout="[flex:column, gap:2]"
       layout-screen="[grid:3, gap:6]">
   
-  <reed as="item"
+  <r-s as="item"
         layout="[flex:row, gap:3, padding:3]"
         layout-screen="[flex:column, padding:6]"
         face="[border-bottom:1:base-200]"
         face-screen="[border:none, shadow:md, radius:lg]">
     
-    <reed as="thumbnail"
+    <r-s as="thumbnail"
           box="[width:20, height:20]"
           box-screen="[width:full, height:40]">
       <img src="thumb.jpg" alt="">
-    </reed>
+    </r-s>
     
-    <reed as="content"
+    <r-s as="content"
           layout="[flex:column, justify:center]">
       <h3>Item Title</h3>
       <p>Description</p>
-    </reed>
-  </reed>
-</reed>
+    </r-s>
+  </r-s>
+</r-s>
 ```
 
 ### Responsive Tables
 
 ```html
 <!-- Table on desktop, cards on mobile -->
-<reed as="div"
+<r-s as="div"
       box="overflow-x:auto">
   
   <!-- Desktop table -->
-  <reed as="table"
+  <r-s as="table"
         box="display:none"
         box-tablet="display:table">
     <table>
       <!-- Table content -->
     </table>
-  </reed>
+  </r-s>
   
   <!-- Mobile cards -->
-  <reed as="div"
+  <r-s as="div"
         box="display:block"
         box-tablet="display:none"
         layout="[flex:column, gap:4]">
     
-    <reed as="card">
+    <r-s as="card">
       <!-- Card representation of table row -->
-    </reed>
-  </reed>
-</reed>
+    </r-s>
+  </r-s>
+</r-s>
 ```
 
 ## Best Practices

@@ -9,7 +9,7 @@ Build your first ReedSTYLE page in 5 minutes.
 ReedSTYLE ships pre-built files - no build process needed:
 
 - **reedstyle.css** - Development version with comments (~350KB)
-- **reedstyle.min.css** - Production minified (~180KB)  
+- **reedstyle.min.css** - Production minified (~346KB)  
 - **reedstyle.js** - Optional JavaScript enhancement (~100KB)
 - **reedstyle.min.js** - Production minified JS (~40KB)
 
@@ -27,9 +27,9 @@ ReedSTYLE ships pre-built files - no build process needed:
 </head>
 <body>
   <!-- Works with CSS only! -->
-  <reed as="hero">
+  <r-s as="hero">
     <h1>Welcome</h1>
-  </reed>
+  </r-s>
 </body>
 </html>
 ```
@@ -107,38 +107,38 @@ components:
 </head>
 <body>
   <!-- Hero Section -->
-  <reed as="hero">
+  <r-s as="hero">
     <h1>Welcome to ReedSTYLE</h1>
     <p>Build beautiful websites with just HTML</p>
-    <reed as="button-primary">Get Started</reed>
-  </reed>
+    <r-s as="button-primary">Get Started</r-s>
+  </r-s>
 
   <!-- Features Grid -->
-  <reed as="section" layout="[grid:3, gap:6]" box="[padding:8]">
-    <reed as="card">
+  <r-s as="section" layout="[grid:3, gap:6]" box="[padding:8]">
+    <r-s as="card">
       <h3>Simple</h3>
       <p>No build tools required. Just include and use.</p>
-    </reed>
+    </r-s>
     
-    <reed as="card">
+    <r-s as="card">
       <h3>Powerful</h3>
       <p>Full control when you need it.</p>
-    </reed>
+    </r-s>
     
-    <reed as="card">
+    <r-s as="card">
       <h3>Fast</h3>
       <p>35% smaller CSS than traditional frameworks.</p>
-    </reed>
-  </reed>
+    </r-s>
+  </r-s>
 
   <!-- Call to Action -->
-  <reed as="section" text="align:center" box="[padding:10]">
+  <r-s as="section" text="align:center" box="[padding:10]">
     <h2>Ready to simplify your workflow?</h2>
-    <reed as="button-group">
-      <reed as="button-primary">Documentation</reed>
-      <reed as="button-secondary">Examples</reed>
-    </reed>
-  </reed>
+    <r-s as="button-group">
+      <r-s as="button-primary">Documentation</r-s>
+      <r-s as="button-secondary">Examples</r-s>
+    </r-s>
+  </r-s>
 </body>
 </html>
 ```
@@ -148,7 +148,7 @@ components:
 ### 1. The Reed Element
 
 ```html
-<reed as="div">Content</reed>
+<r-s as="div">Content</r-s>
 ```
 
 The `as` attribute determines the component type. Naming rules:
@@ -164,12 +164,12 @@ Common presets:
 ### 2. Namespace Attributes
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[grid:2]"
       box="[padding:4]"
       face="[bg:brand-a, radius:lg]">
   Content
-</reed>
+</r-s>
 ```
 
 Each namespace controls specific properties:
@@ -186,10 +186,10 @@ Combine multiple properties using arrays:
 
 ```html
 <!-- Single property -->
-<reed as="div" box="padding:4">
+<r-s as="div" box="padding:4">
 
 <!-- Multiple properties -->
-<reed as="div" box="[padding:4, margin:2, width:full]">
+<r-s as="div" box="[padding:4, margin:2, width:full]">
 ```
 
 ### 4. Responsive Design
@@ -197,12 +197,12 @@ Combine multiple properties using arrays:
 Add breakpoint suffixes for responsive behavior:
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       layout="[flex:column]"
       layout-tablet="[flex:row]"
       layout-screen="[grid:3]">
   Responsive content
-</reed>
+</r-s>
 ```
 
 ## Common Patterns
@@ -210,50 +210,50 @@ Add breakpoint suffixes for responsive behavior:
 ### Navigation Bar
 
 ```html
-<reed as="nav">
-  <reed as="brand">MyApp</reed>
-  <reed as="nav-links">
+<r-s as="nav">
+  <r-s as="brand">MyApp</r-s>
+  <r-s as="nav-links">
     <a href="/">Home</a>
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ### Form
 
 ```html
-<reed as="form">
-  <reed as="field">
+<r-s as="form">
+  <r-s as="field">
     <label>Email</label>
     <input type="email" required>
-  </reed>
+  </r-s>
   
-  <reed as="field">
+  <r-s as="field">
     <label>Message</label>
     <textarea rows="4"></textarea>
-  </reed>
+  </r-s>
   
-  <reed as="button-primary">Send</reed>
-</reed>
+  <r-s as="button-primary">Send</r-s>
+</r-s>
 ```
 
 ### Modal
 
 ```html
-<reed as="modal" id="my-modal">
-  <reed as="modal-header">
+<r-s as="modal" id="my-modal">
+  <r-s as="modal-header">
     <h3>Modal Title</h3>
-    <reed as="close">&times;</reed>
-  </reed>
-  <reed as="modal-body">
+    <r-s as="close">&times;</r-s>
+  </r-s>
+  <r-s as="modal-body">
     Modal content goes here
-  </reed>
-  <reed as="modal-footer">
-    <reed as="button-secondary">Cancel</reed>
-    <reed as="button-primary">Confirm</reed>
-  </reed>
-</reed>
+  </r-s>
+  <r-s as="modal-footer">
+    <r-s as="button-secondary">Cancel</r-s>
+    <r-s as="button-primary">Confirm</r-s>
+  </r-s>
+</r-s>
 ```
 
 ## Next Steps

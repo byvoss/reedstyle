@@ -35,7 +35,7 @@ cargo run
 # Output in dist/
 ls -la dist/
 # reedstyle.css      - Development version (~250KB)
-# reedstyle.min.css  - Production version (~180KB) 
+# reedstyle.min.css  - Production version (~346KB) 
 # reedstyle.js       - Optional JavaScript (SWC output)
 # reedstyle.d.ts     - TypeScript definitions
 ```
@@ -126,9 +126,9 @@ fonts:
   <script src="path/to/reedstyle.js" defer></script>
 </head>
 <body>
-  <reed as="hero">
+  <r-s as="hero">
     <h1>Your App</h1>
-  </reed>
+  </r-s>
 </body>
 </html>
 ```
@@ -177,10 +177,10 @@ import { Reed } from './ReedElement';
 
 function App() {
   return (
-    <Reed as="hero">
+    <r-s as="hero">
       <h1>React App</h1>
-      <Reed as="button-primary">Click me</Reed>
-    </Reed>
+      <r-s as="button-primary">Click me</r-s>
+    </r-s>
   );
 }
 ```
@@ -203,10 +203,10 @@ defineProps({
 
 <!-- Usage -->
 <template>
-  <Reed as="card">
+  <r-s as="card">
     <h2>Vue Component</h2>
-    <Reed as="button-primary">Action</Reed>
-  </Reed>
+    <r-s as="button-primary">Action</r-s>
+  </r-s>
 </template>
 ```
 
@@ -238,10 +238,10 @@ export class ReedComponent {
 </svelte:element>
 
 <!-- Usage -->
-<Reed as="hero">
+<r-s as="hero">
   <h1>Svelte App</h1>
-  <Reed as="button-primary">Click</Reed>
-</Reed>
+  <r-s as="button-primary">Click</r-s>
+</r-s>
 ```
 
 ## Custom Build Pipeline

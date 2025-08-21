@@ -2,7 +2,7 @@
 
 ## What is ReedSTYLE?
 
-ReedSTYLE is an HTML-first styling system that eliminates the need for custom CSS and JavaScript in 99% of use cases. Instead of writing styles, you write semantic HTML with the `<reed>` element.
+ReedSTYLE is an HTML-first styling system that eliminates the need for custom CSS and JavaScript in 99% of use cases. Instead of writing styles, you write semantic HTML with the `<r-s>` element.
 
 ## The Problem It Solves
 
@@ -28,9 +28,9 @@ This creates:
 </div>
 
 <!-- ReedSTYLE approach -->
-<reed as="card">
+<r-s as="card">
   <h3>Title</h3>
-</reed>
+</r-s>
 ```
 
 ## Core Philosophy
@@ -46,18 +46,18 @@ When presets aren't enough, use namespace attributes for fine control.
 
 ```html
 <!-- Use preset -->
-<reed as="card">Standard card</reed>
+<r-s as="card">Standard card</r-s>
 
 <!-- Customize preset -->
-<reed as="card" face="bg:brand-a">Branded card</reed>
+<r-s as="card" face="bg:brand-a">Branded card</r-s>
 
 <!-- Full control -->
-<reed as="div" 
+<r-s as="div" 
       layout="[grid:3, gap:4]"
       box="[padding:6]"
       face="[bg:base-100, radius:lg, shadow:md]">
   Custom layout
-</reed>
+</r-s>
 ```
 
 ## Key Benefits

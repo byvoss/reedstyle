@@ -8,16 +8,16 @@ Presets are pre-styled reed elements that provide instant, professional designs:
 
 ```html
 <!-- Instead of this... -->
-<reed as="div" 
+<r-s as="div" 
       box="[padding:6, margin:4]"
       face="[bg:base-0, radius:lg, shadow:md]">
   Content
-</reed>
+</r-s>
 
 <!-- Just write this -->
-<reed as="card">
+<r-s as="card">
   Content
-</reed>
+</r-s>
 ```
 
 ## Layout Presets
@@ -26,43 +26,43 @@ Presets are pre-styled reed elements that provide instant, professional designs:
 Centered max-width container with responsive padding.
 
 ```html
-<reed as="container">
+<r-s as="container">
   <!-- Content constrained to max-width with auto margins -->
-</reed>
+</r-s>
 ```
 
 ### section
 Full-width section with vertical padding.
 
 ```html
-<reed as="section">
+<r-s as="section">
   <!-- Full-width content area -->
-</reed>
+</r-s>
 ```
 
 ### hero
 Full-height centered hero section.
 
 ```html
-<reed as="hero">
+<r-s as="hero">
   <h1>Big Title</h1>
   <p>Subtitle text</p>
-  <reed as="button-primary">Call to Action</reed>
-</reed>
+  <r-s as="button-primary">Call to Action</r-s>
+</r-s>
 ```
 
 ### sidebar-layout
 Two-column layout with sidebar.
 
 ```html
-<reed as="sidebar-layout">
-  <reed as="sidebar">
+<r-s as="sidebar-layout">
+  <r-s as="sidebar">
     <!-- Sidebar content -->
-  </reed>
-  <reed as="main-content">
+  </r-s>
+  <r-s as="main-content">
     <!-- Main content -->
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ## Component Presets
@@ -71,39 +71,39 @@ Two-column layout with sidebar.
 Content card with shadow, radius, and padding.
 
 ```html
-<reed as="card">
+<r-s as="card">
   <h3>Card Title</h3>
   <p>Card content</p>
-</reed>
+</r-s>
 
 <!-- With sections -->
-<reed as="card">
-  <reed as="card-header">Header</reed>
-  <reed as="card-body">Content</reed>
-  <reed as="card-footer">Footer</reed>
-</reed>
+<r-s as="card">
+  <r-s as="card-header">Header</r-s>
+  <r-s as="card-body">Content</r-s>
+  <r-s as="card-footer">Footer</r-s>
+</r-s>
 ```
 
 ### alert
 Notification/alert component.
 
 ```html
-<reed as="alert">Default alert</reed>
-<reed as="alert-success">Success message</reed>
-<reed as="alert-warning">Warning message</reed>
-<reed as="alert-error">Error message</reed>
-<reed as="alert-info">Info message</reed>
+<r-s as="alert">Default alert</r-s>
+<r-s as="alert-success">Success message</r-s>
+<r-s as="alert-warning">Warning message</r-s>
+<r-s as="alert-error">Error message</r-s>
+<r-s as="alert-info">Info message</r-s>
 ```
 
 ### badge
 Small label/badge component.
 
 ```html
-<reed as="badge">Default</reed>
-<reed as="badge-primary">Primary</reed>
-<reed as="badge-success">Success</reed>
-<reed as="badge-warning">Warning</reed>
-<reed as="badge-error">Error</reed>
+<r-s as="badge">Default</r-s>
+<r-s as="badge-primary">Primary</r-s>
+<r-s as="badge-success">Success</r-s>
+<r-s as="badge-warning">Warning</r-s>
+<r-s as="badge-error">Error</r-s>
 ```
 
 ## Button Presets
@@ -112,38 +112,38 @@ Small label/badge component.
 Primary action button.
 
 ```html
-<reed as="button-primary">Save Changes</reed>
+<r-s as="button-primary">Save Changes</r-s>
 ```
 
 ### button-secondary
 Secondary action button.
 
 ```html
-<reed as="button-secondary">Cancel</reed>
+<r-s as="button-secondary">Cancel</r-s>
 ```
 
 ### button-ghost
 Transparent button with border.
 
 ```html
-<reed as="button-ghost">Learn More</reed>
+<r-s as="button-ghost">Learn More</r-s>
 ```
 
 ### button-link
 Button that looks like a link.
 
 ```html
-<reed as="button-link">View Details</reed>
+<r-s as="button-link">View Details</r-s>
 ```
 
 ### button-group
 Container for multiple buttons.
 
 ```html
-<reed as="button-group">
-  <reed as="button-secondary">Back</reed>
-  <reed as="button-primary">Next</reed>
-</reed>
+<r-s as="button-group">
+  <r-s as="button-secondary">Back</r-s>
+  <r-s as="button-primary">Next</r-s>
+</r-s>
 ```
 
 ## Navigation Presets
@@ -152,43 +152,43 @@ Container for multiple buttons.
 Navigation bar container.
 
 ```html
-<reed as="nav">
-  <reed as="nav-brand">Logo</reed>
-  <reed as="nav-links">
+<r-s as="nav">
+  <r-s as="nav-brand">Logo</r-s>
+  <r-s as="nav-links">
     <a href="/">Home</a>
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ### breadcrumb
 Breadcrumb navigation.
 
 ```html
-<reed as="breadcrumb">
+<r-s as="breadcrumb">
   <a href="/">Home</a>
   <span>/</span>
   <a href="/products">Products</a>
   <span>/</span>
   <span>Current Page</span>
-</reed>
+</r-s>
 ```
 
 ### tabs
 Tab navigation component.
 
 ```html
-<reed as="tabs">
-  <reed as="tab-list">
-    <reed as="tab" active>Tab 1</reed>
-    <reed as="tab">Tab 2</reed>
-    <reed as="tab">Tab 3</reed>
-  </reed>
-  <reed as="tab-panel">
+<r-s as="tabs">
+  <r-s as="tab-list">
+    <r-s as="tab" active>Tab 1</r-s>
+    <r-s as="tab">Tab 2</r-s>
+    <r-s as="tab">Tab 3</r-s>
+  </r-s>
+  <r-s as="tab-panel">
     Tab 1 content
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ## Form Presets
@@ -197,45 +197,45 @@ Tab navigation component.
 Styled form container.
 
 ```html
-<reed as="form">
-  <reed as="field">
+<r-s as="form">
+  <r-s as="field">
     <label>Name</label>
     <input type="text">
-  </reed>
-  <reed as="field">
+  </r-s>
+  <r-s as="field">
     <label>Email</label>
     <input type="email">
-  </reed>
-  <reed as="button-primary">Submit</reed>
-</reed>
+  </r-s>
+  <r-s as="button-primary">Submit</r-s>
+</r-s>
 ```
 
 ### field
 Form field wrapper with label spacing.
 
 ```html
-<reed as="field">
+<r-s as="field">
   <label>Field Label</label>
   <input type="text">
-  <reed as="field-help">Helper text</reed>
-  <reed as="field-error">Error message</reed>
-</reed>
+  <r-s as="field-help">Helper text</r-s>
+  <r-s as="field-error">Error message</r-s>
+</r-s>
 ```
 
 ### field-group
 Group related fields.
 
 ```html
-<reed as="field-group">
-  <reed as="field">
+<r-s as="field-group">
+  <r-s as="field">
     <label>First Name</label>
     <input type="text">
-  </reed>
-  <reed as="field">
+  </r-s>
+  <r-s as="field">
     <label>Last Name</label>
     <input type="text">
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ## Modal Presets
@@ -244,34 +244,34 @@ Group related fields.
 Modal dialog container.
 
 ```html
-<reed as="modal" id="my-modal">
-  <reed as="modal-header">
+<r-s as="modal" id="my-modal">
+  <r-s as="modal-header">
     <h3>Modal Title</h3>
-    <reed as="modal-close">&times;</reed>
-  </reed>
-  <reed as="modal-body">
+    <r-s as="modal-close">&times;</r-s>
+  </r-s>
+  <r-s as="modal-body">
     Modal content goes here
-  </reed>
-  <reed as="modal-footer">
-    <reed as="button-secondary">Cancel</reed>
-    <reed as="button-primary">Confirm</reed>
-  </reed>
-</reed>
+  </r-s>
+  <r-s as="modal-footer">
+    <r-s as="button-secondary">Cancel</r-s>
+    <r-s as="button-primary">Confirm</r-s>
+  </r-s>
+</r-s>
 ```
 
 ### drawer
 Slide-out drawer component.
 
 ```html
-<reed as="drawer" position="left">
-  <reed as="drawer-header">
+<r-s as="drawer" position="left">
+  <r-s as="drawer-header">
     <h3>Menu</h3>
-    <reed as="drawer-close">&times;</reed>
-  </reed>
-  <reed as="drawer-body">
+    <r-s as="drawer-close">&times;</r-s>
+  </r-s>
+  <r-s as="drawer-body">
     <!-- Menu items -->
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ## List Presets
@@ -280,24 +280,24 @@ Slide-out drawer component.
 Styled list container.
 
 ```html
-<reed as="list">
-  <reed as="list-item">Item 1</reed>
-  <reed as="list-item">Item 2</reed>
-  <reed as="list-item">Item 3</reed>
-</reed>
+<r-s as="list">
+  <r-s as="list-item">Item 1</r-s>
+  <r-s as="list-item">Item 2</r-s>
+  <r-s as="list-item">Item 3</r-s>
+</r-s>
 ```
 
 ### menu
 Vertical menu component.
 
 ```html
-<reed as="menu">
-  <reed as="menu-item" active>Dashboard</reed>
-  <reed as="menu-item">Profile</reed>
-  <reed as="menu-item">Settings</reed>
-  <reed as="menu-divider"></reed>
-  <reed as="menu-item">Logout</reed>
-</reed>
+<r-s as="menu">
+  <r-s as="menu-item" active>Dashboard</r-s>
+  <r-s as="menu-item">Profile</r-s>
+  <r-s as="menu-item">Settings</r-s>
+  <r-s as="menu-divider"></r-s>
+  <r-s as="menu-item">Logout</r-s>
+</r-s>
 ```
 
 ## Data Display Presets
@@ -306,7 +306,7 @@ Vertical menu component.
 Styled table wrapper.
 
 ```html
-<reed as="table">
+<r-s as="table">
   <table>
     <thead>
       <tr>
@@ -321,32 +321,32 @@ Styled table wrapper.
       </tr>
     </tbody>
   </table>
-</reed>
+</r-s>
 ```
 
 ### stats
 Statistics display component.
 
 ```html
-<reed as="stats">
-  <reed as="stat">
-    <reed as="stat-value">42</reed>
-    <reed as="stat-label">Users</reed>
-  </reed>
-  <reed as="stat">
-    <reed as="stat-value">$1,234</reed>
-    <reed as="stat-label">Revenue</reed>
-  </reed>
-</reed>
+<r-s as="stats">
+  <r-s as="stat">
+    <r-s as="stat-value">42</r-s>
+    <r-s as="stat-label">Users</r-s>
+  </r-s>
+  <r-s as="stat">
+    <r-s as="stat-value">$1,234</r-s>
+    <r-s as="stat-label">Revenue</r-s>
+  </r-s>
+</r-s>
 ```
 
 ### progress
 Progress bar component.
 
 ```html
-<reed as="progress" value="60">
+<r-s as="progress" value="60">
   60% Complete
-</reed>
+</r-s>
 ```
 
 ## Customizing Presets
@@ -355,35 +355,35 @@ Progress bar component.
 
 ```html
 <!-- Change card background -->
-<reed as="card" face="bg:brand-a">
+<r-s as="card" face="bg:brand-a">
   Branded card
-</reed>
+</r-s>
 
 <!-- Adjust button size -->
-<reed as="button-primary" text="size:small">
+<r-s as="button-primary" text="size:small">
   Small button
-</reed>
+</r-s>
 ```
 
 ### Combine Presets with Custom Styles
 
 ```html
-<reed as="hero" 
+<r-s as="hero" 
       text="[align:left]"
       box="[padding:12]">
   <h1>Custom Hero</h1>
-</reed>
+</r-s>
 ```
 
 ### Responsive Preset Modifications
 
 ```html
-<reed as="card"
+<r-s as="card"
       box="[padding:4]"
       box-tablet="[padding:6]"
       box-screen="[padding:8]">
   Responsive card padding
-</reed>
+</r-s>
 ```
 
 ## Creating Your Own Presets
@@ -410,16 +410,16 @@ components:
 Use them like built-in presets:
 
 ```html
-<reed as="feature-card">
+<r-s as="feature-card">
   <h3>Feature Name</h3>
   <p>Feature description</p>
-</reed>
+</r-s>
 
-<reed as="pricing-card">
+<r-s as="pricing-card">
   <h3>Pro Plan</h3>
-  <reed as="price">$29/mo</reed>
-  <reed as="button-primary">Subscribe</reed>
-</reed>
+  <r-s as="price">$29/mo</r-s>
+  <r-s as="button-primary">Subscribe</r-s>
+</r-s>
 ```
 
 ## Best Practices

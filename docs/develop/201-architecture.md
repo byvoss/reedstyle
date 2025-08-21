@@ -557,7 +557,7 @@ ReedSTYLE ships as pre-built files - users never need build tools:
 ```
 dist/
 ├── reedstyle.css         # Development CSS with comments (~350KB)
-├── reedstyle.min.css     # Production minified CSS (~180KB)
+├── reedstyle.min.css     # Production minified CSS (~346KB)
 ├── reedstyle.js          # Optional JavaScript enhancement (~100KB)
 ├── reedstyle.min.js      # Production minified JS (~40KB)
 └── reedstyle.d.ts        # TypeScript definitions (~20KB)
@@ -577,9 +577,9 @@ dist/
 </head>
 <body>
   <!-- Works immediately -->
-  <reed as="hero">
+  <r-s as="hero">
     <h1>No build required!</h1>
-  </reed>
+  </r-s>
 </body>
 </html>
 ```

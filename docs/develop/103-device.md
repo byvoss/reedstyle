@@ -8,110 +8,110 @@ Controls user interaction properties: cursor, selection, scrolling, and touch.
 
 ```html
 <!-- Common cursors -->
-<reed as="button" device="cursor:pointer">
-<reed as="div" device="cursor:default">
-<reed as="div" device="cursor:none">
-<reed as="div" device="cursor:wait">
-<reed as="div" device="cursor:text">
-<reed as="div" device="cursor:move">
-<reed as="div" device="cursor:grab">
-<reed as="div" device="cursor:grabbing">
-<reed as="div" device="cursor:not-allowed">
-<reed as="div" device="cursor:help">
-<reed as="div" device="cursor:crosshair">
-<reed as="div" device="cursor:zoom-in">
-<reed as="div" device="cursor:zoom-out">
+<r-s as="button" device="cursor:pointer">
+<r-s as="div" device="cursor:default">
+<r-s as="div" device="cursor:none">
+<r-s as="div" device="cursor:wait">
+<r-s as="div" device="cursor:text">
+<r-s as="div" device="cursor:move">
+<r-s as="div" device="cursor:grab">
+<r-s as="div" device="cursor:grabbing">
+<r-s as="div" device="cursor:not-allowed">
+<r-s as="div" device="cursor:help">
+<r-s as="div" device="cursor:crosshair">
+<r-s as="div" device="cursor:zoom-in">
+<r-s as="div" device="cursor:zoom-out">
 
 <!-- Resize cursors -->
-<reed as="div" device="cursor:resize">
-<reed as="div" device="cursor:n-resize">
-<reed as="div" device="cursor:e-resize">
-<reed as="div" device="cursor:s-resize">
-<reed as="div" device="cursor:w-resize">
-<reed as="div" device="cursor:ne-resize">
-<reed as="div" device="cursor:nw-resize">
-<reed as="div" device="cursor:se-resize">
-<reed as="div" device="cursor:sw-resize">
+<r-s as="div" device="cursor:resize">
+<r-s as="div" device="cursor:n-resize">
+<r-s as="div" device="cursor:e-resize">
+<r-s as="div" device="cursor:s-resize">
+<r-s as="div" device="cursor:w-resize">
+<r-s as="div" device="cursor:ne-resize">
+<r-s as="div" device="cursor:nw-resize">
+<r-s as="div" device="cursor:se-resize">
+<r-s as="div" device="cursor:sw-resize">
 ```
 
 ### Pointer Events
 
 ```html
-<reed as="div" device="pointer:none">     <!-- pointer-events: none -->
-<reed as="div" device="pointer:auto">     <!-- pointer-events: auto -->
-<reed as="div" device="pointer:all">      <!-- pointer-events: all -->
+<r-s as="div" device="pointer:none">     <!-- pointer-events: none -->
+<r-s as="div" device="pointer:auto">     <!-- pointer-events: auto -->
+<r-s as="div" device="pointer:all">      <!-- pointer-events: all -->
 ```
 
 ### User Select
 
 ```html
-<reed as="div" device="select:none">      <!-- user-select: none -->
-<reed as="div" device="select:auto">      <!-- user-select: auto -->
-<reed as="div" device="select:text">      <!-- user-select: text -->
-<reed as="div" device="select:all">       <!-- user-select: all -->
+<r-s as="div" device="select:none">      <!-- user-select: none -->
+<r-s as="div" device="select:auto">      <!-- user-select: auto -->
+<r-s as="div" device="select:text">      <!-- user-select: text -->
+<r-s as="div" device="select:all">       <!-- user-select: all -->
 ```
 
 ### Touch Action
 
 ```html
-<reed as="div" device="touch:none">       <!-- touch-action: none -->
-<reed as="div" device="touch:auto">       <!-- touch-action: auto -->
-<reed as="div" device="touch:pan-x">      <!-- touch-action: pan-x -->
-<reed as="div" device="touch:pan-y">      <!-- touch-action: pan-y -->
-<reed as="div" device="touch:pinch-zoom"> <!-- touch-action: pinch-zoom -->
-<reed as="div" device="touch:manipulation"> <!-- touch-action: manipulation -->
+<r-s as="div" device="touch:none">       <!-- touch-action: none -->
+<r-s as="div" device="touch:auto">       <!-- touch-action: auto -->
+<r-s as="div" device="touch:pan-x">      <!-- touch-action: pan-x -->
+<r-s as="div" device="touch:pan-y">      <!-- touch-action: pan-y -->
+<r-s as="div" device="touch:pinch-zoom"> <!-- touch-action: pinch-zoom -->
+<r-s as="div" device="touch:manipulation"> <!-- touch-action: manipulation -->
 ```
 
 ### Scroll Behavior
 
 ```html
-<reed as="div" device="scroll:smooth">    <!-- scroll-behavior: smooth -->
-<reed as="div" device="scroll:auto">      <!-- scroll-behavior: auto -->
+<r-s as="div" device="scroll:smooth">    <!-- scroll-behavior: smooth -->
+<r-s as="div" device="scroll:auto">      <!-- scroll-behavior: auto -->
 ```
 
 ### Scroll Snap
 
 ```html
 <!-- Container -->
-<reed as="div" device="[snap-type:x, snap-type:mandatory]">
+<r-s as="div" device="[snap-type:x, snap-type:mandatory]">
   <!-- scroll-snap-type: x mandatory -->
   
   <!-- Children -->
-  <reed as="div" device="snap-align:start">   <!-- scroll-snap-align: start -->
-  <reed as="div" device="snap-align:center">  <!-- scroll-snap-align: center -->
-  <reed as="div" device="snap-align:end">     <!-- scroll-snap-align: end -->
-</reed>
+  <r-s as="div" device="snap-align:start">   <!-- scroll-snap-align: start -->
+  <r-s as="div" device="snap-align:center">  <!-- scroll-snap-align: center -->
+  <r-s as="div" device="snap-align:end">     <!-- scroll-snap-align: end -->
+</r-s>
 
 <!-- Snap types -->
-<reed as="div" device="snap-type:none">
-<reed as="div" device="snap-type:x">
-<reed as="div" device="snap-type:y">
-<reed as="div" device="snap-type:block">
-<reed as="div" device="snap-type:inline">
-<reed as="div" device="snap-type:both">
+<r-s as="div" device="snap-type:none">
+<r-s as="div" device="snap-type:x">
+<r-s as="div" device="snap-type:y">
+<r-s as="div" device="snap-type:block">
+<r-s as="div" device="snap-type:inline">
+<r-s as="div" device="snap-type:both">
 
 <!-- Snap strictness -->
-<reed as="div" device="snap-type:mandatory">
-<reed as="div" device="snap-type:proximity">
+<r-s as="div" device="snap-type:mandatory">
+<r-s as="div" device="snap-type:proximity">
 ```
 
 ### Resize
 
 ```html
-<reed as="textarea" device="resize:none">
-<reed as="div" device="resize:both">
-<reed as="div" device="resize:horizontal">
-<reed as="div" device="resize:vertical">
+<r-s as="textarea" device="resize:none">
+<r-s as="div" device="resize:both">
+<r-s as="div" device="resize:horizontal">
+<r-s as="div" device="resize:vertical">
 ```
 
 ### Will Change
 
 ```html
-<reed as="div" device="will-change:transform">
-<reed as="div" device="will-change:opacity">
-<reed as="div" device="will-change:scroll">
-<reed as="div" device="will-change:contents">
-<reed as="div" device="will-change:auto">
+<r-s as="div" device="will-change:transform">
+<r-s as="div" device="will-change:opacity">
+<r-s as="div" device="will-change:scroll">
+<r-s as="div" device="will-change:contents">
+<r-s as="div" device="will-change:auto">
 ```
 
 ## Common Patterns
@@ -119,69 +119,69 @@ Controls user interaction properties: cursor, selection, scrolling, and touch.
 ### Interactive Button
 
 ```html
-<reed as="button" 
+<r-s as="button" 
       device="[cursor:pointer, select:none]">
   Click me
-</reed>
+</r-s>
 ```
 
 ### Disabled State
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       device="[cursor:not-allowed, pointer:none, select:none]"
       face="opacity:50">
   Disabled element
-</reed>
+</r-s>
 ```
 
 ### Draggable Element
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       device="[cursor:grab, select:none, touch:none]"
       device-active="cursor:grabbing">
   Drag me
-</reed>
+</r-s>
 ```
 
 ### Smooth Scrolling Container
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       device="[scroll:smooth, snap-type:y:mandatory]"
       box="[height:screen, overflow-y:scroll]">
-  <reed as="section" device="snap-align:start">
+  <r-s as="section" device="snap-align:start">
     Section 1
-  </reed>
-  <reed as="section" device="snap-align:start">
+  </r-s>
+  <r-s as="section" device="snap-align:start">
     Section 2
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ### Text Selection Control
 
 ```html
 <!-- Prevent selection -->
-<reed as="nav" device="select:none">
+<r-s as="nav" device="select:none">
   Navigation (not selectable)
-</reed>
+</r-s>
 
 <!-- Force selection -->
-<reed as="code" device="select:all">
+<r-s as="code" device="select:all">
   Click to select all
-</reed>
+</r-s>
 ```
 
 ### Mobile Touch Optimization
 
 ```html
-<reed as="div" 
+<r-s as="div" 
       device="[touch:manipulation, select:none]"
       device-tablet="[touch:auto, select:text]">
   Mobile-optimized interaction
-</reed>
+</r-s>
 ```
 
 ## Accessibility Considerations
@@ -190,33 +190,33 @@ Controls user interaction properties: cursor, selection, scrolling, and touch.
 
 ```html
 <!-- Indicate interactivity -->
-<reed as="div" 
+<r-s as="div" 
       role="button"
       tabindex="0"
       device="cursor:pointer">
   Clickable element
-</reed>
+</r-s>
 
 <!-- Show disabled state -->
-<reed as="button" 
+<r-s as="button" 
       disabled
       device="cursor:not-allowed">
   Disabled button
-</reed>
+</r-s>
 ```
 
 ### Selection Control
 
 ```html
 <!-- Important text should be selectable -->
-<reed as="article" device="select:text">
+<r-s as="article" device="select:text">
   Article content
-</reed>
+</r-s>
 
 <!-- UI chrome typically not selectable -->
-<reed as="header" device="select:none">
+<r-s as="header" device="select:none">
   App header
-</reed>
+</r-s>
 ```
 
 ## Performance Tips
@@ -225,28 +225,28 @@ Controls user interaction properties: cursor, selection, scrolling, and touch.
 
 ```html
 <!-- Optimize for animation -->
-<reed as="div" 
+<r-s as="div" 
       device="will-change:transform"
       fx="[transform:scale:1.1:hover, transition:smooth]">
   Animated element
-</reed>
+</r-s>
 
 <!-- Remove after animation -->
-<reed as="div" 
+<r-s as="div" 
       device="will-change:auto">
   Static element
-</reed>
+</r-s>
 ```
 
 ### Touch Performance
 
 ```html
 <!-- Optimize scrolling -->
-<reed as="div" 
+<r-s as="div" 
       device="touch:pan-y"
       box="overflow-y:scroll">
   Vertical scroll only
-</reed>
+</r-s>
 ```
 
 ## Best Practices

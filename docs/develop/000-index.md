@@ -9,7 +9,7 @@ The HTML-first styling system that eliminates custom CSS and JavaScript in 99% o
 ### 🚀 Getting Started
 - [001 - Introduction](001-introduction.md) - What is ReedSTYLE?
 - [011 - Quick Start](011-quick-start.md) - Build your first page in 5 minutes
-- [021 - Reed Element](021-reed-element.md) - Understanding the `<reed>` element
+- [021 - Reed Element](021-reed-element.md) - Understanding the `<r-s>` element
 - [031 - Presets](031-presets.md) - Built-in components
 
 ### 📦 Namespaces
@@ -49,26 +49,26 @@ The HTML-first styling system that eliminates custom CSS and JavaScript in 99% o
   <script src="reedstyle.js"></script>
 </head>
 <body>
-  <reed as="hero">
+  <r-s as="hero">
     <h1>Welcome to ReedSTYLE</h1>
     <p>Build beautiful websites with just HTML</p>
-    <reed as="button-primary">Get Started</reed>
-  </reed>
+    <r-s as="button-primary">Get Started</r-s>
+  </r-s>
   
-  <reed as="section" layout="[grid:3, gap:6]" box="[padding:8]">
-    <reed as="card">
+  <r-s as="section" layout="[grid:3, gap:6]" box="[padding:8]">
+    <r-s as="card">
       <h3>Simple</h3>
       <p>No build tools required</p>
-    </reed>
-    <reed as="card">
+    </r-s>
+    <r-s as="card">
       <h3>Powerful</h3>
       <p>Full styling control</p>
-    </reed>
-    <reed as="card">
+    </r-s>
+    <r-s as="card">
       <h3>Fast</h3>
       <p>35% smaller CSS</p>
-    </reed>
-  </reed>
+    </r-s>
+  </r-s>
 </body>
 </html>
 ```
@@ -77,7 +77,7 @@ The HTML-first styling system that eliminates custom CSS and JavaScript in 99% o
 
 **Write HTML. Get Design.**
 
-No CSS files. No JavaScript frameworks. No build process. Just semantic HTML with the `<reed>` element.
+No CSS files. No JavaScript frameworks. No build process. Just semantic HTML with the `<r-s>` element.
 
 ## Browser Support
 

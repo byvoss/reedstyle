@@ -35,9 +35,9 @@ components:
 Usage:
 
 ```html
-<reed as="alert-box">
+<r-s as="alert-box">
   Warning: This action cannot be undone.
-</reed>
+</r-s>
 ```
 
 ### Component with Children
@@ -65,13 +65,13 @@ components:
 Usage:
 
 ```html
-<reed as="feature-card">
-  <reed as="feature-card-icon">🚀</reed>
-  <reed as="feature-card-title">Fast Performance</reed>
-  <reed as="feature-card-description">
+<r-s as="feature-card">
+  <r-s as="feature-card-icon">🚀</r-s>
+  <r-s as="feature-card-title">Fast Performance</r-s>
+  <r-s as="feature-card-description">
     Lightning-fast load times with optimized CSS.
-  </reed>
-</reed>
+  </r-s>
+</r-s>
 ```
 
 ## Advanced Components
@@ -104,9 +104,9 @@ components:
 Usage:
 
 ```html
-<reed as="button-primary">Save Changes</reed>
-<reed as="button-secondary">Cancel</reed>
-<reed as="button-ghost">Learn More</reed>
+<r-s as="button-primary">Save Changes</r-s>
+<r-s as="button-secondary">Cancel</r-s>
+<r-s as="button-ghost">Learn More</r-s>
 ```
 
 ### Responsive Components
@@ -118,7 +118,7 @@ components:
     layout: "[flex:column, gap:4]"
     layout-tablet: "[grid:2, gap:6]"
     layout-screen: "[grid:3, gap:8]"
-    layout-wide: "[grid:4, gap:10]"
+    layout-screen: "[grid:3, gap:8]"
 ```
 
 ### Nested Components
@@ -166,24 +166,24 @@ components:
 Usage:
 
 ```html
-<reed as="pricing-card">
-  <reed as="pricing-card-header">
+<r-s as="pricing-card">
+  <r-s as="pricing-card-header">
     <h3>Professional</h3>
-  </reed>
-  <reed as="pricing-card-price">
-    <reed as="pricing-card-currency">$</reed>
-    <reed as="pricing-card-amount">29</reed>
-    <reed as="pricing-card-period">/month</reed>
-  </reed>
-  <reed as="pricing-card-features">
-    <reed as="pricing-card-item">✓ Unlimited projects</reed>
-    <reed as="pricing-card-item">✓ Priority support</reed>
-    <reed as="pricing-card-item">✓ Advanced analytics</reed>
-  </reed>
-  <reed as="pricing-card-action">
-    <reed as="button-primary" box="width:full">Subscribe</reed>
-  </reed>
-</reed>
+  </r-s>
+  <r-s as="pricing-card-price">
+    <r-s as="pricing-card-currency">$</r-s>
+    <r-s as="pricing-card-amount">29</r-s>
+    <r-s as="pricing-card-period">/month</r-s>
+  </r-s>
+  <r-s as="pricing-card-features">
+    <r-s as="pricing-card-item">✓ Unlimited projects</r-s>
+    <r-s as="pricing-card-item">✓ Priority support</r-s>
+    <r-s as="pricing-card-item">✓ Advanced analytics</r-s>
+  </r-s>
+  <r-s as="pricing-card-action">
+    <r-s as="button-primary" box="width:full">Subscribe</r-s>
+  </r-s>
+</r-s>
 ```
 
 ## Component Composition
@@ -292,9 +292,9 @@ components:
 Usage:
 
 ```html
-<reed as="notification" type="success">
+<r-s as="notification" type="success">
   Operation completed successfully!
-</reed>
+</r-s>
 ```
 
 ## Component Library
@@ -450,23 +450,23 @@ Create a test page:
   <link rel="stylesheet" href="reedstyle.css">
 </head>
 <body>
-  <reed as="container">
+  <r-s as="container">
     <h1>Component Gallery</h1>
     
     <!-- Test each component -->
     <section>
       <h2>Buttons</h2>
-      <reed as="button-primary">Primary</reed>
-      <reed as="button-secondary">Secondary</reed>
-      <reed as="button-ghost">Ghost</reed>
+      <r-s as="button-primary">Primary</r-s>
+      <r-s as="button-secondary">Secondary</r-s>
+      <r-s as="button-ghost">Ghost</r-s>
     </section>
     
     <section>
       <h2>Cards</h2>
-      <reed as="card">Basic Card</reed>
-      <reed as="product-card">Product Card</reed>
+      <r-s as="card">Basic Card</r-s>
+      <r-s as="product-card">Product Card</r-s>
     </section>
-  </reed>
+  </r-s>
 </body>
 </html>
 ```
