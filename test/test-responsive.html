@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReedSTYLE Responsive Breakpoints Test</title>
+    <link rel="stylesheet" href="../dist/reedstyle.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .demo-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-info">
+        <div>Viewport: <span id="viewport-width">0</span>px</div>
+        <div id="breakpoint">Mobile</div>
+    </div>
+
+    <h1>ReedSTYLE Responsive Breakpoints Test</h1>
+    <p>Resize your browser to see responsive changes at 560px and 960px</p>
+
+    <hr>
+
+    <h2>Box Namespace (Padding changes)</h2>
+    <r-s 
+        as="demo-box"
+        box="[padding:2] [margin:2]"
+        box-tablet="[padding:4]"
+        box-screen="[padding:8]"
+        face="[bg:brand-a-light] [border:1:brand-a]">
+        <strong>Padding:</strong> 0.5rem (mobile) → 1rem (tablet) → 2rem (desktop)
+    </r-s>
+
+    <hr>
+
+    <h2>Layout Namespace (Grid columns)</h2>
+    <r-s 
+        as="grid-demo"
+        layout="[grid:1] [gap:2]"
+        layout-tablet="[grid:2] [gap:4]"
+        layout-screen="[grid:3] [gap:6]"
+        box="[margin-top:4]">
+        <r-s face="[bg:brand-b-light] [border:1:brand-b]" box="[padding:4]">Item 1</r-s>
+        <r-s face="[bg:brand-b-light] [border:1:brand-b]" box="[padding:4]">Item 2</r-s>
+        <r-s face="[bg:brand-b-light] [border:1:brand-b]" box="[padding:4]">Item 3</r-s>
+        <r-s face="[bg:brand-b-light] [border:1:brand-b]" box="[padding:4]">Item 4</r-s>
+        <r-s face="[bg:brand-b-light] [border:1:brand-b]" box="[padding:4]">Item 5</r-s>
+        <r-s face="[bg:brand-b-light] [border:1:brand-b]" box="[padding:4]">Item 6</r-s>
+    </r-s>
+
+    <hr>
+
+    <h2>Text Namespace (Size & Alignment)</h2>
+    <r-s 
+        as="text-demo"
+        text="[size:normal] [align:left]"
+        text-tablet="[size:large] [align:center]"
+        text-screen="[size:huge] [align:right]"
+        box="[margin-top:4] [padding:4]"
+        face="[bg:brand-c-light]">
+        Text changes size and alignment at breakpoints
+    </r-s>
+
+    <hr>
+
+    <h2>Face Namespace (Background & Shadow)</h2>
+    <r-s 
+        as="face-demo"
+        face="[bg:base-100] [shadow:sm]"
+        face-tablet="[bg:brand-d-light] [shadow:md] [radius:lg]"
+        face-screen="[bg:brand-d-intense] [shadow:lg] [radius:xl]"
+        box="[padding:4] [margin-top:4]"
+        text="[color:base-900]"
+        text-screen="[color:base-0]">
+        Background, shadow and radius change at breakpoints
+    </r-s>
+
+    <hr>
+
+    <h2>FX Namespace (Transform & Transition)</h2>
+    <r-s 
+        as="fx-demo"
+        fx="[transition:smooth] [hover:grow]"
+        fx-tablet="[scale:1.1]"
+        fx-screen="[rotate:5]"
+        box="[padding:4] [margin-top:4] [width:200px]"
+        face="[bg:brand-e-light] [border:2:brand-e]"
+        device="[cursor:pointer]">
+        Hover me! Transform changes at breakpoints
+    </r-s>
+
+    <hr>
+
+    <h2>Device Namespace (Cursor & User Select)</h2>
+    <r-s 
+        as="device-demo"
+        device="[cursor:default] [select:text]"
+        device-tablet="[cursor:pointer] [select:none]"
+        device-screen="[cursor:grab]"
+        box="[padding:4] [margin-top:4]"
+        face="[bg:brand-f-light] [border:1:brand-f]">
+        Try selecting this text - behavior changes at breakpoints
+    </r-s>
+
+    <hr>
+
+    <h2>Combined Example</h2>
+    <r-s 
+        as="combined-demo"
+        layout="[flex] [justify:start] [align:start]"
+        layout-tablet="[justify:center] [align:center]"
+        layout-screen="[justify:between] [align:end]"
+        box="[padding:2] [margin-top:4] [gap:2]"
+        box-tablet="[padding:4] [gap:4]"
+        box-screen="[padding:8] [gap:8]"
+        face="[bg:base-100] [border:1:base-300]"
+        face-tablet="[bg:gradient-primary] [border:2:brand-a] [radius:lg]"
+        face-screen="[shadow:xl] [radius:xl]"
+        text="[size:small]"
+        text-tablet="[size:normal] [weight:medium]"
+        text-screen="[size:large] [weight:bold]">
+        <r-s box="[padding:2]" face="[bg:base-0:0.9] [radius:md]">Card 1</r-s>
+        <r-s box="[padding:2]" face="[bg:base-0:0.9] [radius:md]">Card 2</r-s>
+        <r-s box="[padding:2]" face="[bg:base-0:0.9] [radius:md]">Card 3</r-s>
+    </r-s>
+
+    <script>
+        // Update viewport info
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            document.getElementById('viewport-width').textContent = width;
+            
+            let breakpoint = 'Mobile (< 560px)';
+            if (width >= 960) {
+                breakpoint = 'Desktop (≥ 960px)';
+            } else if (width >= 560) {
+                breakpoint = 'Tablet (≥ 560px)';
+            }
+            document.getElementById('breakpoint').textContent = breakpoint;
+        }
+        
+        window.addEventListener('resize', updateViewportInfo);
+        updateViewportInfo();
+    </script>
+</body>
+</html>

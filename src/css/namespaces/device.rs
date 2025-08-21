@@ -1,190 +1,174 @@
 use anyhow::Result;
 use crate::config::Config;
+use crate::css::breakpoints::BREAKPOINTS;
 
 pub struct DeviceNamespace;
 
 impl DeviceNamespace {
+    /// Generate device namespace CSS for all breakpoints
     pub fn generate(_config: &Config) -> Result<String> {
         let mut css = String::new();
         
-        css.push_str("  /* ========== Device Namespace ========== */\n");
+        css.push_str("  /* ========== Device Namespace (Responsive) ========== */\n");
         
-        // Cursor
-        css.push_str(&Self::generate_cursor());
-        
-        // Pointer events
-        css.push_str(&Self::generate_pointer_events());
-        
-        // User select
-        css.push_str(&Self::generate_user_select());
-        
-        // Touch action
-        css.push_str(&Self::generate_touch_action());
-        
-        // Scroll behavior
-        css.push_str(&Self::generate_scroll_behavior());
-        
-        // Scroll snap
-        css.push_str(&Self::generate_scroll_snap());
-        
-        // Resize
-        css.push_str(&Self::generate_resize());
-        
-        // Will change
-        css.push_str(&Self::generate_will_change());
+        // Generate for each breakpoint
+        for (suffix, min_width) in BREAKPOINTS {
+            let namespace = format!("device{}", suffix);
+            let breakpoint_css = Self::generate_for_namespace(&namespace);
+            
+            // Wrap in media query if needed
+            match min_width {
+                Some(width) => {
+                    css.push_str(&format!("\n  @media (min-width: {}) {{\n", width));
+                    css.push_str(&breakpoint_css);
+                    css.push_str("  }\n");
+                },
+                None => {
+                    css.push_str(&breakpoint_css);
+                }
+            }
+        }
         
         Ok(css)
     }
     
-    fn generate_cursor() -> String {
+    /// Generate all device properties for a specific namespace
+    fn generate_for_namespace(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Cursor */\n");
+        
+        css.push_str(&format!("\n    /* {} */\n", namespace));
+        
+        // Generate all device properties
+        css.push_str(&Self::generate_cursor(namespace));
+        css.push_str(&Self::generate_pointer_events(namespace));
+        css.push_str(&Self::generate_user_select(namespace));
+        css.push_str(&Self::generate_touch_action(namespace));
+        css.push_str(&Self::generate_scroll_behavior(namespace));
+        css.push_str(&Self::generate_scroll_snap(namespace));
+        css.push_str(&Self::generate_resize(namespace));
+        css.push_str(&Self::generate_will_change(namespace));
+        
+        css
+    }
+    
+    fn generate_cursor(namespace: &str) -> String {
+        let mut css = String::new();
         
         // Common cursors
-        css.push_str("  r-s[device*=\"cursor:pointer\"] { cursor: pointer; }\n");
-        css.push_str("  r-s[device*=\"cursor:default\"] { cursor: default; }\n");
-        css.push_str("  r-s[device*=\"cursor:none\"] { cursor: none; }\n");
-        css.push_str("  r-s[device*=\"cursor:wait\"] { cursor: wait; }\n");
-        css.push_str("  r-s[device*=\"cursor:text\"] { cursor: text; }\n");
-        css.push_str("  r-s[device*=\"cursor:move\"] { cursor: move; }\n");
-        css.push_str("  r-s[device*=\"cursor:grab\"] { cursor: grab; }\n");
-        css.push_str("  r-s[device*=\"cursor:grabbing\"] { cursor: grabbing; }\n");
-        css.push_str("  r-s[device*=\"cursor:not-allowed\"] { cursor: not-allowed; }\n");
-        css.push_str("  r-s[device*=\"cursor:help\"] { cursor: help; }\n");
-        css.push_str("  r-s[device*=\"cursor:crosshair\"] { cursor: crosshair; }\n");
-        css.push_str("  r-s[device*=\"cursor:zoom-in\"] { cursor: zoom-in; }\n");
-        css.push_str("  r-s[device*=\"cursor:zoom-out\"] { cursor: zoom-out; }\n");
+        css.push_str(&format!("    r-s[{}*=\"cursor:pointer\"] {{ cursor: pointer; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:default\"] {{ cursor: default; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:none\"] {{ cursor: none; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:wait\"] {{ cursor: wait; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:text\"] {{ cursor: text; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:move\"] {{ cursor: move; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:grab\"] {{ cursor: grab; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:grabbing\"] {{ cursor: grabbing; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:not-allowed\"] {{ cursor: not-allowed; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:help\"] {{ cursor: help; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:crosshair\"] {{ cursor: crosshair; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:zoom-in\"] {{ cursor: zoom-in; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:zoom-out\"] {{ cursor: zoom-out; }}\n", namespace));
         
         // Resize cursors
-        css.push_str("  r-s[device*=\"cursor:resize\"] { cursor: all-scroll; }\n");
-        css.push_str("  r-s[device*=\"cursor:n-resize\"] { cursor: n-resize; }\n");
-        css.push_str("  r-s[device*=\"cursor:e-resize\"] { cursor: e-resize; }\n");
-        css.push_str("  r-s[device*=\"cursor:s-resize\"] { cursor: s-resize; }\n");
-        css.push_str("  r-s[device*=\"cursor:w-resize\"] { cursor: w-resize; }\n");
-        css.push_str("  r-s[device*=\"cursor:ne-resize\"] { cursor: ne-resize; }\n");
-        css.push_str("  r-s[device*=\"cursor:nw-resize\"] { cursor: nw-resize; }\n");
-        css.push_str("  r-s[device*=\"cursor:se-resize\"] { cursor: se-resize; }\n");
-        css.push_str("  r-s[device*=\"cursor:sw-resize\"] { cursor: sw-resize; }\n");
+        css.push_str(&format!("    r-s[{}*=\"cursor:resize\"] {{ cursor: all-scroll; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:n-resize\"] {{ cursor: n-resize; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:e-resize\"] {{ cursor: e-resize; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:s-resize\"] {{ cursor: s-resize; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:w-resize\"] {{ cursor: w-resize; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:ne-resize\"] {{ cursor: ne-resize; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:nw-resize\"] {{ cursor: nw-resize; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:se-resize\"] {{ cursor: se-resize; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cursor:sw-resize\"] {{ cursor: sw-resize; }}\n", namespace));
         
         css
     }
     
-    fn generate_pointer_events() -> String {
+    fn generate_pointer_events(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Pointer Events */\n");
         
-        css.push_str("  r-s[device*=\"pointer:none\"] { pointer-events: none; }\n");
-        css.push_str("  r-s[device*=\"pointer:auto\"] { pointer-events: auto; }\n");
-        css.push_str("  r-s[device*=\"pointer:all\"] { pointer-events: all; }\n");
+        css.push_str(&format!("    r-s[{}*=\"pointer:none\"] {{ pointer-events: none; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"pointer:auto\"] {{ pointer-events: auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"pointer:all\"] {{ pointer-events: all; }}\n", namespace));
         
         css
     }
     
-    fn generate_user_select() -> String {
+    fn generate_user_select(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* User Select */\n");
         
-        css.push_str("  r-s[device*=\"select:none\"] { user-select: none; -webkit-user-select: none; }\n");
-        css.push_str("  r-s[device*=\"select:auto\"] { user-select: auto; -webkit-user-select: auto; }\n");
-        css.push_str("  r-s[device*=\"select:text\"] { user-select: text; -webkit-user-select: text; }\n");
-        css.push_str("  r-s[device*=\"select:all\"] { user-select: all; -webkit-user-select: all; }\n");
+        css.push_str(&format!("    r-s[{}*=\"select:none\"] {{ user-select: none; -webkit-user-select: none; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"select:auto\"] {{ user-select: auto; -webkit-user-select: auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"select:text\"] {{ user-select: text; -webkit-user-select: text; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"select:all\"] {{ user-select: all; -webkit-user-select: all; }}\n", namespace));
         
         css
     }
     
-    fn generate_touch_action() -> String {
+    fn generate_touch_action(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Touch Action */\n");
         
-        css.push_str("  r-s[device*=\"touch:none\"] { touch-action: none; }\n");
-        css.push_str("  r-s[device*=\"touch:auto\"] { touch-action: auto; }\n");
-        css.push_str("  r-s[device*=\"touch:pan-x\"] { touch-action: pan-x; }\n");
-        css.push_str("  r-s[device*=\"touch:pan-y\"] { touch-action: pan-y; }\n");
-        css.push_str("  r-s[device*=\"touch:pinch-zoom\"] { touch-action: pinch-zoom; }\n");
-        css.push_str("  r-s[device*=\"touch:manipulation\"] { touch-action: manipulation; }\n");
+        css.push_str(&format!("    r-s[{}*=\"touch:none\"] {{ touch-action: none; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"touch:auto\"] {{ touch-action: auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"touch:pan-x\"] {{ touch-action: pan-x; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"touch:pan-y\"] {{ touch-action: pan-y; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"touch:pinch-zoom\"] {{ touch-action: pinch-zoom; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"touch:manipulation\"] {{ touch-action: manipulation; }}\n", namespace));
         
         css
     }
     
-    fn generate_scroll_behavior() -> String {
+    fn generate_scroll_behavior(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Scroll Behavior */\n");
         
-        css.push_str("  r-s[device*=\"scroll:smooth\"] { scroll-behavior: smooth; }\n");
-        css.push_str("  r-s[device*=\"scroll:auto\"] { scroll-behavior: auto; }\n");
+        css.push_str(&format!("    r-s[{}*=\"scroll:smooth\"] {{ scroll-behavior: smooth; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"scroll:auto\"] {{ scroll-behavior: auto; }}\n", namespace));
         
         css
     }
     
-    fn generate_scroll_snap() -> String {
+    fn generate_scroll_snap(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Scroll Snap */\n");
         
         // Snap types
-        css.push_str("  r-s[device*=\"snap-type:none\"] { scroll-snap-type: none; }\n");
-        css.push_str("  r-s[device*=\"snap-type:x\"] { scroll-snap-type: x mandatory; }\n");
-        css.push_str("  r-s[device*=\"snap-type:y\"] { scroll-snap-type: y mandatory; }\n");
-        css.push_str("  r-s[device*=\"snap-type:block\"] { scroll-snap-type: block mandatory; }\n");
-        css.push_str("  r-s[device*=\"snap-type:inline\"] { scroll-snap-type: inline mandatory; }\n");
-        css.push_str("  r-s[device*=\"snap-type:both\"] { scroll-snap-type: both mandatory; }\n");
+        css.push_str(&format!("    r-s[{}*=\"snap-type:none\"] {{ scroll-snap-type: none; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-type:x\"] {{ scroll-snap-type: x mandatory; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-type:y\"] {{ scroll-snap-type: y mandatory; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-type:block\"] {{ scroll-snap-type: block mandatory; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-type:inline\"] {{ scroll-snap-type: inline mandatory; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-type:both\"] {{ scroll-snap-type: both mandatory; }}\n", namespace));
         
         // Snap strictness
-        css.push_str("  r-s[device*=\"snap-type:mandatory\"] { scroll-snap-type: inherit mandatory; }\n");
-        css.push_str("  r-s[device*=\"snap-type:proximity\"] { scroll-snap-type: inherit proximity; }\n");
+        css.push_str(&format!("    r-s[{}*=\"snap-type:mandatory\"] {{ scroll-snap-type: inherit mandatory; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-type:proximity\"] {{ scroll-snap-type: inherit proximity; }}\n", namespace));
         
         // Snap align
-        css.push_str("  r-s[device*=\"snap-align:start\"] { scroll-snap-align: start; }\n");
-        css.push_str("  r-s[device*=\"snap-align:center\"] { scroll-snap-align: center; }\n");
-        css.push_str("  r-s[device*=\"snap-align:end\"] { scroll-snap-align: end; }\n");
+        css.push_str(&format!("    r-s[{}*=\"snap-align:start\"] {{ scroll-snap-align: start; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-align:center\"] {{ scroll-snap-align: center; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"snap-align:end\"] {{ scroll-snap-align: end; }}\n", namespace));
         
         css
     }
     
-    fn generate_resize() -> String {
+    fn generate_resize(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Resize */\n");
         
-        css.push_str("  r-s[device*=\"resize:none\"] { resize: none; }\n");
-        css.push_str("  r-s[device*=\"resize:both\"] { resize: both; }\n");
-        css.push_str("  r-s[device*=\"resize:horizontal\"] { resize: horizontal; }\n");
-        css.push_str("  r-s[device*=\"resize:vertical\"] { resize: vertical; }\n");
+        css.push_str(&format!("    r-s[{}*=\"resize:none\"] {{ resize: none; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"resize:both\"] {{ resize: both; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"resize:horizontal\"] {{ resize: horizontal; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"resize:vertical\"] {{ resize: vertical; }}\n", namespace));
         
         css
     }
     
-    fn generate_will_change() -> String {
+    fn generate_will_change(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Will Change */\n");
         
-        css.push_str("  r-s[device*=\"will-change:transform\"] { will-change: transform; }\n");
-        css.push_str("  r-s[device*=\"will-change:opacity\"] { will-change: opacity; }\n");
-        css.push_str("  r-s[device*=\"will-change:scroll\"] { will-change: scroll-position; }\n");
-        css.push_str("  r-s[device*=\"will-change:contents\"] { will-change: contents; }\n");
-        css.push_str("  r-s[device*=\"will-change:auto\"] { will-change: auto; }\n");
+        css.push_str(&format!("    r-s[{}*=\"will-change:transform\"] {{ will-change: transform; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"will-change:opacity\"] {{ will-change: opacity; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"will-change:scroll\"] {{ will-change: scroll-position; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"will-change:contents\"] {{ will-change: contents; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"will-change:auto\"] {{ will-change: auto; }}\n", namespace));
         
         css
-    }
-    
-    pub fn generate_responsive(breakpoint: &str, min_width: &str) -> Result<String> {
-        let mut css = String::new();
-        
-        css.push_str(&format!("\n  @media (min-width: {}) {{\n", min_width));
-        css.push_str(&format!("    /* Device namespace - {} */\n", breakpoint));
-        
-        // Cursor responsive
-        css.push_str(&format!("    r-s[device-{}*=\"cursor:pointer\"] {{ cursor: pointer; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[device-{}*=\"cursor:default\"] {{ cursor: default; }}\n", breakpoint));
-        
-        // Touch responsive
-        css.push_str(&format!("    r-s[device-{}*=\"touch:auto\"] {{ touch-action: auto; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[device-{}*=\"touch:manipulation\"] {{ touch-action: manipulation; }}\n", breakpoint));
-        
-        // Select responsive
-        css.push_str(&format!("    r-s[device-{}*=\"select:none\"] {{ user-select: none; -webkit-user-select: none; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[device-{}*=\"select:text\"] {{ user-select: text; -webkit-user-select: text; }}\n", breakpoint));
-        
-        css.push_str("  }\n");
-        
-        Ok(css)
     }
 }
