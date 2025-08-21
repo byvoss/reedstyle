@@ -1,6 +1,7 @@
 pub mod namespaces;
 pub mod defaults;
 pub mod components;
+pub mod breakpoints;
 
 use anyhow::Result;
 use crate::config::{Config, ColorsConfig, FontsConfig, ComponentsConfig};
@@ -92,11 +93,8 @@ fn format_color(color: &crate::config::Color) -> Result<String> {
 }
 
 fn generate_namespaces(css: &mut String, config: &Config, colors: &ColorsConfig, fonts: &FontsConfig) -> Result<()> {
-    // Generate all namespace CSS
+    // Generate all namespace CSS (now includes responsive)
     css.push_str(&namespaces::generate_all(config, colors, fonts)?);
-    
-    // Generate responsive variants
-    css.push_str(&namespaces::generate_responsive_all(config, colors, fonts)?);
     
     Ok(())
 }

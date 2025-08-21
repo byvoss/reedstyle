@@ -1,193 +1,194 @@
 use anyhow::Result;
 use crate::config::Config;
+use crate::css::breakpoints::BREAKPOINTS;
 
 pub struct LayoutNamespace;
 
 impl LayoutNamespace {
+    /// Generate layout namespace CSS for all breakpoints
     pub fn generate(_config: &Config) -> Result<String> {
         let mut css = String::new();
         
-        css.push_str("  /* ========== Layout Namespace ========== */\n");
+        css.push_str("  /* ========== Layout Namespace (Responsive) ========== */\n");
         
-        // Flexbox
-        css.push_str(&Self::generate_flexbox());
-        
-        // Grid
-        css.push_str(&Self::generate_grid());
-        
-        // Gap (for both flex and grid)
-        css.push_str(&Self::generate_gap());
-        
-        // Position
-        css.push_str(&Self::generate_position());
-        
-        // Z-index
-        css.push_str(&Self::generate_z_index());
-        
-        // Float & Clear
-        css.push_str(&Self::generate_float());
+        // Generate for each breakpoint
+        for (suffix, min_width) in BREAKPOINTS {
+            let namespace = format!("layout{}", suffix);
+            let breakpoint_css = Self::generate_for_namespace(&namespace);
+            
+            // Wrap in media query if needed
+            match min_width {
+                Some(width) => {
+                    css.push_str(&format!("\n  @media (min-width: {}) {{\n", width));
+                    css.push_str(&breakpoint_css);
+                    css.push_str("  }\n");
+                },
+                None => {
+                    css.push_str(&breakpoint_css);
+                }
+            }
+        }
         
         Ok(css)
     }
     
-    fn generate_flexbox() -> String {
+    /// Generate all layout properties for a specific namespace
+    fn generate_for_namespace(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Flexbox */\n");
+        
+        css.push_str(&format!("\n    /* {} */\n", namespace));
+        
+        // Generate all layout properties
+        css.push_str(&Self::generate_flexbox(namespace));
+        css.push_str(&Self::generate_grid(namespace));
+        css.push_str(&Self::generate_gap(namespace));
+        css.push_str(&Self::generate_position(namespace));
+        css.push_str(&Self::generate_z_index(namespace));
+        css.push_str(&Self::generate_float(namespace));
+        
+        css
+    }
+    
+    fn generate_flexbox(namespace: &str) -> String {
+        let mut css = String::new();
         
         // Enable flex and direction
-        css.push_str("  r-s[layout*=\"flex\"] { display: flex; }\n");
-        css.push_str("  r-s[layout*=\"flex:row\"] { display: flex; flex-direction: row; }\n");
-        css.push_str("  r-s[layout*=\"flex:column\"] { display: flex; flex-direction: column; }\n");
-        css.push_str("  r-s[layout*=\"flex:row-reverse\"] { display: flex; flex-direction: row-reverse; }\n");
-        css.push_str("  r-s[layout*=\"flex:column-reverse\"] { display: flex; flex-direction: column-reverse; }\n");
+        css.push_str(&format!("    r-s[{}*=\"flex\"] {{ display: flex; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"flex:row\"] {{ display: flex; flex-direction: row; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"flex:column\"] {{ display: flex; flex-direction: column; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"flex:row-reverse\"] {{ display: flex; flex-direction: row-reverse; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"flex:column-reverse\"] {{ display: flex; flex-direction: column-reverse; }}\n", namespace));
         
         // Justify content (main axis)
-        css.push_str("\n  /* Justify Content */\n");
-        css.push_str("  r-s[layout*=\"justify:start\"] { justify-content: flex-start; }\n");
-        css.push_str("  r-s[layout*=\"justify:center\"] { justify-content: center; }\n");
-        css.push_str("  r-s[layout*=\"justify:end\"] { justify-content: flex-end; }\n");
-        css.push_str("  r-s[layout*=\"justify:between\"] { justify-content: space-between; }\n");
-        css.push_str("  r-s[layout*=\"justify:around\"] { justify-content: space-around; }\n");
-        css.push_str("  r-s[layout*=\"justify:evenly\"] { justify-content: space-evenly; }\n");
+        css.push_str(&format!("    r-s[{}*=\"justify:start\"] {{ justify-content: flex-start; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify:center\"] {{ justify-content: center; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify:end\"] {{ justify-content: flex-end; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify:between\"] {{ justify-content: space-between; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify:around\"] {{ justify-content: space-around; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify:evenly\"] {{ justify-content: space-evenly; }}\n", namespace));
         
         // Align items (cross axis)
-        css.push_str("\n  /* Align Items */\n");
-        css.push_str("  r-s[layout*=\"align:start\"] { align-items: flex-start; }\n");
-        css.push_str("  r-s[layout*=\"align:center\"] { align-items: center; }\n");
-        css.push_str("  r-s[layout*=\"align:end\"] { align-items: flex-end; }\n");
-        css.push_str("  r-s[layout*=\"align:stretch\"] { align-items: stretch; }\n");
-        css.push_str("  r-s[layout*=\"align:baseline\"] { align-items: baseline; }\n");
+        css.push_str(&format!("    r-s[{}*=\"align:start\"] {{ align-items: flex-start; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"align:center\"] {{ align-items: center; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"align:end\"] {{ align-items: flex-end; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"align:stretch\"] {{ align-items: stretch; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"align:baseline\"] {{ align-items: baseline; }}\n", namespace));
         
         // Align content (multi-line)
-        css.push_str("\n  /* Align Content */\n");
-        css.push_str("  r-s[layout*=\"content:start\"] { align-content: flex-start; }\n");
-        css.push_str("  r-s[layout*=\"content:center\"] { align-content: center; }\n");
-        css.push_str("  r-s[layout*=\"content:end\"] { align-content: flex-end; }\n");
-        css.push_str("  r-s[layout*=\"content:between\"] { align-content: space-between; }\n");
-        css.push_str("  r-s[layout*=\"content:around\"] { align-content: space-around; }\n");
-        css.push_str("  r-s[layout*=\"content:stretch\"] { align-content: stretch; }\n");
+        css.push_str(&format!("    r-s[{}*=\"content:start\"] {{ align-content: flex-start; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"content:center\"] {{ align-content: center; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"content:end\"] {{ align-content: flex-end; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"content:between\"] {{ align-content: space-between; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"content:around\"] {{ align-content: space-around; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"content:stretch\"] {{ align-content: stretch; }}\n", namespace));
         
         // Flex wrap
-        css.push_str("\n  /* Flex Wrap */\n");
-        css.push_str("  r-s[layout*=\"wrap:nowrap\"] { flex-wrap: nowrap; }\n");
-        css.push_str("  r-s[layout*=\"wrap:wrap\"] { flex-wrap: wrap; }\n");
-        css.push_str("  r-s[layout*=\"wrap:wrap-reverse\"] { flex-wrap: wrap-reverse; }\n");
+        css.push_str(&format!("    r-s[{}*=\"wrap:nowrap\"] {{ flex-wrap: nowrap; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"wrap:wrap\"] {{ flex-wrap: wrap; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"wrap:wrap-reverse\"] {{ flex-wrap: wrap-reverse; }}\n", namespace));
         
         // Flex item properties
-        css.push_str("\n  /* Flex Item Properties */\n");
-        css.push_str("  r-s[layout*=\"grow:0\"] { flex-grow: 0; }\n");
-        css.push_str("  r-s[layout*=\"grow:1\"] { flex-grow: 1; }\n");
-        css.push_str("  r-s[layout*=\"shrink:0\"] { flex-shrink: 0; }\n");
-        css.push_str("  r-s[layout*=\"shrink:1\"] { flex-shrink: 1; }\n");
-        css.push_str("  r-s[layout*=\"basis:auto\"] { flex-basis: auto; }\n");
-        css.push_str("  r-s[layout*=\"basis:full\"] { flex-basis: 100%; }\n");
+        css.push_str(&format!("    r-s[{}*=\"grow:0\"] {{ flex-grow: 0; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grow:1\"] {{ flex-grow: 1; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"shrink:0\"] {{ flex-shrink: 0; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"shrink:1\"] {{ flex-shrink: 1; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"basis:auto\"] {{ flex-basis: auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"basis:full\"] {{ flex-basis: 100%; }}\n", namespace));
         
         // Self alignment
-        css.push_str("\n  /* Self Alignment */\n");
-        css.push_str("  r-s[layout*=\"self:auto\"] { align-self: auto; }\n");
-        css.push_str("  r-s[layout*=\"self:start\"] { align-self: flex-start; }\n");
-        css.push_str("  r-s[layout*=\"self:center\"] { align-self: center; }\n");
-        css.push_str("  r-s[layout*=\"self:end\"] { align-self: flex-end; }\n");
-        css.push_str("  r-s[layout*=\"self:stretch\"] { align-self: stretch; }\n");
+        css.push_str(&format!("    r-s[{}*=\"self:auto\"] {{ align-self: auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"self:start\"] {{ align-self: flex-start; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"self:center\"] {{ align-self: center; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"self:end\"] {{ align-self: flex-end; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"self:stretch\"] {{ align-self: stretch; }}\n", namespace));
         
         // Order
-        css.push_str("\n  /* Order */\n");
-        css.push_str("  r-s[layout*=\"order:-1\"] { order: -1; }\n");
-        css.push_str("  r-s[layout*=\"order:0\"] { order: 0; }\n");
-        css.push_str("  r-s[layout*=\"order:1\"] { order: 1; }\n");
-        css.push_str("  r-s[layout*=\"order:2\"] { order: 2; }\n");
-        css.push_str("  r-s[layout*=\"order:3\"] { order: 3; }\n");
+        css.push_str(&format!("    r-s[{}*=\"order:-1\"] {{ order: -1; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"order:0\"] {{ order: 0; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"order:1\"] {{ order: 1; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"order:2\"] {{ order: 2; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"order:3\"] {{ order: 3; }}\n", namespace));
         
         // Common patterns
-        css.push_str("\n  /* Common Patterns */\n");
-        css.push_str("  r-s[layout*=\"stack\"] { display: flex; flex-direction: column; }\n");
-        css.push_str("  r-s[layout*=\"chain\"] { display: flex; flex-direction: row; flex-wrap: wrap; }\n");
+        css.push_str(&format!("    r-s[{}*=\"stack\"] {{ display: flex; flex-direction: column; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"chain\"] {{ display: flex; flex-direction: row; flex-wrap: wrap; }}\n", namespace));
         
         css
     }
     
-    fn generate_grid() -> String {
+    fn generate_grid(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Grid */\n");
         
         // Enable grid
-        css.push_str("  r-s[layout*=\"grid\"] { display: grid; }\n");
+        css.push_str(&format!("    r-s[{}*=\"grid\"] {{ display: grid; }}\n", namespace));
         
         // Column templates
-        css.push_str("\n  /* Grid Columns */\n");
-        css.push_str("  r-s[layout*=\"grid:1\"] { display: grid; grid-template-columns: 1fr; }\n");
-        css.push_str("  r-s[layout*=\"grid:2\"] { display: grid; grid-template-columns: repeat(2, 1fr); }\n");
-        css.push_str("  r-s[layout*=\"grid:3\"] { display: grid; grid-template-columns: repeat(3, 1fr); }\n");
-        css.push_str("  r-s[layout*=\"grid:4\"] { display: grid; grid-template-columns: repeat(4, 1fr); }\n");
-        css.push_str("  r-s[layout*=\"grid:5\"] { display: grid; grid-template-columns: repeat(5, 1fr); }\n");
-        css.push_str("  r-s[layout*=\"grid:6\"] { display: grid; grid-template-columns: repeat(6, 1fr); }\n");
-        css.push_str("  r-s[layout*=\"grid:8\"] { display: grid; grid-template-columns: repeat(8, 1fr); }\n");
-        css.push_str("  r-s[layout*=\"grid:12\"] { display: grid; grid-template-columns: repeat(12, 1fr); }\n");
+        css.push_str(&format!("    r-s[{}*=\"grid:1\"] {{ display: grid; grid-template-columns: 1fr; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grid:2\"] {{ display: grid; grid-template-columns: repeat(2, 1fr); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grid:3\"] {{ display: grid; grid-template-columns: repeat(3, 1fr); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grid:4\"] {{ display: grid; grid-template-columns: repeat(4, 1fr); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grid:5\"] {{ display: grid; grid-template-columns: repeat(5, 1fr); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grid:6\"] {{ display: grid; grid-template-columns: repeat(6, 1fr); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grid:8\"] {{ display: grid; grid-template-columns: repeat(8, 1fr); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"grid:12\"] {{ display: grid; grid-template-columns: repeat(12, 1fr); }}\n", namespace));
         
         // Custom grid patterns
-        css.push_str("\n  /* Custom Grid Templates */\n");
-        css.push_str("  r-s[layout*=\"cols:1fr:2fr\"] { grid-template-columns: 1fr 2fr; }\n");
-        css.push_str("  r-s[layout*=\"cols:1fr:2fr:1fr\"] { grid-template-columns: 1fr 2fr 1fr; }\n");
-        css.push_str("  r-s[layout*=\"cols:200px:1fr\"] { grid-template-columns: 200px 1fr; }\n");
-        css.push_str("  r-s[layout*=\"cols:1fr:200px\"] { grid-template-columns: 1fr 200px; }\n");
-        css.push_str("  r-s[layout*=\"cols:250px:1fr:250px\"] { grid-template-columns: 250px 1fr 250px; }\n");
+        css.push_str(&format!("    r-s[{}*=\"cols:1fr:2fr\"] {{ grid-template-columns: 1fr 2fr; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cols:1fr:2fr:1fr\"] {{ grid-template-columns: 1fr 2fr 1fr; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cols:200px:1fr\"] {{ grid-template-columns: 200px 1fr; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cols:1fr:200px\"] {{ grid-template-columns: 1fr 200px; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"cols:250px:1fr:250px\"] {{ grid-template-columns: 250px 1fr 250px; }}\n", namespace));
         
         // Row templates
-        css.push_str("\n  /* Grid Rows */\n");
-        css.push_str("  r-s[layout*=\"rows:auto\"] { grid-template-rows: auto; }\n");
-        css.push_str("  r-s[layout*=\"rows:1fr\"] { grid-template-rows: 1fr; }\n");
-        css.push_str("  r-s[layout*=\"rows:1fr:2fr\"] { grid-template-rows: 1fr 2fr; }\n");
-        css.push_str("  r-s[layout*=\"rows:auto:1fr:auto\"] { grid-template-rows: auto 1fr auto; }\n");
-        css.push_str("  r-s[layout*=\"rows:100px:1fr:100px\"] { grid-template-rows: 100px 1fr 100px; }\n");
+        css.push_str(&format!("    r-s[{}*=\"rows:auto\"] {{ grid-template-rows: auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"rows:1fr\"] {{ grid-template-rows: 1fr; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"rows:1fr:2fr\"] {{ grid-template-rows: 1fr 2fr; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"rows:auto:1fr:auto\"] {{ grid-template-rows: auto 1fr auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"rows:100px:1fr:100px\"] {{ grid-template-rows: 100px 1fr 100px; }}\n", namespace));
         
         // Auto flow
-        css.push_str("\n  /* Grid Auto Flow */\n");
-        css.push_str("  r-s[layout*=\"flow:row\"] { grid-auto-flow: row; }\n");
-        css.push_str("  r-s[layout*=\"flow:column\"] { grid-auto-flow: column; }\n");
-        css.push_str("  r-s[layout*=\"flow:dense\"] { grid-auto-flow: dense; }\n");
+        css.push_str(&format!("    r-s[{}*=\"flow:row\"] {{ grid-auto-flow: row; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"flow:column\"] {{ grid-auto-flow: column; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"flow:dense\"] {{ grid-auto-flow: dense; }}\n", namespace));
         
         // Grid alignment
-        css.push_str("\n  /* Grid Alignment */\n");
-        css.push_str("  r-s[layout*=\"justify-items:start\"] { justify-items: start; }\n");
-        css.push_str("  r-s[layout*=\"justify-items:center\"] { justify-items: center; }\n");
-        css.push_str("  r-s[layout*=\"justify-items:end\"] { justify-items: end; }\n");
-        css.push_str("  r-s[layout*=\"justify-items:stretch\"] { justify-items: stretch; }\n");
+        css.push_str(&format!("    r-s[{}*=\"justify-items:start\"] {{ justify-items: start; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify-items:center\"] {{ justify-items: center; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify-items:end\"] {{ justify-items: end; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"justify-items:stretch\"] {{ justify-items: stretch; }}\n", namespace));
         
-        css.push_str("  r-s[layout*=\"align-items:start\"] { align-items: start; }\n");
-        css.push_str("  r-s[layout*=\"align-items:center\"] { align-items: center; }\n");
-        css.push_str("  r-s[layout*=\"align-items:end\"] { align-items: end; }\n");
-        css.push_str("  r-s[layout*=\"align-items:stretch\"] { align-items: stretch; }\n");
+        css.push_str(&format!("    r-s[{}*=\"align-items:start\"] {{ align-items: start; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"align-items:center\"] {{ align-items: center; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"align-items:end\"] {{ align-items: end; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"align-items:stretch\"] {{ align-items: stretch; }}\n", namespace));
         
-        css.push_str("  r-s[layout*=\"place:center\"] { place-items: center; }\n");
+        css.push_str(&format!("    r-s[{}*=\"place:center\"] {{ place-items: center; }}\n", namespace));
         
         // Grid item properties
-        css.push_str("\n  /* Grid Item Properties */\n");
-        css.push_str("  r-s[layout*=\"col-span:1\"] { grid-column: span 1 / span 1; }\n");
-        css.push_str("  r-s[layout*=\"col-span:2\"] { grid-column: span 2 / span 2; }\n");
-        css.push_str("  r-s[layout*=\"col-span:3\"] { grid-column: span 3 / span 3; }\n");
-        css.push_str("  r-s[layout*=\"col-span:4\"] { grid-column: span 4 / span 4; }\n");
-        css.push_str("  r-s[layout*=\"col-span:6\"] { grid-column: span 6 / span 6; }\n");
-        css.push_str("  r-s[layout*=\"col-span:12\"] { grid-column: span 12 / span 12; }\n");
-        css.push_str("  r-s[layout*=\"col-span:full\"] { grid-column: 1 / -1; }\n");
+        css.push_str(&format!("    r-s[{}*=\"col-span:1\"] {{ grid-column: span 1 / span 1; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"col-span:2\"] {{ grid-column: span 2 / span 2; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"col-span:3\"] {{ grid-column: span 3 / span 3; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"col-span:4\"] {{ grid-column: span 4 / span 4; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"col-span:6\"] {{ grid-column: span 6 / span 6; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"col-span:12\"] {{ grid-column: span 12 / span 12; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"col-span:full\"] {{ grid-column: 1 / -1; }}\n", namespace));
         
-        css.push_str("  r-s[layout*=\"row-span:1\"] { grid-row: span 1 / span 1; }\n");
-        css.push_str("  r-s[layout*=\"row-span:2\"] { grid-row: span 2 / span 2; }\n");
-        css.push_str("  r-s[layout*=\"row-span:3\"] { grid-row: span 3 / span 3; }\n");
-        css.push_str("  r-s[layout*=\"row-span:4\"] { grid-row: span 4 / span 4; }\n");
+        css.push_str(&format!("    r-s[{}*=\"row-span:1\"] {{ grid-row: span 1 / span 1; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"row-span:2\"] {{ grid-row: span 2 / span 2; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"row-span:3\"] {{ grid-row: span 3 / span 3; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"row-span:4\"] {{ grid-row: span 4 / span 4; }}\n", namespace));
         
         // Named areas
-        css.push_str("\n  /* Grid Areas */\n");
-        css.push_str("  r-s[layout*=\"area:header\"] { grid-area: header; }\n");
-        css.push_str("  r-s[layout*=\"area:sidebar\"] { grid-area: sidebar; }\n");
-        css.push_str("  r-s[layout*=\"area:content\"] { grid-area: content; }\n");
-        css.push_str("  r-s[layout*=\"area:footer\"] { grid-area: footer; }\n");
+        css.push_str(&format!("    r-s[{}*=\"area:header\"] {{ grid-area: header; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"area:sidebar\"] {{ grid-area: sidebar; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"area:content\"] {{ grid-area: content; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"area:footer\"] {{ grid-area: footer; }}\n", namespace));
         
         css
     }
     
-    fn generate_gap() -> String {
+    fn generate_gap(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Gap (Flexbox & Grid) */\n");
         
         let scale = [
             ("0", "0"),
@@ -203,105 +204,71 @@ impl LayoutNamespace {
         ];
         
         for (key, value) in &scale {
-            css.push_str(&format!("  r-s[layout*=\"gap:{}\"] {{ gap: {}; }}\n", key, value));
-            css.push_str(&format!("  r-s[layout*=\"gap-x:{}\"] {{ column-gap: {}; }}\n", key, value));
-            css.push_str(&format!("  r-s[layout*=\"gap-y:{}\"] {{ row-gap: {}; }}\n", key, value));
+            css.push_str(&format!("    r-s[{}*=\"gap:{}\"] {{ gap: {}; }}\n", namespace, key, value));
+            css.push_str(&format!("    r-s[{}*=\"gap-x:{}\"] {{ column-gap: {}; }}\n", namespace, key, value));
+            css.push_str(&format!("    r-s[{}*=\"gap-y:{}\"] {{ row-gap: {}; }}\n", namespace, key, value));
         }
         
         css
     }
     
-    fn generate_position() -> String {
+    fn generate_position(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Position */\n");
         
-        css.push_str("  r-s[layout*=\"position:static\"] { position: static; }\n");
-        css.push_str("  r-s[layout*=\"position:relative\"] { position: relative; }\n");
-        css.push_str("  r-s[layout*=\"position:absolute\"] { position: absolute; }\n");
-        css.push_str("  r-s[layout*=\"position:fixed\"] { position: fixed; }\n");
-        css.push_str("  r-s[layout*=\"position:sticky\"] { position: sticky; }\n");
+        css.push_str(&format!("    r-s[{}*=\"position:static\"] {{ position: static; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"position:relative\"] {{ position: relative; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"position:absolute\"] {{ position: absolute; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"position:fixed\"] {{ position: fixed; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"position:sticky\"] {{ position: sticky; }}\n", namespace));
         
         // Position values
-        css.push_str("\n  /* Position Values */\n");
         let positions = ["0", "1", "2", "4", "8"];
         for pos in &positions {
             let value = if pos == &"0" { "0" } else { &format!("{}rem", pos) };
-            css.push_str(&format!("  r-s[layout*=\"top:{}\"] {{ top: {}; }}\n", pos, value));
-            css.push_str(&format!("  r-s[layout*=\"right:{}\"] {{ right: {}; }}\n", pos, value));
-            css.push_str(&format!("  r-s[layout*=\"bottom:{}\"] {{ bottom: {}; }}\n", pos, value));
-            css.push_str(&format!("  r-s[layout*=\"left:{}\"] {{ left: {}; }}\n", pos, value));
+            css.push_str(&format!("    r-s[{}*=\"top:{}\"] {{ top: {}; }}\n", namespace, pos, value));
+            css.push_str(&format!("    r-s[{}*=\"right:{}\"] {{ right: {}; }}\n", namespace, pos, value));
+            css.push_str(&format!("    r-s[{}*=\"bottom:{}\"] {{ bottom: {}; }}\n", namespace, pos, value));
+            css.push_str(&format!("    r-s[{}*=\"left:{}\"] {{ left: {}; }}\n", namespace, pos, value));
         }
         
         // Inset shortcuts
-        css.push_str("\n  /* Inset Shortcuts */\n");
-        css.push_str("  r-s[layout*=\"inset:0\"] { top: 0; right: 0; bottom: 0; left: 0; }\n");
-        css.push_str("  r-s[layout*=\"inset:1\"] { top: 0.25rem; right: 0.25rem; bottom: 0.25rem; left: 0.25rem; }\n");
-        css.push_str("  r-s[layout*=\"inset:2\"] { top: 0.5rem; right: 0.5rem; bottom: 0.5rem; left: 0.5rem; }\n");
-        css.push_str("  r-s[layout*=\"inset:4\"] { top: 1rem; right: 1rem; bottom: 1rem; left: 1rem; }\n");
-        css.push_str("  r-s[layout*=\"inset-x:0\"] { left: 0; right: 0; }\n");
-        css.push_str("  r-s[layout*=\"inset-y:0\"] { top: 0; bottom: 0; }\n");
+        css.push_str(&format!("    r-s[{}*=\"inset:0\"] {{ top: 0; right: 0; bottom: 0; left: 0; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"inset:1\"] {{ top: 0.25rem; right: 0.25rem; bottom: 0.25rem; left: 0.25rem; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"inset:2\"] {{ top: 0.5rem; right: 0.5rem; bottom: 0.5rem; left: 0.5rem; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"inset:4\"] {{ top: 1rem; right: 1rem; bottom: 1rem; left: 1rem; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"inset-x:0\"] {{ left: 0; right: 0; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"inset-y:0\"] {{ top: 0; bottom: 0; }}\n", namespace));
         
         css
     }
     
-    fn generate_z_index() -> String {
+    fn generate_z_index(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Z-Index */\n");
         
-        css.push_str("  r-s[layout*=\"z:auto\"] { z-index: auto; }\n");
-        css.push_str("  r-s[layout*=\"z:-1\"] { z-index: -1; }\n");
-        css.push_str("  r-s[layout*=\"z:0\"] { z-index: 0; }\n");
-        css.push_str("  r-s[layout*=\"z:10\"] { z-index: 10; }\n");
-        css.push_str("  r-s[layout*=\"z:20\"] { z-index: 20; }\n");
-        css.push_str("  r-s[layout*=\"z:30\"] { z-index: 30; }\n");
-        css.push_str("  r-s[layout*=\"z:40\"] { z-index: 40; }\n");
-        css.push_str("  r-s[layout*=\"z:50\"] { z-index: 50; }\n");
-        css.push_str("  r-s[layout*=\"z:100\"] { z-index: 100; }\n");
+        css.push_str(&format!("    r-s[{}*=\"z:auto\"] {{ z-index: auto; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:-1\"] {{ z-index: -1; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:0\"] {{ z-index: 0; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:10\"] {{ z-index: 10; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:20\"] {{ z-index: 20; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:30\"] {{ z-index: 30; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:40\"] {{ z-index: 40; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:50\"] {{ z-index: 50; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"z:100\"] {{ z-index: 100; }}\n", namespace));
         
         css
     }
     
-    fn generate_float() -> String {
+    fn generate_float(namespace: &str) -> String {
         let mut css = String::new();
-        css.push_str("\n  /* Float & Clear */\n");
         
-        css.push_str("  r-s[layout*=\"float:left\"] { float: left; }\n");
-        css.push_str("  r-s[layout*=\"float:right\"] { float: right; }\n");
-        css.push_str("  r-s[layout*=\"float:none\"] { float: none; }\n");
+        css.push_str(&format!("    r-s[{}*=\"float:left\"] {{ float: left; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"float:right\"] {{ float: right; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"float:none\"] {{ float: none; }}\n", namespace));
         
-        css.push_str("  r-s[layout*=\"clear:left\"] { clear: left; }\n");
-        css.push_str("  r-s[layout*=\"clear:right\"] { clear: right; }\n");
-        css.push_str("  r-s[layout*=\"clear:both\"] { clear: both; }\n");
+        css.push_str(&format!("    r-s[{}*=\"clear:left\"] {{ clear: left; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"clear:right\"] {{ clear: right; }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"clear:both\"] {{ clear: both; }}\n", namespace));
         
         css
-    }
-    
-    pub fn generate_responsive(breakpoint: &str, min_width: &str) -> Result<String> {
-        let mut css = String::new();
-        
-        css.push_str(&format!("\n  @media (min-width: {}) {{\n", min_width));
-        css.push_str(&format!("    /* Layout namespace - {} */\n", breakpoint));
-        
-        // Flexbox responsive
-        css.push_str(&format!("    r-s[layout-{}*=\"flex\"] {{ display: flex; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"flex:row\"] {{ display: flex; flex-direction: row; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"flex:column\"] {{ display: flex; flex-direction: column; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"justify:center\"] {{ justify-content: center; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"align:center\"] {{ align-items: center; }}\n", breakpoint));
-        
-        // Grid responsive
-        css.push_str(&format!("    r-s[layout-{}*=\"grid:1\"] {{ display: grid; grid-template-columns: 1fr; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"grid:2\"] {{ display: grid; grid-template-columns: repeat(2, 1fr); }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"grid:3\"] {{ display: grid; grid-template-columns: repeat(3, 1fr); }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"grid:4\"] {{ display: grid; grid-template-columns: repeat(4, 1fr); }}\n", breakpoint));
-        
-        // Gap responsive
-        css.push_str(&format!("    r-s[layout-{}*=\"gap:4\"] {{ gap: 1rem; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"gap:6\"] {{ gap: 1.5rem; }}\n", breakpoint));
-        css.push_str(&format!("    r-s[layout-{}*=\"gap:8\"] {{ gap: 2rem; }}\n", breakpoint));
-        
-        css.push_str("  }\n");
-        
-        Ok(css)
     }
 }
