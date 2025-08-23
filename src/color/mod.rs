@@ -90,38 +90,110 @@ pub fn to_oklch(color: &str) -> Result<String> {
     }
 }
 
-/// Generate color variations (weak, light, normal, intense, bright, strong)
-pub fn generate_variations(oklch_color: &str) -> Result<ColorVariations> {
+/// Generate color scale (1-9) from a base color
+/// 1 = lightest (near white), 9 = darkest (near black)
+pub fn generate_color_scale(oklch_color: &str) -> Result<ColorScale> {
     // Parse OKLCH string - format: "oklch(71.16% 0.181 22.8)"
     let content = oklch_color.trim_start_matches("oklch(").trim_end_matches(')');
     let parts: Vec<&str> = content.split_whitespace().collect();
     
     if parts.len() < 3 {
-        // If parsing fails, return the same color for all variations
-        return Ok(ColorVariations {
-            weak: oklch_color.to_string(),
-            light: oklch_color.to_string(),
-            normal: oklch_color.to_string(),
-            intense: oklch_color.to_string(),
-            bright: oklch_color.to_string(),
-            strong: oklch_color.to_string(),
-        });
+        // If parsing fails, return grayscale
+        return Ok(ColorScale::grayscale());
     }
     
-    let lightness = parts[0].trim_end_matches('%').parse::<f32>().unwrap_or(50.0) / 100.0;
-    let chroma = parts[1].parse::<f32>().unwrap_or(0.1);
+    let base_lightness = parts[0].trim_end_matches('%').parse::<f32>().unwrap_or(50.0) / 100.0;
+    let base_chroma = parts[1].parse::<f32>().unwrap_or(0.1);
     let hue = parts[2].parse::<f32>().unwrap_or(0.0);
     
-    Ok(ColorVariations {
-        weak: format!("oklch({:.2}% {:.3} {:.1})", (lightness + 0.2).min(1.0) * 100.0, chroma * 0.4, hue),
-        light: format!("oklch({:.2}% {:.3} {:.1})", (lightness + 0.1).min(1.0) * 100.0, chroma * 0.7, hue),
-        normal: oklch_color.to_string(),
-        intense: format!("oklch({:.2}% {:.3} {:.1})", (lightness - 0.1).max(0.0) * 100.0, chroma * 1.2, hue),
-        bright: format!("oklch({:.2}% {:.3} {:.1})", lightness * 100.0, chroma * 1.4, hue),
-        strong: format!("oklch({:.2}% {:.3} {:.1})", (lightness - 0.2).max(0.0) * 100.0, chroma * 1.1, hue),
+    // Generate perceptually uniform scale
+    // Target lightness values for each step (1-9)
+    let target_lightness = [
+        0.95,  // 1 - near white
+        0.85,  // 2
+        0.75,  // 3
+        0.65,  // 4
+        0.55,  // 5 - middle
+        0.45,  // 6
+        0.35,  // 7
+        0.25,  // 8
+        0.15,  // 9 - near black
+    ];
+    
+    // Adjust chroma based on lightness (less chroma at extremes)
+    let mut scale = Vec::with_capacity(9);
+    for (i, &target_l) in target_lightness.iter().enumerate() {
+        // Reduce chroma at very light and very dark ends
+        let chroma_factor = if i == 0 {
+            0.1  // Very light - minimal chroma
+        } else if i == 1 {
+            0.3
+        } else if i == 2 {
+            0.5
+        } else if i >= 6 {
+            0.8 - (i - 6) as f32 * 0.2  // Gradually reduce for dark colors
+        } else {
+            1.0  // Full chroma in middle range
+        };
+        
+        let adjusted_chroma = base_chroma * chroma_factor;
+        
+        scale.push(format!(
+            "oklch({:.2}% {:.3} {:.1})",
+            target_l * 100.0,
+            adjusted_chroma,
+            hue
+        ));
+    }
+    
+    Ok(ColorScale {
+        scale_1: scale[0].clone(),
+        scale_2: scale[1].clone(),
+        scale_3: scale[2].clone(),
+        scale_4: scale[3].clone(),
+        scale_5: scale[4].clone(),
+        scale_6: scale[5].clone(),
+        scale_7: scale[6].clone(),
+        scale_8: scale[7].clone(),
+        scale_9: scale[8].clone(),
     })
 }
 
+/// Generate neutral color scale (grayscale)
+pub fn generate_neutral_scale() -> ColorScale {
+    ColorScale {
+        scale_1: "oklch(99% 0 0)".to_string(),  // White
+        scale_2: "oklch(95% 0 0)".to_string(),
+        scale_3: "oklch(85% 0 0)".to_string(),
+        scale_4: "oklch(70% 0 0)".to_string(),
+        scale_5: "oklch(55% 0 0)".to_string(),  // Middle gray
+        scale_6: "oklch(40% 0 0)".to_string(),
+        scale_7: "oklch(30% 0 0)".to_string(),
+        scale_8: "oklch(20% 0 0)".to_string(),
+        scale_9: "oklch(10% 0 0)".to_string(),  // Near black
+    }
+}
+
+pub struct ColorScale {
+    pub scale_1: String,
+    pub scale_2: String,
+    pub scale_3: String,
+    pub scale_4: String,
+    pub scale_5: String,
+    pub scale_6: String,
+    pub scale_7: String,
+    pub scale_8: String,
+    pub scale_9: String,
+}
+
+impl ColorScale {
+    /// Create a grayscale fallback
+    fn grayscale() -> Self {
+        generate_neutral_scale()
+    }
+}
+
+// Keep old struct temporarily for backwards compatibility
 pub struct ColorVariations {
     pub weak: String,
     pub light: String,
@@ -129,4 +201,17 @@ pub struct ColorVariations {
     pub intense: String,
     pub bright: String,
     pub strong: String,
+}
+
+// Temporary compatibility function - maps new scale to old names
+pub fn generate_variations(oklch_color: &str) -> Result<ColorVariations> {
+    let scale = generate_color_scale(oklch_color)?;
+    Ok(ColorVariations {
+        weak: scale.scale_2.clone(),     // Very light
+        light: scale.scale_3.clone(),    // Light
+        normal: scale.scale_5.clone(),   // Middle
+        intense: scale.scale_6.clone(),  // Darker
+        bright: scale.scale_4.clone(),   // Slightly light
+        strong: scale.scale_7.clone(),   // Dark
+    })
 }

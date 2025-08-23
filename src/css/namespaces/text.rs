@@ -126,16 +126,16 @@ impl TextNamespace {
             let color_name = format!("brand-{}", letter);
             css.push_str(&format!("    r-s[{}*=\"color:{}\"] {{ color: var(--rs-{}); }}\n", namespace, color_name, color_name));
             
-            // Visual scope variations
-            for variant in ["weak", "light", "intense", "bright", "strong"] {
-                css.push_str(&format!("    r-s[{}*=\"color:{}-{}\"] {{ color: var(--rs-{}-{}); }}\n", 
-                    namespace, color_name, variant, color_name, variant));
+            // 1-9 scale variations
+            for scale in 1..=9 {
+                css.push_str(&format!("    r-s[{}*=\"color:{}-{}\"] {{ color: var(--rs-color-{}-{}); }}\n", 
+                    namespace, color_name, scale, color_name, scale));
             }
         }
         
-        // Base colors (neutrals)
-        for value in [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000] {
-            css.push_str(&format!("    r-s[{}*=\"color:base-{}\"] {{ color: var(--rs-base-{}); }}\n", namespace, value, value));
+        // Neutral colors
+        for scale in 1..=9 {
+            css.push_str(&format!("    r-s[{}*=\"color:neutral-{}\"] {{ color: var(--rs-color-neutral-{}); }}\n", namespace, scale, scale));
         }
         
         // Semantic colors

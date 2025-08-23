@@ -1,0 +1,50 @@
+# ReedSTYLE API Configuration
+# API endpoints for dynamic functionality
+# SECURITY: Never expose these in DOM attributes!
+
+# API endpoints for your application
+endpoints:
+  # User authentication
+  auth:
+    login: "/api/auth/login"
+    logout: "/api/auth/logout"
+    refresh: "/api/auth/refresh"
+    
+  # User management
+  user:
+    profile: "/api/user/profile"
+    update: "/api/user/update"
+    settings: "/api/user/settings"
+    
+  # Data endpoints
+  data:
+    search: "/api/search"
+    autocomplete: "/api/autocomplete"
+    
+  # Form submissions
+  forms:
+    contact: "/api/forms/contact"
+    newsletter: "/api/forms/newsletter"
+    feedback: "/api/forms/feedback"
+
+# API configuration
+config:
+  # Base URL for all API calls
+  baseUrl: ""  # Empty = same origin
+  
+  # Request defaults
+  defaults:
+    method: "POST"
+    headers:
+      Content-Type: "application/json"
+      Accept: "application/json"
+    
+  # Authentication
+  auth:
+    type: "bearer"  # bearer, basic, cookie
+    tokenKey: "auth_token"
+    
+  # Error handling
+  errors:
+    retry: 3
+    timeout: 5000  # milliseconds

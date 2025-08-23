@@ -18,3 +18,10 @@ DEC016,2025-08-19T20:45:00Z,HTML Element Defaults Implementation,Standard HTML e
 DEC017,2025-08-20T09:30:00Z,Element Name Change,Change from reed to r-s for W3C validator compliance,,reed is not valid custom element name - r-s is W3C compliant and validator-friendly while staying short
 DEC018,2025-08-20T16:30:00Z,Typography Tests,Disable failing typography tests temporarily for CI/CD,,Tests need regex fixes but shouldn't block build pipeline - tracked in separate ticket
 DEC019,2025-08-20T18:45:00Z,Component System,Components applied at runtime via JavaScript not build-time CSS,DEC001,User-defined components in YAML require no build step - JS reads definitions and sets namespace attributes dynamically
+DEC020,2025-08-21T15:30:00Z,Color Scale,Unified 1-9 scale for all colors replacing weak/strong terminology,,Consistent numerical scale: 1=lightest/white 9=darkest/black for both brand and neutral colors
+DEC021,2025-08-21T15:31:00Z,Color Variants,Each brand color automatically generates 9 variants,DEC020,User defines one color - system generates full 1-9 scale automatically in OKLCH
+DEC022,2025-08-21T15:32:00Z,Neutral Colors,Neutral colors use same 1-9 scale as brand colors,DEC020,Consistency across all color types - neutral-1 is white neutral-9 is black
+DEC023,2025-08-21T15:33:00Z,Color Override,Colors set via body data-root or JS before CSS load,DEC021,JavaScript in head reads data-root and sets CSS variables before CSS loads
+DEC024,2025-08-23T16:45:00Z,Configuration Loading,User configurations loaded via JavaScript from YAML files,DEC001,YAML files (colors fonts components) are fetched and parsed by JS at runtime - not during build
+DEC025,2025-08-23T16:46:00Z,Configuration Priority,data-root overrides YAML which overrides CSS defaults,DEC024,Priority: 1) body data-root 2) YAML files 3) CSS defaults - allows flexible customization
+DEC026,2025-08-23T16:47:00Z,API Endpoints,API endpoints only via YAML never in DOM attributes,DEC024,Security: API endpoints should not be exposed in HTML - only in server-fetched YAML config

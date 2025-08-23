@@ -24,19 +24,45 @@ pub fn generate(
     // Generate color variables
     for (name, color) in &colors.colors {
         let base_color = format_color(color)?;
-        css.push_str(&format!("    --rs-{}: {};\n", name, base_color));
         
-        // Generate Visual Scope variations if it's a brand or state color
+        // Generate 1-9 scale for brand and state colors
         if name.starts_with("brand-") || name.starts_with("state-") {
-            // Generate proper OKLCH color variations
+            let scale = crate::color::generate_color_scale(&base_color)?;
+            css.push_str(&format!("    --rs-color-{}-1: {};\n", name, scale.scale_1));
+            css.push_str(&format!("    --rs-color-{}-2: {};\n", name, scale.scale_2));
+            css.push_str(&format!("    --rs-color-{}-3: {};\n", name, scale.scale_3));
+            css.push_str(&format!("    --rs-color-{}-4: {};\n", name, scale.scale_4));
+            css.push_str(&format!("    --rs-color-{}-5: {};\n", name, scale.scale_5));
+            css.push_str(&format!("    --rs-color-{}-6: {};\n", name, scale.scale_6));
+            css.push_str(&format!("    --rs-color-{}-7: {};\n", name, scale.scale_7));
+            css.push_str(&format!("    --rs-color-{}-8: {};\n", name, scale.scale_8));
+            css.push_str(&format!("    --rs-color-{}-9: {};\n", name, scale.scale_9));
+            
+            // Keep old format temporarily for backwards compatibility
             let variations = crate::color::generate_variations(&base_color)?;
             css.push_str(&format!("    --rs-{}-weak: {};\n", name, variations.weak));
             css.push_str(&format!("    --rs-{}-light: {};\n", name, variations.light));
+            css.push_str(&format!("    --rs-{}: {};\n", name, base_color));
             css.push_str(&format!("    --rs-{}-intense: {};\n", name, variations.intense));
             css.push_str(&format!("    --rs-{}-bright: {};\n", name, variations.bright));
             css.push_str(&format!("    --rs-{}-strong: {};\n", name, variations.strong));
+        } else {
+            // For other colors, just set the base value
+            css.push_str(&format!("    --rs-{}: {};\n", name, base_color));
         }
     }
+    
+    // Add neutral color scale (always available)
+    let neutral_scale = crate::color::generate_neutral_scale();
+    css.push_str(&format!("    --rs-color-neutral-1: {};\n", neutral_scale.scale_1));
+    css.push_str(&format!("    --rs-color-neutral-2: {};\n", neutral_scale.scale_2));
+    css.push_str(&format!("    --rs-color-neutral-3: {};\n", neutral_scale.scale_3));
+    css.push_str(&format!("    --rs-color-neutral-4: {};\n", neutral_scale.scale_4));
+    css.push_str(&format!("    --rs-color-neutral-5: {};\n", neutral_scale.scale_5));
+    css.push_str(&format!("    --rs-color-neutral-6: {};\n", neutral_scale.scale_6));
+    css.push_str(&format!("    --rs-color-neutral-7: {};\n", neutral_scale.scale_7));
+    css.push_str(&format!("    --rs-color-neutral-8: {};\n", neutral_scale.scale_8));
+    css.push_str(&format!("    --rs-color-neutral-9: {};\n", neutral_scale.scale_9));
     
     // Generate font variables
     for (name, font) in &fonts.fonts {

@@ -12,64 +12,18 @@ colors:
   brand-f: "#A8E6CF"
 
 # Semantic Colors (state colors)
+semantic:
   state-success: "#4CAF50"
   state-warning: "#FF9800"
   state-error: "#F44336"
   state-info: "#2196F3"
 
-# Base Colors (neutrals) - Optional overrides
-# If not specified, ReedSTYLE generates a balanced gray scale
-  base-0: "#FFFFFF"    # White
-  base-100: "#F8F9FA"  # Lightest gray
-  base-200: "#E9ECEF"
-  base-300: "#DEE2E6"
-  base-400: "#CED4DA"
-  base-500: "#ADB5BD"  # Medium gray
-  base-600: "#6C757D"
-  base-700: "#495057"
-  base-800: "#343A40"
-  base-900: "#212529"  # Darkest gray
-  base-1000: "#000000" # Black
+# Note: Neutral colors (neutral-1 to neutral-9) are automatically provided
+# You don't need to define them unless you want custom grays
 
-# Semantic color mappings (reference to colors above)
-semantic:
-  primary: brand-a
-  secondary: brand-b
-  success: state-success
-  warning: state-warning
-  error: state-error
-  info: state-info
-  text: base-900
-  background: base-0
-  border: base-300
+# Each color automatically generates a 1-9 scale:
+# brand-a-1 (lightest) through brand-a-9 (darkest)
+# You can use just "brand-a" or access variants like "brand-a-2"
 
-# Advanced: Direct OKLCH with custom variations
-# Uncomment to use precise OKLCH values
-# advanced:
-#   brand-a:
-#     base: "oklch(65% 0.25 25)"
-#     weak: "oklch(85% 0.10 25)"     # Override auto-generation
-#     light: "oklch(75% 0.18 25)"
-#     intense: "oklch(55% 0.30 25)"
-#     bright: "oklch(70% 0.35 25)"
-#     strong: "oklch(45% 0.28 25)"
-
-# Color Generation Settings
-generation:
-  # How variations are calculated (if not manually specified)
-  variations:
-    weak:
-      lightness: +20  # 20% lighter
-      chroma: -60%    # 60% less saturated
-    light:
-      lightness: +10
-      chroma: -30%
-    intense:
-      lightness: -10
-      chroma: +20%
-    bright:
-      lightness: +5
-      chroma: +40%
-    strong:
-      lightness: -20
-      chroma: +10%
+# The 1-9 scale is generated automatically with perceptually uniform steps
+# Scale adjusts both lightness and chroma for optimal appearance

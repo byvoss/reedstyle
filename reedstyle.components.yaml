@@ -6,14 +6,14 @@ components:
   card:
     element: div
     box: "[padding:6, margin:2]"
-    face: "[bg:base-0, radius:lg, shadow:md]"
+    face: "[bg:neutral-1, radius:lg, shadow:md]"
     
   # Example 2: Primary button with hover effects
   button-primary:
     element: button
     box: "[padding-x:6, padding-y:3]"
     face: "[bg:brand-a, radius:md, border:none]"
-    text: "[color:base-0, weight:medium]"
+    text: "[color:neutral-1, weight:medium]"
     device: "[cursor:pointer]"
     fx: "[hover:brightness:110, active:scale:0.98, transition:fast]"
     

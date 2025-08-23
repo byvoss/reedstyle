@@ -58,37 +58,44 @@ colors:
   brand-f: "oklch(70% 0.15 120)"
 ```
 
-### Automatic Variation Generation
+### Automatic Scale Generation (1-9)
 
-ReedSTYLE automatically generates 6 variations from each brand color:
+ReedSTYLE automatically generates a 9-step scale from each color:
 
 ```yaml
 # Input
 brand-a: "#FF6B6B"
 
 # Generates (in OKLCH):
-# brand-a-weak    → Very light (backgrounds)
-# brand-a-light   → Light (subtle accents)
-# brand-a         → Normal (base color)
-# brand-a-intense → Intense (more saturated)
-# brand-a-bright  → Bright (lighter & saturated)
-# brand-a-strong  → Strong (darker & saturated)
+# brand-a-1  → Lightest (near white)
+# brand-a-2  → Very light
+# brand-a-3  → Light
+# brand-a-4  → Medium-light
+# brand-a-5  → Medium (base color)
+# brand-a-6  → Medium-dark
+# brand-a-7  → Dark
+# brand-a-8  → Very dark
+# brand-a-9  → Darkest (near black)
 ```
 
-### Manual Variation Control
+### Using Colors
 
-Override automatic generation:
+```html
+<!-- Simple usage - just use the color name -->
+<r-s as="div" face="bg:brand-a">      <!-- Uses your defined color -->
+<r-s as="div" face="border:success">  <!-- Uses your success color -->
 
-```yaml
-advanced:
-  brand-a:
-    base: "oklch(65% 0.25 25)"
-    weak: "oklch(85% 0.10 25)"
-    light: "oklch(75% 0.18 25)"
-    intense: "oklch(55% 0.30 25)"
-    bright: "oklch(70% 0.35 25)"
-    strong: "oklch(45% 0.28 25)"
+<!-- Advanced: Access generated scale (if needed) -->
+<r-s as="div" face="bg:brand-a-2">    <!-- Light variant (auto-generated) -->
+<r-s as="div" face="bg:brand-a-7">    <!-- Dark variant (auto-generated) -->
+
+<!-- Neutral colors (always available) -->
+<r-s as="div" face="bg:neutral-1">    <!-- White -->
+<r-s as="div" face="bg:neutral-5">    <!-- Medium gray -->
+<r-s as="div" face="bg:neutral-9">    <!-- Black -->
 ```
+
+The 1-9 scale is generated automatically in the background - you don't need to define it.
 
 ## Font Configuration
 

@@ -18,16 +18,16 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 <!-- Base colors (neutrals) -->
 <r-s as="div" face="bg:base-0">      <!-- White -->
 <r-s as="div" face="bg:base-50">     <!-- Lightest gray -->
-<r-s as="div" face="bg:base-100">
-<r-s as="div" face="bg:base-200">
+<r-s as="div" face="bg:neutral-2">
+<r-s as="div" face="bg:neutral-3">
 <r-s as="div" face="bg:base-300">
 <r-s as="div" face="bg:base-400">
 <r-s as="div" face="bg:base-500">    <!-- Medium gray -->
 <r-s as="div" face="bg:base-600">
 <r-s as="div" face="bg:base-700">
 <r-s as="div" face="bg:base-800">
-<r-s as="div" face="bg:base-900">    <!-- Darkest gray -->
-<r-s as="div" face="bg:base-1000">   <!-- Black -->
+<r-s as="div" face="bg:neutral-8">    <!-- Dark gray -->
+<r-s as="div" face="bg:neutral-9">   <!-- Black -->
 
 <!-- Semantic colors -->
 <r-s as="div" face="bg:state-success">
@@ -36,12 +36,12 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 <r-s as="div" face="bg:state-info">
 
 <!-- Color variations (Visual Scope) -->
-<r-s as="div" face="bg:brand-a-weak">    <!-- Sehr hell (Hintergründe) -->
+<r-s as="div" face="bg:brand-a-2">    <!-- Very light (backgrounds) -->
 <r-s as="div" face="bg:brand-a-light">   <!-- Hell (subtile Akzente) -->
 <r-s as="div" face="bg:brand-a">         <!-- Normal (Standard) -->
 <r-s as="div" face="bg:brand-a-intense"> <!-- Intensiver (mehr Sättigung) -->
 <r-s as="div" face="bg:brand-a-bright">  <!-- Leuchtend (heller und satter) -->
-<r-s as="div" face="bg:brand-a-strong">  <!-- Kräftig (dunkler und satter) -->
+<r-s as="div" face="bg:brand-a-7">  <!-- Dark variant -->
 
 <!-- Gradients -->
 <r-s as="div" face="bg:gradient-primary">   <!-- brand-a to brand-b -->
@@ -53,9 +53,9 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 
 ```html
 <!-- Simple borders -->
-<r-s as="div" face="border:1">       <!-- 1px solid base-200 -->
-<r-s as="div" face="border:2">       <!-- 2px solid base-200 -->
-<r-s as="div" face="border:4">       <!-- 4px solid base-200 -->
+<r-s as="div" face="border:1">       <!-- 1px solid neutral-3 -->
+<r-s as="div" face="border:2">       <!-- 2px solid neutral-3 -->
+<r-s as="div" face="border:4">       <!-- 4px solid neutral-3 -->
 
 <!-- Border with color -->
 <r-s as="div" face="border:2:brand-a">     <!-- 2px solid brand-a -->
@@ -68,7 +68,7 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 
 <!-- Individual sides -->
 <r-s as="div" face="border-top:2:brand-a">
-<r-s as="div" face="border-right:1:base-200">
+<r-s as="div" face="border-right:1:neutral-3">
 <r-s as="div" face="border-bottom:4:brand-b">
 <r-s as="div" face="border-left:2:state-success">
 
@@ -160,7 +160,7 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 
 ```html
 <r-s as="div" 
-      face="[bg:base-0, radius:lg, shadow:md, border:1:base-100]">
+      face="[bg:neutral-1, radius:lg, shadow:md, border:1:neutral-2]">
   Standard card appearance
 </r-s>
 ```
@@ -178,7 +178,7 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 
 ```html
 <r-s as="div" 
-      face="[bg:base-0, opacity:80, backdrop:blur-md, border:1:base-200]">
+      face="[bg:neutral-1, opacity:80, backdrop:blur-md, border:1:neutral-3]">
   Frosted glass effect
 </r-s>
 ```
@@ -187,7 +187,7 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 
 ```html
 <r-s as="div" 
-      face="[bg:base-100, radius:xl, shadow:lg, shadow:inner]">
+      face="[bg:neutral-2, radius:xl, shadow:lg, shadow:inner]">
   Soft UI style
 </r-s>
 ```
@@ -206,7 +206,7 @@ Controls visual appearance: backgrounds, borders, shadows, opacity, and other de
 
 ```html
 <r-s as="div" 
-      face="[bg:base-1000, opacity:60]"
+      face="[bg:neutral-9, opacity:60]"
       layout="position:absolute">
   Dark overlay
 </r-s>
@@ -280,22 +280,34 @@ Input: hsl(200, 70%, 50%)
 Output: oklch(67% 0.18 230)
 ```
 
-### Brand Colors (brand-a bis brand-f)
-- **brand-a**: Hauptmarkenfarbe
-- **brand-b**: Zweite Markenfarbe  
-- **brand-c**: Dritte Markenfarbe
-- **brand-d**: Vierte Markenfarbe
-- **brand-e**: Fünfte Markenfarbe
-- **brand-f**: Sechste Markenfarbe
+### Color Scale System (1-9)
 
-### Base Colors (Neutrals)
-- **base-0 bis base-1000**: Grauskala von Weiß bis Schwarz
+All colors use a unified 1-9 scale:
+- **1**: Lightest (near white)
+- **2-4**: Light variations
+- **5**: Medium (often the base color)
+- **6-8**: Dark variations
+- **9**: Darkest (near black)
 
-### Semantic Colors
-- **success**: Grün (Erfolg, positive Aktionen)
-- **warning**: Orange (Warnungen, Vorsicht)
-- **error**: Rot (Fehler, Gefahr)
-- **info**: Blau (Information, Hinweise)
+### Brand Colors (brand-a through brand-f)
+Each brand color automatically generates 9 variants:
+- **brand-a-1** to **brand-a-9**: Primary brand color scale
+- **brand-b-1** to **brand-b-9**: Secondary brand color scale
+- **brand-c-1** to **brand-c-9**: Tertiary brand color scale
+- **brand-d-1** to **brand-d-9**: Fourth brand color scale
+- **brand-e-1** to **brand-e-9**: Fifth brand color scale
+- **brand-f-1** to **brand-f-9**: Sixth brand color scale
+
+### Neutral Colors
+- **neutral-1**: White
+- **neutral-2** to **neutral-8**: Gray scale
+- **neutral-9**: Black
+
+### State Colors
+- **success-1** to **success-9**: Green scale (success, positive)
+- **warning-1** to **warning-9**: Orange scale (warnings, caution)
+- **error-1** to **error-9**: Red scale (errors, danger)
+- **info-1** to **info-9**: Blue scale (information, hints)
 
 ### Visual Scope (Farbvariationen)
 
@@ -314,12 +326,12 @@ Example:
 brand-a: "#FF6B6B"
 
 # Generates (all in OKLCH)
-brand-a-weak    # Very light background
+brand-a-2    # Very light background
 brand-a-light   # Subtle accent
 brand-a         # Normal
 brand-a-intense # More saturated
 brand-a-bright  # Bright and vivid
-brand-a-strong  # Dark and strong
+brand-a-7  # Dark variant
 ```
 
 ## Best Practices

@@ -75,24 +75,28 @@ Semantic values that map to CSS:
 <r-s as="div" text="weight:bold">      <!-- font-weight: 700 -->
 ```
 
-### 3. Colors
+### 3. Colors (1-9 Scale)
 
-Brand and semantic color system:
+All colors automatically generate a 1-9 scale. Use the base name for default, or specify scale:
 
 ```html
-<!-- Brand colors -->
-<r-s as="div" face="bg:brand-a">    <!-- Primary brand color -->
-<r-s as="div" face="bg:brand-b">    <!-- Secondary brand color -->
+<!-- Brand colors - base name uses middle value (5) -->
+<r-s as="div" face="bg:brand-a">       <!-- Same as brand-a-5 -->
+<r-s as="div" face="bg:brand-b">       <!-- Same as brand-b-5 -->
 
-<!-- Base colors (neutrals) -->
-<r-s as="div" face="bg:base-0">     <!-- White -->
-<r-s as="div" face="bg:base-100">   <!-- Light gray -->
-<r-s as="div" face="bg:base-900">   <!-- Dark gray -->
+<!-- Or use specific scale values (1=light, 9=dark) -->
+<r-s as="div" face="bg:brand-a-2">     <!-- Light variant -->
+<r-s as="div" face="bg:brand-a-7">     <!-- Dark variant -->
 
-<!-- Semantic colors -->
-<r-s as="div" face="bg:state-success">
-<r-s as="div" face="bg:state-warning">
-<r-s as="div" face="bg:state-error">
+<!-- Neutral colors -->
+<r-s as="div" face="bg:neutral-1">     <!-- White -->
+<r-s as="div" face="bg:neutral-5">     <!-- Medium gray -->
+<r-s as="div" face="bg:neutral-9">     <!-- Black -->
+
+<!-- State colors (same pattern) -->
+<r-s as="div" face="bg:success">       <!-- Same as success-5 -->
+<r-s as="div" face="bg:warning-2">     <!-- Light warning -->
+<r-s as="div" face="bg:error-8">       <!-- Dark error -->
 ```
 
 ### 4. Complex Values

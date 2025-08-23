@@ -56,18 +56,18 @@ impl FaceNamespace {
         // Brand colors (brand-a through brand-f)
         for letter in ['a', 'b', 'c', 'd', 'e', 'f'] {
             let color_name = format!("brand-{}", letter);
-            css.push_str(&format!("    r-s[{}*=\"bg:{}\"] {{ background-color: var(--rs-{}); }}\n", namespace, color_name, color_name));
+            css.push_str(&format!("    r-s[{}*=\"bg:{}\"] {{ background-color: var(--rs-color-{}); }}\n", namespace, color_name, color_name));
             
-            // Visual scope variations
-            for variant in ["weak", "light", "intense", "bright", "strong"] {
-                css.push_str(&format!("    r-s[{}*=\"bg:{}-{}\"] {{ background-color: var(--rs-{}-{}); }}\n", 
-                    namespace, color_name, variant, color_name, variant));
+            // 1-9 scale variations
+            for scale in 1..=9 {
+                css.push_str(&format!("    r-s[{}*=\"bg:{}-{}\"] {{ background-color: var(--rs-color-{}-{}); }}\n", 
+                    namespace, color_name, scale, color_name, scale));
             }
         }
         
-        // Base colors (neutrals) - base-0 to base-1000
-        for value in [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000] {
-            css.push_str(&format!("    r-s[{}*=\"bg:base-{}\"] {{ background-color: var(--rs-base-{}); }}\n", namespace, value, value));
+        // Neutral colors - neutral-1 to neutral-9
+        for scale in 1..=9 {
+            css.push_str(&format!("    r-s[{}*=\"bg:neutral-{}\"] {{ background-color: var(--rs-color-neutral-{}); }}\n", namespace, scale, scale));
         }
         
         // Semantic colors
@@ -76,9 +76,9 @@ impl FaceNamespace {
         }
         
         // Gradients
-        css.push_str(&format!("    r-s[{}*=\"bg:gradient-primary\"] {{ background: linear-gradient(135deg, var(--rs-brand-a), var(--rs-brand-b)); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"bg:gradient-secondary\"] {{ background: linear-gradient(135deg, var(--rs-brand-b), var(--rs-brand-c)); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"bg:gradient-radial\"] {{ background: radial-gradient(circle, var(--rs-brand-a), var(--rs-brand-b)); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"bg:gradient-primary\"] {{ background: linear-gradient(135deg, var(--rs-color-brand-a), var(--rs-color-brand-b)); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"bg:gradient-secondary\"] {{ background: linear-gradient(135deg, var(--rs-color-brand-b), var(--rs-color-brand-c)); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"bg:gradient-radial\"] {{ background: radial-gradient(circle, var(--rs-color-brand-a), var(--rs-color-brand-b)); }}\n", namespace));
         
         css
     }
@@ -88,15 +88,15 @@ impl FaceNamespace {
         
         // Simple borders
         css.push_str(&format!("    r-s[{}*=\"border:none\"] {{ border: none; }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border:1\"] {{ border-width: 1px; border-style: solid; border-color: var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border:2\"] {{ border-width: 2px; border-style: solid; border-color: var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border:4\"] {{ border-width: 4px; border-style: solid; border-color: var(--rs-base-200); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border:1\"] {{ border-width: 1px; border-style: solid; border-color: var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border:2\"] {{ border-width: 2px; border-style: solid; border-color: var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border:4\"] {{ border-width: 4px; border-style: solid; border-color: var(--rs-color-neutral-3); }}\n", namespace));
         
         // Border colors
         for letter in ['a', 'b', 'c', 'd', 'e', 'f'] {
             let color = format!("brand-{}", letter);
-            css.push_str(&format!("    r-s[{}*=\"border:1:{}\"] {{ border: 1px solid var(--rs-{}); }}\n", namespace, color, color));
-            css.push_str(&format!("    r-s[{}*=\"border:2:{}\"] {{ border: 2px solid var(--rs-{}); }}\n", namespace, color, color));
+            css.push_str(&format!("    r-s[{}*=\"border:1:{}\"] {{ border: 1px solid var(--rs-color-{}); }}\n", namespace, color, color));
+            css.push_str(&format!("    r-s[{}*=\"border:2:{}\"] {{ border: 2px solid var(--rs-color-{}); }}\n", namespace, color, color));
         }
         
         // Semantic border colors
@@ -112,21 +112,21 @@ impl FaceNamespace {
         css.push_str(&format!("    r-s[{}*=\"border:2:dotted\"] {{ border: 2px dotted var(--rs-base-400); }}\n", namespace));
         
         // Individual sides
-        css.push_str(&format!("    r-s[{}*=\"border-top:1\"] {{ border-top: 1px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-right:1\"] {{ border-right: 1px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-bottom:1\"] {{ border-bottom: 1px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-left:1\"] {{ border-left: 1px solid var(--rs-base-200); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-top:1\"] {{ border-top: 1px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-right:1\"] {{ border-right: 1px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-bottom:1\"] {{ border-bottom: 1px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-left:1\"] {{ border-left: 1px solid var(--rs-color-neutral-3); }}\n", namespace));
         
-        css.push_str(&format!("    r-s[{}*=\"border-top:2\"] {{ border-top: 2px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-right:2\"] {{ border-right: 2px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-bottom:2\"] {{ border-bottom: 2px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-left:2\"] {{ border-left: 2px solid var(--rs-base-200); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-top:2\"] {{ border-top: 2px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-right:2\"] {{ border-right: 2px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-bottom:2\"] {{ border-bottom: 2px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-left:2\"] {{ border-left: 2px solid var(--rs-color-neutral-3); }}\n", namespace));
         
         // Axis shortcuts
-        css.push_str(&format!("    r-s[{}*=\"border-x:1\"] {{ border-left: 1px solid var(--rs-base-200); border-right: 1px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-y:1\"] {{ border-top: 1px solid var(--rs-base-200); border-bottom: 1px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-x:2\"] {{ border-left: 2px solid var(--rs-base-200); border-right: 2px solid var(--rs-base-200); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"border-y:2\"] {{ border-top: 2px solid var(--rs-base-200); border-bottom: 2px solid var(--rs-base-200); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-x:1\"] {{ border-left: 1px solid var(--rs-color-neutral-3); border-right: 1px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-y:1\"] {{ border-top: 1px solid var(--rs-color-neutral-3); border-bottom: 1px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-x:2\"] {{ border-left: 2px solid var(--rs-color-neutral-3); border-right: 2px solid var(--rs-color-neutral-3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"border-y:2\"] {{ border-top: 2px solid var(--rs-color-neutral-3); border-bottom: 2px solid var(--rs-color-neutral-3); }}\n", namespace));
         
         css
     }
@@ -166,8 +166,8 @@ impl FaceNamespace {
         // Colored shadows
         for letter in ['a', 'b', 'c'] {
             let color = format!("brand-{}", letter);
-            css.push_str(&format!("    r-s[{}*=\"shadow:lg:{}\"] {{ box-shadow: 0 10px 15px -3px var(--rs-{}-weak); }}\n", namespace, color, color));
-            css.push_str(&format!("    r-s[{}*=\"shadow:md:{}\"] {{ box-shadow: 0 4px 6px -1px var(--rs-{}-weak); }}\n", namespace, color, color));
+            css.push_str(&format!("    r-s[{}*=\"shadow:lg:{}\"] {{ box-shadow: 0 10px 15px -3px var(--rs-color-{}-2); }}\n", namespace, color, color));
+            css.push_str(&format!("    r-s[{}*=\"shadow:md:{}\"] {{ box-shadow: 0 4px 6px -1px var(--rs-color-{}-2); }}\n", namespace, color, color));
         }
         
         css
@@ -191,8 +191,8 @@ impl FaceNamespace {
         let mut css = String::new();
         
         css.push_str(&format!("    r-s[{}*=\"outline:none\"] {{ outline: none; }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"outline:1\"] {{ outline: 1px solid var(--rs-brand-a); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"outline:2\"] {{ outline: 2px solid var(--rs-brand-a); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"outline:1\"] {{ outline: 1px solid var(--rs-color-brand-a); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"outline:2\"] {{ outline: 2px solid var(--rs-color-brand-a); }}\n", namespace));
         
         // Outline with colors
         for letter in ['a', 'b', 'c'] {

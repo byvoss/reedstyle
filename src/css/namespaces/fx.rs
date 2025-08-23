@@ -306,7 +306,7 @@ impl FxNamespace {
         css.push_str(&format!("    r-s[{}*=\"hover:flip\"]:hover {{ transform: perspective(400px) rotateY(180deg); }}\n", namespace));
         
         // Visual hover effects
-        css.push_str(&format!("    r-s[{}*=\"hover:glow\"]:hover {{ box-shadow: 0 0 20px rgba(var(--rs-brand-a), 0.5); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"hover:glow\"]:hover {{ box-shadow: 0 0 20px var(--rs-color-brand-a); }}\n", namespace));
         css.push_str(&format!("    r-s[{}*=\"hover:blur\"]:hover {{ filter: blur(2px); }}\n", namespace));
         css.push_str(&format!("    r-s[{}*=\"hover:brighten\"]:hover {{ filter: brightness(1.1); }}\n", namespace));
         css.push_str(&format!("    r-s[{}*=\"hover:darken\"]:hover {{ filter: brightness(0.9); }}\n", namespace));
@@ -315,7 +315,7 @@ impl FxNamespace {
         
         // Combined hover effects
         css.push_str(&format!("    r-s[{}*=\"hover:lift-rotate\"]:hover {{ transform: translateY(-4px) rotate(2deg); }}\n", namespace));
-        css.push_str(&format!("    r-s[{}*=\"hover:grow-glow\"]:hover {{ transform: scale(1.05); box-shadow: 0 0 20px rgba(var(--rs-brand-a), 0.3); }}\n", namespace));
+        css.push_str(&format!("    r-s[{}*=\"hover:grow-glow\"]:hover {{ transform: scale(1.05); box-shadow: 0 0 20px var(--rs-color-brand-a); }}\n", namespace));
         
         css
     }
