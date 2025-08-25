@@ -87,6 +87,16 @@ impl Config {
             Ok(ComponentsConfig::default())
         }
     }
+
+    pub fn load_bridge(&self) -> Result<BridgeConfig> {
+        if Path::new(&self.config.bridge).exists() {
+            let content = fs::read_to_string(&self.config.bridge)?;
+            let bridge: BridgeConfig = serde_yaml::from_str(&content)?;
+            Ok(bridge)
+        } else {
+            Ok(BridgeConfig::default())
+        }
+    }
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -135,4 +145,25 @@ pub struct Component {
     pub layout: Option<String>,
     pub device: Option<String>,
     pub fx: Option<String>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct BridgeConfig {
+    pub bridge: std::collections::HashMap<String, BridgeFramework>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct BridgeFramework {
+    pub enabled: bool,
+    pub path: Option<String>,
+    pub version: Option<String>,
+    pub overrides: Option<Vec<BridgeOverride>>,
+    pub css: Option<String>,
+    pub mappings: Option<std::collections::HashMap<String, String>>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct BridgeOverride {
+    pub selector: String,
+    pub rules: String,
 }

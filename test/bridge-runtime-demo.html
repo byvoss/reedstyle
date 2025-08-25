@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReedSTYLE Bridge Runtime Demo</title>
+    
+    <!-- ReedSTYLE CSS -->
+    <link rel="stylesheet" href="../dist/reedstyle.css">
+</head>
+<body>
+    <r-s as="container" box="[padding:6]">
+        <h1>Runtime Bridge Layer Demo</h1>
+        <p>The JavaScript engine loads bridge frameworks at runtime from <code>reedstyle.bridge.yaml</code></p>
+        
+        <r-s as="card" box="[margin-top:4]">
+            <h3>How it works:</h3>
+            <ol>
+                <li>User defines frameworks in <code>reedstyle.bridge.yaml</code></li>
+                <li>JavaScript reads the YAML at runtime</li>
+                <li>Creates a <code>&lt;style&gt;</code> tag with @layer bridge</li>
+                <li>Adds @import statements for enabled frameworks</li>
+                <li>Inserts it BEFORE the ReedSTYLE CSS link</li>
+            </ol>
+        </r-s>
+        
+        <r-s as="card" box="[margin-top:4]" face="[bg:state-success-1]">
+            <h3>✅ Runtime Loading</h3>
+            <p>User NEVER runs build process - just uses:</p>
+            <ul>
+                <li><code>dist/reedstyle.css</code></li>
+                <li><code>dist/reedstyle.js</code></li>
+                <li>YAML configuration files</li>
+            </ul>
+        </r-s>
+        
+        <r-s as="card" box="[margin-top:4]">
+            <h3>Check Console</h3>
+            <p>Open browser console to see bridge layer initialization messages.</p>
+            <p>Current config has Bootstrap: <strong id="bootstrap-status">checking...</strong></p>
+        </r-s>
+    </r-s>
+    
+    <!-- ReedSTYLE JavaScript -->
+    <script src="../dist/reedstyle.js"></script>
+    <script>
+        // Check if bridge layer was created
+        setTimeout(() => {
+            const bridgeStyle = document.getElementById('reedstyle-bridge');
+            const status = document.getElementById('bootstrap-status');
+            if (bridgeStyle) {
+                status.textContent = 'ENABLED ✓';
+                status.style.color = 'green';
+                console.log('Bridge layer CSS:', bridgeStyle.textContent.substring(0, 200));
+            } else {
+                status.textContent = 'DISABLED ✗';
+                status.style.color = 'red';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

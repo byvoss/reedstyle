@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReedSTYLE Bridge Layer Demo</title>
+    <link rel="stylesheet" href="../dist/reedstyle.css">
+</head>
+<body>
+    <r-s as="container" box="[padding:6]">
+        <h1>Bridge Layer Demo</h1>
+        <p>This page demonstrates the ReedSTYLE Bridge Layer system for migrating from other CSS frameworks.</p>
+        
+        <h2>How it Works</h2>
+        <r-s as="card" box="[margin-top:4]">
+            <h3>Configuration</h3>
+            <p>Enable frameworks in <code>reedstyle.bridge.yaml</code>:</p>
+            <pre><code>bridge:
+  bootstrap:
+    enabled: true
+    path: "./node_modules/bootstrap/dist/css/bootstrap.min.css"</code></pre>
+        </r-s>
+        
+        <r-s as="card" box="[margin-top:4]">
+            <h3>CSS Layer Structure</h3>
+            <p>The bridge layer sits between settings and theme:</p>
+            <pre><code>@layer settings, bridge, theme, free;</code></pre>
+            <p>This ensures ReedSTYLE styles win over framework styles.</p>
+        </r-s>
+        
+        <r-s as="card" box="[margin-top:4]">
+            <h3>Migration Strategy</h3>
+            <ol>
+                <li>Enable your existing framework in bridge config</li>
+                <li>Gradually replace framework classes with ReedSTYLE attributes</li>
+                <li>Add overrides for specific conflicts</li>
+                <li>Once migration complete, disable framework</li>
+            </ol>
+        </r-s>
+        
+        <h2>Example: Bootstrap Migration</h2>
+        <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+            <!-- Old Bootstrap way -->
+            <div style="flex: 1;">
+                <h4>Before (Bootstrap)</h4>
+                <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Card&lt;/h5&gt;
+    &lt;p class="card-text"&gt;Content&lt;/p&gt;
+    &lt;a href="#" class="btn btn-primary"&gt;Button&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <!-- New ReedSTYLE way -->
+            <div style="flex: 1;">
+                <h4>After (ReedSTYLE)</h4>
+                <pre><code>&lt;r-s as="card"&gt;
+  &lt;h3&gt;Card&lt;/h3&gt;
+  &lt;p&gt;Content&lt;/p&gt;
+  &lt;r-s as="button-primary"&gt;Button&lt;/r-s&gt;
+&lt;/r-s&gt;</code></pre>
+            </div>
+        </div>
+        
+        <h2>Supported Frameworks</h2>
+        <ul>
+            <li>Bootstrap 5.x</li>
+            <li>Tailwind CSS</li>
+            <li>Material UI</li>
+            <li>Ant Design</li>
+            <li>Bulma</li>
+            <li>Foundation</li>
+            <li>Custom/Legacy CSS</li>
+        </ul>
+        
+        <r-s as="card" box="[margin-top:4]" face="[bg:state-info-1]">
+            <h3>🎯 Zero Overhead</h3>
+            <p>When frameworks are disabled, no bridge layer is generated - zero performance impact!</p>
+        </r-s>
+    </r-s>
+    
+    <script src="../dist/reedstyle.js"></script>
+</body>
+</html>

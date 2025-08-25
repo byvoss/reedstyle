@@ -92,12 +92,12 @@ The core build system is complete with CI/CD pipeline. Ready for feature expansi
 - [x] 943 - Typography Test Fixes (regex → split approach)
 - [x] 944 - Documentation Sync (QS ticket - aligned docs with implementation)
 - [x] 912 - Responsive Breakpoint System (2 breakpoints: tablet, screen)
+- [x] 945 - Color System Migration (1-9 scale)
+- [x] 908 - Bridge Layer Implementation (runtime YAML loading)
 
 ### 🚧 In Progress
-- [ ] 945 - Color System Migration (1-9 scale)
 
 ### 📋 Planned
-- [ ] 908 - Bridge Layer Implementation
 - [ ] 909 - Lightning CSS Integration
 - [ ] 910 - SWC/TSC Pipeline
 - [ ] 911 - Component Preset System (blocked by #945)

@@ -4,13 +4,14 @@ pub mod components;
 pub mod breakpoints;
 
 use anyhow::Result;
-use crate::config::{Config, ColorsConfig, FontsConfig, ComponentsConfig};
+use crate::config::{Config, ColorsConfig, FontsConfig, ComponentsConfig, BridgeConfig};
 
 pub fn generate(
     config: &Config,
     colors: &ColorsConfig,
     fonts: &FontsConfig,
     components: &ComponentsConfig,
+    bridge: &BridgeConfig,
 ) -> Result<String> {
     let mut css = String::new();
     
@@ -79,6 +80,9 @@ pub fn generate(
     
     css.push_str("}\n\n");
     
+    // Generate bridge layer for third-party integrations
+    css.push_str(&generate_bridge_layer(bridge)?);
+    
     // Generate theme layer with namespace styles
     css.push_str("@layer theme {\n");
     
@@ -123,4 +127,70 @@ fn generate_namespaces(css: &mut String, config: &Config, colors: &ColorsConfig,
     css.push_str(&namespaces::generate_all(config, colors, fonts)?);
     
     Ok(())
+}
+
+fn generate_bridge_layer(bridge: &BridgeConfig) -> Result<String> {
+    let mut css = String::new();
+    
+    // Check if any frameworks are enabled
+    let enabled_frameworks: Vec<_> = bridge.bridge
+        .iter()
+        .filter(|(_, framework)| framework.enabled)
+        .collect();
+    
+    if enabled_frameworks.is_empty() {
+        // No bridge layer needed if no frameworks enabled
+        return Ok(css);
+    }
+    
+    // Start bridge layer
+    css.push_str("@layer bridge {\n");
+    
+    // Generate sublayer for each enabled framework
+    for (name, framework) in enabled_frameworks {
+        println!("  ✓ Bridge layer '{}' enabled", name);
+        
+        css.push_str(&format!("  @layer {} {{\n", name));
+        
+        // Add @import for the framework CSS file if provided
+        if let Some(path) = &framework.path {
+            css.push_str(&format!("    @import url(\"{}\");\n", path));
+        }
+        
+        // Add any custom overrides
+        if let Some(overrides) = &framework.overrides {
+            css.push_str("\n    /* Custom overrides */\n");
+            for override_rule in overrides {
+                css.push_str(&format!("    {} {{\n", override_rule.selector));
+                // Indent each line of rules
+                for line in override_rule.rules.lines() {
+                    if !line.trim().is_empty() {
+                        css.push_str(&format!("      {}\n", line.trim()));
+                    }
+                }
+                css.push_str("    }\n");
+            }
+        }
+        
+        // Add any custom CSS
+        if let Some(custom_css) = &framework.css {
+            css.push_str("\n    /* Custom CSS */\n");
+            for line in custom_css.lines() {
+                css.push_str(&format!("    {}\n", line));
+            }
+        }
+        
+        css.push_str("  }\n\n");
+    }
+    
+    // Report disabled frameworks
+    for (name, framework) in &bridge.bridge {
+        if !framework.enabled {
+            println!("  ✗ Bridge layer '{}' disabled", name);
+        }
+    }
+    
+    css.push_str("}\n\n");
+    
+    Ok(css)
 }

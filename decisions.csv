@@ -24,4 +24,6 @@ DEC022,2025-08-21T15:32:00Z,Neutral Colors,Neutral colors use same 1-9 scale as 
 DEC023,2025-08-21T15:33:00Z,Color Override,Colors set via body data-root or JS before CSS load,DEC021,JavaScript in head reads data-root and sets CSS variables before CSS loads
 DEC024,2025-08-23T16:45:00Z,Configuration Loading,User configurations loaded via JavaScript from YAML files,DEC001,YAML files (colors fonts components) are fetched and parsed by JS at runtime - not during build
 DEC025,2025-08-23T16:46:00Z,Configuration Priority,data-root overrides YAML which overrides CSS defaults,DEC024,Priority: 1) body data-root 2) YAML files 3) CSS defaults - allows flexible customization
-DEC026,2025-08-23T16:47:00Z,API Endpoints,API endpoints only via YAML never in DOM attributes,DEC024,Security: API endpoints should not be exposed in HTML - only in server-fetched YAML config
+DEC026,2025-08-23T16:47:00Z,API Endpoints,API endpoints only via YAML never in DOM attributes,DEC024,Security: API endpoints should not be exposed in HTML - only in server-fetched YAML configDEC027,2025-08-25T15:30:00Z,Bridge Layer,Bridge layer loaded at runtime via JavaScript,,User never runs build - JS loads YAML and creates layer dynamically
+DEC028,2025-08-25T15:31:00Z,Bridge Layer,@import used for external CSS in bridge sublayers,,Allows browser caching and proper cascade ordering
+DEC029,2025-08-25T15:32:00Z,Bridge Layer,Bridge YAML parsed only for bridge section,,Prevents other config sections from being treated as frameworks
