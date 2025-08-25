@@ -30,3 +30,6 @@ DEC029,2025-08-25T15:32:00Z,Bridge Layer,Bridge YAML parsed only for bridge sect
 DEC030,2025-08-25T16:45:00Z,CSS Minification,Custom intelligent minifier instead of Lightning CSS,DEC004,Lightning CSS alpha API issues - custom solution achieves better grouping and deduplication
 DEC031,2025-08-25T16:46:00Z,CSS Minification,Group identical CSS rules and extract common values,,Reduces file size through intelligent deduplication - 22% reduction achieved
 DEC032,2025-08-25T16:47:00Z,CSS Minification,Preserve OKLCH colors during minification,DEC007,Color system integrity maintained - OKLCH values not converted or altered
+DEC033,2025-08-25T17:15:00Z,TypeScript Support,Generate d.ts file instead of TypeScript sources,DEC001,Users only use dist files - no build process - d.ts provides IDE support without complexity
+DEC034,2025-08-25T17:16:00Z,JavaScript Generation,Keep JavaScript generation in Rust,DEC033,Simpler architecture - no TypeScript compilation needed - maintain single source of truth
+DEC035,2025-08-25T17:17:00Z,Developer Support,Add JSDoc to generated JavaScript,DEC033,IDE autocompletion for non-TypeScript users - documentation embedded in dist files

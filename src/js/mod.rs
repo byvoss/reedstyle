@@ -14,12 +14,23 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     
     // Global ReedStyle object with JSDoc type definitions
     js.push_str("  /**\n");
-    js.push_str("   * @typedef {Object} ReedStyleAPI\n");
-    js.push_str("   * @property {string} version - Current version of ReedSTYLE\n");
-    js.push_str("   * @property {function(): void} init - Initialize ReedSTYLE\n");
-    js.push_str("   * @property {Object.<string, boolean>} components - Available components\n");
-    js.push_str("   * @property {EffectsEngine} [effects] - Effects engine instance\n");
-    js.push_str("   * @property {TypographyEngine} [typography] - Typography engine instance\n");
+    js.push_str("   * @typedef {Object} ReedStyleConfig\n");
+    js.push_str("   * @property {string} [components] - Path to components YAML file\n");
+    js.push_str("   * @property {boolean} [effects] - Enable effects engine\n");
+    js.push_str("   * @property {boolean} [typography] - Enable typography engine\n");
+    js.push_str("   * @property {boolean} [lazy] - Enable lazy loading\n");
+    js.push_str("   */\n\n");
+    
+    js.push_str("  /**\n");
+    js.push_str("   * @typedef {Object} Component\n");
+    js.push_str("   * @property {string} [element] - HTML element to use\n");
+    js.push_str("   * @property {string} [extends] - Extend another component\n");
+    js.push_str("   * @property {string} [box] - Box namespace attributes\n");
+    js.push_str("   * @property {string} [face] - Face namespace attributes\n");
+    js.push_str("   * @property {string} [text] - Text namespace attributes\n");
+    js.push_str("   * @property {string} [layout] - Layout namespace attributes\n");
+    js.push_str("   * @property {string} [device] - Device namespace attributes\n");
+    js.push_str("   * @property {string} [fx] - Effects namespace attributes\n");
     js.push_str("   */\n\n");
     
     js.push_str("  /**\n");
@@ -39,11 +50,20 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("   * @property {function(HTMLElement): string} detectLanguage - Detect element language\n");
     js.push_str("   */\n\n");
     
-    js.push_str("  /** @type {ReedStyleAPI} */\n");
+    js.push_str("  /**\n");
+    js.push_str("   * ReedSTYLE API\n");
+    js.push_str("   * @namespace ReedStyle\n");
+    js.push_str("   */\n");
     js.push_str("  window.ReedStyle = {\n");
+    js.push_str("    /** @type {string} Current version */\n");
     js.push_str("    version: '0.1.0',\n");
-    js.push_str("    /** Initialize ReedSTYLE framework */\n");
-    js.push_str("    init: async function() {\n");
+    js.push_str("\n");
+    js.push_str("    /**\n");
+    js.push_str("     * Initialize ReedSTYLE framework\n");
+    js.push_str("     * @param {ReedStyleConfig} [config] - Configuration options\n");
+    js.push_str("     * @returns {Promise<void>}\n");
+    js.push_str("     */\n");
+    js.push_str("    init: async function(config) {\n");
     js.push_str("      console.log('ReedSTYLE initializing...');\n");
     js.push_str("      // Initialize bridge layer FIRST (framework CSS)\n");
     js.push_str("      await this.initBridge();\n");
@@ -57,7 +77,10 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("    },\n");
     
     // Add component definitions with full data
-    js.push_str("    /** Component definitions from reedstyle.components.yaml */\n");
+    js.push_str("    /**\n");
+    js.push_str("     * Component definitions loaded from YAML\n");
+    js.push_str("     * @type {Object.<string, Component>}\n");
+    js.push_str("     */\n");
     js.push_str("    componentDefinitions: {\n");
     for (name, component) in &components.components {
         js.push_str(&format!("      '{}': {{\n", name));
@@ -90,7 +113,10 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("    },\n");
     
     // Add component system methods
-    js.push_str("    /** Apply component definitions to elements */\n");
+    js.push_str("    /**\n");
+    js.push_str("     * Apply component definitions to all matching elements\n");
+    js.push_str("     * @returns {void}\n");
+    js.push_str("     */\n");
     js.push_str("    applyComponents: function() {\n");
     js.push_str("      const elements = document.querySelectorAll('r-s[as]');\n");
     js.push_str("      elements.forEach(element => {\n");
@@ -102,7 +128,11 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("      });\n");
     js.push_str("    },\n");
     
-    js.push_str("    /** Resolve component with inheritance */\n");
+    js.push_str("    /**\n");
+    js.push_str("     * Resolve component definition with inheritance\n");
+    js.push_str("     * @param {string} name - Component name\n");
+    js.push_str("     * @returns {Component|null} Resolved component or null\n");
+    js.push_str("     */\n");
     js.push_str("    resolveComponent: function(name) {\n");
     js.push_str("      const component = this.componentDefinitions[name];\n");
     js.push_str("      if (!component) return null;\n");
@@ -116,7 +146,12 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("      return component;\n");
     js.push_str("    },\n");
     
-    js.push_str("    /** Apply component to element */\n");
+    js.push_str("    /**\n");
+    js.push_str("     * Apply component attributes to element\n");
+    js.push_str("     * @param {HTMLElement} element - Target element\n");
+    js.push_str("     * @param {Component} component - Component definition\n");
+    js.push_str("     * @returns {void}\n");
+    js.push_str("     */\n");
     js.push_str("    applyComponentToElement: function(element, component) {\n");
     js.push_str("      // Only apply if attribute not already present\n");
     js.push_str("      if (component.box && !element.hasAttribute('box')) {\n");
@@ -139,7 +174,10 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("      }\n");
     js.push_str("    },\n");
     
-    js.push_str("    /** Observe DOM for new components */\n");
+    js.push_str("    /**\n");
+    js.push_str("     * Start observing DOM for new component elements\n");
+    js.push_str("     * @returns {void}\n");
+    js.push_str("     */\n");
     js.push_str("    observeComponents: function() {\n");
     js.push_str("      const observer = new MutationObserver((mutations) => {\n");
     js.push_str("        mutations.forEach((mutation) => {\n");
@@ -167,7 +205,10 @@ pub fn generate(components: &ComponentsConfig) -> Result<String> {
     js.push_str("    },\n");
     
     // Add Bridge Layer methods
-    js.push_str("    /** Initialize bridge layer for third-party CSS frameworks */\n");
+    js.push_str("    /**\n");
+    js.push_str("     * Initialize bridge layer for third-party CSS frameworks\n");
+    js.push_str("     * @returns {Promise<void>}\n");
+    js.push_str("     */\n");
     js.push_str("    initBridge: async function() {\n");
     js.push_str("      try {\n");
     js.push_str("        // Try to load bridge configuration - check multiple locations\n");
