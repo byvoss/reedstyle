@@ -26,9 +26,10 @@ impl ReedStyle {
         let colors = self.config.load_colors()?;
         let fonts = self.config.load_fonts()?;
         let components = self.config.load_components()?;
+        let bridge = self.config.load_bridge()?;
         
         // Generate CSS
-        let css_output = css::generate(&self.config, &colors, &fonts, &components)?;
+        let css_output = css::generate(&self.config, &colors, &fonts, &components, &bridge)?;
         
         // Generate JavaScript
         let js_output = js::generate(&components)?;

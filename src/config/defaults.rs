@@ -127,3 +127,12 @@ impl Default for ComponentsConfig {
         }
     }
 }
+
+impl Default for BridgeConfig {
+    fn default() -> Self {
+        // Empty by default - no bridge frameworks enabled
+        BridgeConfig {
+            bridge: HashMap::new(),
+        }
+    }
+}
