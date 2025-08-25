@@ -1,6 +1,7 @@
 use anyhow::Result;
 use std::fs;
 use std::path::Path;
+use crate::optimizer;
 
 // Version constant - single source of truth
 pub const VERSION: &str = "0.1.0";
@@ -21,8 +22,8 @@ pub fn write_output(css: &str, js: &str) -> Result<()> {
     let css_size = css_with_header.len() / 1024;
     println!("✓ Written: dist/reedstyle.css ({}KB)", css_size);
     
-    // Write minified CSS
-    let minified_css = minify_css(&css)?;
+    // Write minified CSS using Lightning CSS
+    let minified_css = optimizer::minify_css(&css)?;
     let minified_css_with_header = add_css_header(&minified_css, true);
     let min_css_path = Path::new("dist/reedstyle.min.css");
     fs::write(min_css_path, &minified_css_with_header)?;
@@ -114,39 +115,7 @@ fn add_js_header(js: &str, minified: bool) -> String {
     format!("{}{}", header, js)
 }
 
-fn minify_css(css: &str) -> Result<String> {
-    // Basic CSS minification
-    // In future, we can use lightningcss for better minification
-    let minified = css
-        .lines()
-        .map(|line| {
-            // Remove comments
-            if let Some(pos) = line.find("/*") {
-                if let Some(end) = line.find("*/") {
-                    format!("{}{}", &line[..pos], &line[end+2..]).trim().to_string()
-                } else {
-                    line[..pos].trim().to_string()
-                }
-            } else {
-                line.trim().to_string()
-            }
-        })
-        .filter(|line| !line.is_empty() && !line.starts_with("//"))
-        .collect::<Vec<_>>()
-        .join("")
-        .replace(": ", ":")
-        .replace("; ", ";")
-        .replace(" {", "{")
-        .replace("{ ", "{")
-        .replace(" }", "}")
-        .replace("} ", "}")
-        .replace(", ", ",")
-        .replace(" > ", ">")
-        .replace(" + ", "+")
-        .replace(" ~ ", "~");
-    
-    Ok(minified)
-}
+// Old minify_css function replaced by Lightning CSS in optimizer module
 
 fn minify_js(js: &str) -> Result<String> {
     // For now, just use basic minification since minify-js has issues

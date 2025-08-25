@@ -8,7 +8,7 @@ description = "Semantic HTML styling system - Write HTML, get beautiful designs"
 
 [dependencies]
 # Core dependencies
-lightningcss = { version = "1.0.0-alpha.67" }
+lightningcss = "1.0.0-alpha.57"
 swc_core = { version = "0.87", features = ["ecma_parser", "ecma_transforms", "common"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_yaml = "0.9"

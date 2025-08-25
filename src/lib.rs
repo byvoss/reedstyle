@@ -3,6 +3,7 @@ pub mod color;
 pub mod config;
 pub mod css;
 pub mod js;
+pub mod optimizer;
 pub mod parser;
 pub mod typography;
 pub mod utils;
